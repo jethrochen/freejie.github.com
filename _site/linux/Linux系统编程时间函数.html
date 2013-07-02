@@ -1,0 +1,217 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <!----
+   <title>Linux系统编程时间函数 &larr; </title>
+   ----->
+   <title>Linux系统编程时间函数</title>
+   <meta name="author" content="Chen Jie" />
+
+   <link rel="start" href="/" />
+
+	
+	
+	
+	
+
+   <!-- syntax highlighting CSS -->
+   <link rel="stylesheet" href="/assets/themes/mark-reid/css/syntax.css" type="text/css" />
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/assets/themes/mark-reid/css/screen.css" type="text/css" />
+
+</head>
+<body id="">
+<div id="site">
+  
+  <div id="header">
+    <h1>
+    	<a href="/" title="Chen Jie">Chen Jie</a>
+        <!----
+    	<span class="byline">&larr; <a href="/">Chen Jie</a></span>
+        ----->
+    </h1>
+    <ul class="nav">
+      <li><a class="home" href="/">Home</a></li>
+      <li><a  href="/archive.html">Archive</a></li>
+      <li><a  href="/pages.html">Pages</a></li>
+      <li><a  href="/categories.html">Categories</a></li>
+      <li><a  href="/tags.html">Tags</a></li>
+    </ul>
+  </div>
+
+  
+<div id="page">
+	
+  <h1 class="emphnext">Linux系统编程时间函数</h1>
+  <ul class="tag_box inline">
+  
+  
+
+
+  
+     
+    	<li><a href="/tags.html#linux-ref">linux <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#系统编程-ref">系统编程 <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#系统时间-ref">系统时间 <span>1</span></a></li>
+    
+  
+
+
+
+  </ul>
+
+  <p>在linux系统中，关于时间的函数有连个，分别是<code>clock_gettime()</code>和<code>gettimeofday()</code>。</p>
+
+<h4>关于<code>clock_gettime()</code></h4>
+
+<h2>1. 函数原型:    </h2>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">    #include &lt;time.h&gt;
+    int clock_gettime(clockid_t clk_id, struct timespec *tp);
+</code></pre></div>
+<h2>2. 说明：    </h2>
+
+<p><code>clock_gettime</code>把当前时间用tp结构体返回，返回的时间会根据clk_id的不同而相应变化。</p>
+
+<h2>3. 结构体及参数：</h2>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">    struct timespec {
+        time_t   tv_sec;        /* seconds */
+        long     tv_nsec;       /* nanoseconds */
+    };
+</code></pre></div>
+<p><code>clock_gettime</code>调用之后，会把获取的时间存储在结构体tp中，获取的时间即为<code>tp-&gt;tv_sev(单位为s)+tp-&gt;tv_nsec(单位为ns)</code>，获取的时间根据参数clk_id计算。</p>
+
+<p>参数clk_id有如下几个：<br>
+<code>CLOCK_REALTIME:</code>随系统实时时间改变而改变,即从UTC1970-1-1 0:0:0开始到当前系统时间所经历的ns数，如果当前时间被修改，则得到的结果也发生变化。<br>
+<code>CLOCK_MONOTONIC:</code>从系统启动那一刻起开始计时,不受系统当前时间被用户该免的影响<br>
+<code>CLOCK_PROCESS_CPUTIME_ID:</code>本进程到当前代码系统CPU花费的时间<br>
+<code>CLOCK_THREAD_CPUTIME_ID:</code>本线程到当前代码系统CPU花费的时间    </p>
+
+<h4>关于函数gettimeofday</h4>
+
+<h2>1. 函数原型：</h2>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">    #include&lt;sys/time.h&gt;
+    int gettimeofday(struct  timeval*tv,struct  timezone *tz )
+</code></pre></div>
+<h2>2. 说明：</h2>
+
+<p>gettimeofday会把目前的时间用tv 结构体返回，当地时区的信息则放到tz所指的结构中</p>
+
+<h2>3. 结构体及参数：</h2>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">    struct  timeval{
+        long  tv_sec;    /*秒*/
+        long  tv_usec;   /*微妙*/
+    }；
+
+    struct  timezone{
+        int tz_minuteswest;     /*和greenwich 时间差了多少分钟*/
+        int tz_dsttime;         /*type of DST correction*/
+    }
+</code></pre></div>
+<p>在使用gettimeofday时，第二个参数一般都为空，不需要获得timezone的值。</p>
+
+<h2>程序实例time.c：</h2>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">#include &lt;stdio.h&gt;
+#include &lt;time.h&gt;
+#include &lt;sys/time.h&gt;
+int main()
+{
+    struct timespec ts;
+    struct timeval tv;
+
+    printf(&quot;********clock_gettime********\n&quot;);
+    clock_gettime(CLOCK_REALTIME, &amp;ts);
+    printf(&quot;CLOCK_REALTIME: %ld: %ld\n&quot;, ts.tv_sec, ts.tv_nsec);
+    clock_gettime(CLOCK_MONOTONIC, &amp;ts);
+    printf(&quot;CLOCK_MONOTONIC: %ld: %ld\n&quot;, ts.tv_sec, ts.tv_nsec);
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &amp;ts);
+    printf(&quot;CLOCK_PROCESS_CPUTIME_ID: %ld: %ld\n&quot;, ts.tv_sec, ts.tv_nsec);
+    clock_gettime(CLOCK_THREAD_CPUTIME_ID, &amp;ts);
+    printf(&quot;CLOCK_THREAD_CPUTIME_ID: %ld: %ld\n&quot;, ts.tv_sec, ts.tv_nsec);
+
+    printf(&quot;*******gettimeofday*********\n&quot;);
+    gettimeofday(&amp;tv, NULL);
+    printf(&quot;time: %ld: %ld\n&quot;, tv.tv_sec, tv.tv_usec);
+
+    sleep(1);
+    return 0;
+}
+</code></pre></div>
+<p>在linux下编译<code>gcc time.c -lrt</code></p>
+
+
+  <address class="signature">
+    <a class="author" href="/">Chen Jie</a> 
+    <span class="date">01 July 2013</span>
+    <span class="location"></span>
+  </address>
+  
+  <div class="prev-next">
+  
+  
+    <a href="/rt-linux/%E5%BD%B1%E5%93%8Dlinux%E9%80%82%E6%97%B6%E6%80%A7%E7%9A%84%E5%9B%A0%E7%B4%A0%E4%BB%A5%E5%8F%8A%E7%9B%B8%E5%BA%94%E7%9A%84%E6%94%B9%E8%BF%9B%E6%96%B9%E6%B3%95.html" class="prev" title="影响linux适时性的因素以及相应的改进方法">&larr; Earlier Post</a>
+  
+  </div>
+  
+</div><!-- End Page -->
+
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'freejie'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+
+
+  
+  <div id="footer">
+  	<address>
+  		<span class="copyright">
+  			Content by <a href="http://freecoder.info">Chen Jie</a>. Design by 
+  			<a href="http://mark.reid.name/">Mark Reid</a>
+  			<br/>
+  			(<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+  		</span>
+  		<span class="engine">
+  			Powered by <a href="http://github.com/mojombo/jekyll/" title="A static, minimalist CMS">Jekyll</a>
+  		</span>
+  	</address>
+  </div>
+  
+</div>
+
+<!--[if IE 6]>
+<script type="text/javascript"> 
+	/*Load jQuery if not already loaded*/ if(typeof jQuery == 'undefined'){ document.write("<script type=\"text/javascript\"   src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js\"></"+"script>"); var __noconflict = true; } 
+	var IE6UPDATE_OPTIONS = {
+		icons_path: "http://static.ie6update.com/hosted/ie6update/images/"
+	}
+</script>
+<script type="text/javascript" src="http://static.ie6update.com/hosted/ie6update/ie6update.js"></script>
+<![endif]-->
+
+  
+</body>
+</html>
+
