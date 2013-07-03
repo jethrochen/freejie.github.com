@@ -20,6 +20,7 @@ About me
 
 About this site
 ==========
-&nbsp;&nbsp;&nbsp;&nbsp;这是我的个人站点，在这里我会分享一些在工作学习中的见解和思想，包括linux使用技巧、编程经验、算法学习、linux内核研究，欢迎大家和我一块讨论学习进步。同时还有一些摄影作品以及生活片段，希望有相同爱好的朋友造访。    
-&nbsp;&nbsp;&nbsp;&nbsp;这个网站采用[jekyll](https://github.com/mreid/jekyll/)搭建，存放在[github](https://github.com/)上，我在[Mark Reid](http://mark.reid.name/)源码的基础上进行加工而成，在这里感谢[Mark Reid](http://mark.reid.name/)提供了模板，Thank you ! 
+
+<p style="text-indent:2em;">这是我的个人站点，在这里我会分享一些在工作学习中的见解和思想，包括linux使用技巧、编程经验、算法学习、linux内核研究，欢迎大家和我一块讨论学习进步。同时还有一些摄影作品以及生活片段，希望有相同爱好的朋友造访。</p>
+<p style="text-indent:2em;">这个网站采用<a href="https://github.com/mreid/jekyll/">jekyll</a>搭建，存放在<a href="https://github.com">github</a>上，我在<a href="http://mark.reid.name">Mark Reid</a>源码的基础上进行加工而成，在这里感谢<a href="http://mark.reid.name">Mark Reid</a>提供了模板，Thank you !</p> 
 
