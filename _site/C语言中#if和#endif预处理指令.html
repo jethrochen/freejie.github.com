@@ -1,0 +1,95 @@
+<p>C语言中可以使用条件语句对预处理本身进行控制。这种方式为在编译过程中根据计算所得的条件值选择性地包含不同代码提供了一种手段。最常用的有一下几种：<br>
+1.#if !defined() 与#ifndef
+这个一般用于保证头文件只被包含一次。</p>
+
+<h1>if !defined(HDR)</h1>
+
+<h1>define HDR</h1>
+
+<p>/* hdr.h文件的内容放在这里 */</p>
+
+<h1>endif</h1>
+
+<p>第一次包含hdr.h时，将定义名字HDR，此后再次包含该头文件时，会发现该名字已经定义，就直接跳到#endif处。
+C语言专门定义了两个预处理语句#ifdef与#ifndef，用来测试某个名字是否定义。上边的例子等价与</p>
+
+<h1>ifndef HDR</h1>
+
+<h1>define HDR</h1>
+
+<p>/* hdr.h文件的内容放在这里 */</p>
+
+<h1>endif</h1>
+
+<p>2.#if 判断式
+根据预定义的LEVEL值，判断条件满足的语句才会被编译。</p>
+
+<h1>define LEVEL 1</h1>
+
+<h1>ifdef LEVEL</h1>
+
+<h1>if (LEVEL &gt; 0) &amp;&amp; (LEVEL &lt; 2)</h1>
+
+<p>printf(&quot;Debugging level 1&quot;);</p>
+
+<h1>elif (LEVEL &gt; 1) &amp;&amp; (LEVEL &lt; 3)</h1>
+
+<p>printf(&quot;Debugging level 2&quot;);</p>
+
+<h1>elif (LEVEL &gt; n-1) &amp;&amp; (LEVEL &lt; n)</h1>
+
+<p>printf(&quot;Debugging level n&quot;);</p>
+
+<h1>endif</h1>
+
+<h1>endif</h1>
+
+<p>3.#if DEBUG
+这一个经常被用来调试，在代码中添加一些打印信息是最常用的一种调试手段，但最终删除用来调试的打印信息却比较麻烦，这中方法可以帮我们很好地解决。看段代码test.c：</p>
+
+<h1>include <stdio.h></h1>
+
+<p>int count(num){
+    int count = 0;</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">while(num){
+    count++;
+    num = num &amp; (num-1);
+</code></pre></div>
+<h1>if DEBUG</h1>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">    printf(&quot;%d %d\n&quot;, count, num);
+</code></pre></div>
+<h1>endif</h1>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">}
+
+return count;
+</code></pre></div>
+<p>}</p>
+
+<p>int main(void)
+{
+    int num = 10;
+    printf(&quot;%d\n&quot;, count(num));</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">return 0;
+</code></pre></div>
+<p>}
+用gcc test.c -o test -DDEBUG=1编译，会把#if DEBUG之间的代码编译进去，./test执行后显示
+1 8
+2 0
+2
+调试没问题之后，直接gcc test.c -o test就ok了，这样不会把用于调试的那句printf编译进去，当然也不会打印出来。
+另外还有一种方法，调试的时候，在test.c开头加上</p>
+
+<h1>define DEBUG 1</h1>
+
+<p>调试结束注释掉这句就OK了。这中方法在编译的时候就不需要使用-DDEBUG这个参数了</p>
+
+<p>4.#if 0
+先上代码：</p>
+
+<h1>if 0</h1>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">code
+</code></pre></div>
+<h1>endif</h1>
+
+<p>在编译时，code部分会被忽略。于是我们就可以用这种方式进行代码注释，这样有两个好处，一是可以用作注释以解决C标准中/<strong>......</strong>/不能嵌套的缺陷；二是code部分很长的时候要比/<em>......</em>/更方便。在修改代码的时候，很多时候我们写的代码可能不许要了，但又不忍心删掉，这样注释是最好的办法。<br>
+当然，把if后的0改为1，code部分就恢复作用。</p>
