@@ -7,21 +7,20 @@ tags: [C语言, 编程经验, 编程技巧, 预编译, 条件编译]
 {% include JB/setup %}
 
 C语言中可以使用条件语句对预处理本身进行控制。这种方式为在编译过程中根据计算所得的条件值选择性地包含不同代码提供了一种手段。最常用的有一下几种：    
-####1.#if !defined() 与#ifndef
+#####1.#if !defined() 与#ifndef
 这个一般用于保证头文件只被包含一次。
-<pre>
+[code]
 #if !defined(HDR)
 #define HDR
 /* hdr.h文件的内容放在这里 */
 #endif
-</pre>
-
+[/code]
 第一次包含hdr.h时，将定义名字HDR，此后再次包含该头文件时，会发现该名字已经定义，就直接跳到#endif处。
 C语言专门定义了两个预处理语句#ifdef与#ifndef，用来测试某个名字是否定义。上边的例子等价与
-	#ifndef HDR
-	#define HDR
-	/* hdr.h文件的内容放在这里 */
-	#endif
+#ifndef HDR
+#define HDR
+/* hdr.h文件的内容放在这里 */
+#endif
 
 2.#if 判断式
 根据预定义的LEVEL值，判断条件满足的语句才会被编译。

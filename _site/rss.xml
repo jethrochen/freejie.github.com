@@ -5,16 +5,19 @@
         <description>Chen Jie - Chen Jie</description>
         <link></link>
         <link></link>
-        <lastBuildDate>2013-07-25T20:20:43+08:00</lastBuildDate>
-        <pubDate>2013-07-25T20:20:43+08:00</pubDate>
+        <lastBuildDate>2013-07-27T19:45:54+08:00</lastBuildDate>
+        <pubDate>2013-07-27T19:45:54+08:00</pubDate>
         <ttl>1800</ttl>
 
 
         <item>
                 <title>C语言中#if和#endif预处理指令</title>
-                <description>&lt;p&gt;C语言中可以使用条件语句对预处理本身进行控制。这种方式为在编译过程中根据计算所得的条件值选择性地包含不同代码提供了一种手段。最常用的有一下几种：&lt;br&gt;
-1.#if !defined() 与#ifndef
-这个一般用于保证头文件只被包含一次。&lt;/p&gt;
+                <description>&lt;p&gt;C语言中可以使用条件语句对预处理本身进行控制。这种方式为在编译过程中根据计算所得的条件值选择性地包含不同代码提供了一种手段。最常用的有一下几种：    &lt;/p&gt;
+
+&lt;h4&gt;1.#if !defined() 与#ifndef&lt;/h4&gt;
+
+&lt;p&gt;这个一般用于保证头文件只被包含一次。
+&lt;pre&gt;&lt;/p&gt;
 
 &lt;h1&gt;if !defined(HDR)&lt;/h1&gt;
 
@@ -24,16 +27,14 @@
 
 &lt;h1&gt;endif&lt;/h1&gt;
 
+&lt;p&gt;&lt;/pre&gt;&lt;/p&gt;
+
 &lt;p&gt;第一次包含hdr.h时，将定义名字HDR，此后再次包含该头文件时，会发现该名字已经定义，就直接跳到#endif处。
-C语言专门定义了两个预处理语句#ifdef与#ifndef，用来测试某个名字是否定义。上边的例子等价与&lt;/p&gt;
-
-&lt;h1&gt;ifndef HDR&lt;/h1&gt;
-
-&lt;h1&gt;define HDR&lt;/h1&gt;
-
-&lt;p&gt;/* hdr.h文件的内容放在这里 */&lt;/p&gt;
-
-&lt;h1&gt;endif&lt;/h1&gt;
+C语言专门定义了两个预处理语句#ifdef与#ifndef，用来测试某个名字是否定义。上边的例子等价与
+    #ifndef HDR
+    #define HDR
+    /* hdr.h文件的内容放在这里 */
+    #endif&lt;/p&gt;
 
 &lt;p&gt;2.#if 判断式
 根据预定义的LEVEL值，判断条件满足的语句才会被编译。&lt;/p&gt;
@@ -108,8 +109,8 @@ return count;
 &lt;p&gt;在编译时，code部分会被忽略。于是我们就可以用这种方式进行代码注释，这样有两个好处，一是可以用作注释以解决C标准中/&lt;strong&gt;......&lt;/strong&gt;/不能嵌套的缺陷；二是code部分很长的时候要比/&lt;em&gt;......&lt;/em&gt;/更方便。在修改代码的时候，很多时候我们写的代码可能不许要了，但又不忍心删掉，这样注释是最好的办法。&lt;br&gt;
 当然，把if后的0改为1，code部分就恢复作用。&lt;/p&gt;
 </description>
-                <link>/C%E8%AF%AD%E8%A8%80%E4%B8%AD%23if%E5%92%8C%23endif%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4.html</link>
-                <guid>/C语言中#if和#endif预处理指令</guid>
+                <link>/c%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/C%E8%AF%AD%E8%A8%80%E4%B8%AD%23if%E5%92%8C%23endif%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4.html</link>
+                <guid>/c%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/C语言中#if和#endif预处理指令</guid>
                 <pubDate>2013-07-16T00:00:00+08:00</pubDate>
         </item>
 
