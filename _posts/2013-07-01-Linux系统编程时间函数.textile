@@ -3,7 +3,10 @@ layout: post
 category : linux
 tags : [linux, 系统编程, 系统时间]
 ---
-{% include JB/setup %}
+
+h1. {{ page.title }}
+
+p(meta). 01 JUN 2013 - NWPU
 
 在linux系统中，关于时间的函数有连个，分别是`clock_gettime()`和`gettimeofday()`。
 ####关于`clock_gettime()`
