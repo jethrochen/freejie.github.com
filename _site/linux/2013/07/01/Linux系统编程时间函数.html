@@ -33,74 +33,90 @@ var WRInitTime=(new Date()).getTime();
   
   <div id="post">
 <h1>Linux系统编程时间函数</h1>
-<p class="meta">01 <span class="caps">JUN</span> 2013 &#8211; <span class="caps">NWPU</span></p>
-<p>在linux系统中，关于时间的函数有连个，分别是`clock_gettime()`和`gettimeofday()`。<br />
-####关于`clock_gettime()`<br />
-1. 函数原型:    <br />
-<del>-</del>&#8212;-<br />
-    #include <time.h><br />
-    int clock_gettime(clockid_t clk_id, struct timespec *tp);<br />
-2. 说明：    <br />
-<del>-</del>&#8212;-<br />
-`clock_gettime`把当前时间用tp结构体返回，返回的时间会根据clk_id的不同而相应变化。</p>
-<p>3. 结构体及参数：<br />
-<del>-</del>&#8212;-<br />
-    struct timespec {<br />
-        time_t   tv_sec;        /* seconds <strong>/<br />
-        long     tv_nsec;       /</strong> nanoseconds */<br />
-    };<br />
-`clock_gettime`调用之后，会把获取的时间存储在结构体tp中，获取的时间即为`tp&#8594;tv_sev(单位为s)+tp&#8594;tv_nsec(单位为ns)`，获取的时间根据参数clk_id计算。</p>
-<p>参数clk_id有如下几个：    <br />
-`CLOCK_REALTIME:`随系统实时时间改变而改变,即从UTC1970-1-1 0:0:0开始到当前系统时间所经历的ns数，如果当前时间被修改，则得到的结果也发生变化。    <br />
-`CLOCK_MONOTONIC:`从系统启动那一刻起开始计时,不受系统当前时间被用户该免的影响    <br />
-`CLOCK_PROCESS_CPUTIME_ID:`本进程到当前代码系统CPU花费的时间    <br />
-`CLOCK_THREAD_CPUTIME_ID:`本线程到当前代码系统CPU花费的时间</p>
-<p>####关于函数gettimeofday</p>
-<p>1. 函数原型：<br />
-<del>-</del>&#8212;-<br />
-    #include&lt;sys/time.h&gt;<br />
-    int gettimeofday(struct  timeval*tv,struct  timezone *tz )<br />
-2. 说明：<br />
-<del>-</del>&#8212;-<br />
-gettimeofday会把目前的时间用tv 结构体返回，当地时区的信息则放到tz所指的结构中</p>
-<p>3. 结构体及参数：<br />
-<del>-</del>&#8212;-<br />
-    struct  timeval{<br />
-        long  tv_sec;    /<strong>秒</strong>/<br />
-        long  tv_usec;   /<strong>微妙</strong>/<br />
-    }；</p>
+
+<p>p(meta). 01 JUN 2013 - NWPU</p>
+
+<p>在linux系统中，关于时间的函数有连个，分别是<code>clock_gettime()</code>和<code>gettimeofday()</code>。</p>
+
+<h4>关于<code>clock_gettime()</code></h4>
+
+<h2>1. 函数原型:    </h2>
+
+<pre>
+#include <time.h>
+int clock_gettime(clockid_t clk_id, struct timespec *tp);
+</pre>
+
+<h2>2. 说明：    </h2>
+
+<p><code>clock_gettime</code>把当前时间用tp结构体返回，返回的时间会根据clk_id的不同而相应变化。</p>
+
+<h2>3. 结构体及参数：</h2>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">struct timespec {
+    time_t   tv_sec;        /* seconds */
+    long     tv_nsec;       /* nanoseconds */
+};
+</code></pre></div>
+<p><code>clock_gettime</code>调用之后，会把获取的时间存储在结构体tp中，获取的时间即为<code>tp-&gt;tv_sev(单位为s)+tp-&gt;tv_nsec(单位为ns)</code>，获取的时间根据参数clk_id计算。</p>
+
+<p>参数clk_id有如下几个：<br>
+<code>CLOCK_REALTIME:</code>随系统实时时间改变而改变,即从UTC1970-1-1 0:0:0开始到当前系统时间所经历的ns数，如果当前时间被修改，则得到的结果也发生变化。<br>
+<code>CLOCK_MONOTONIC:</code>从系统启动那一刻起开始计时,不受系统当前时间被用户该免的影响<br>
+<code>CLOCK_PROCESS_CPUTIME_ID:</code>本进程到当前代码系统CPU花费的时间<br>
+<code>CLOCK_THREAD_CPUTIME_ID:</code>本线程到当前代码系统CPU花费的时间    </p>
+
+<h4>关于函数gettimeofday</h4>
+
+<h2>1. 函数原型：</h2>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">#include&lt;sys/time.h&gt;
+int gettimeofday(struct  timeval*tv,struct  timezone *tz )
+</code></pre></div>
+<h2>2. 说明：</h2>
+
+<p>gettimeofday会把目前的时间用tv 结构体返回，当地时区的信息则放到tz所指的结构中</p>
+
+<h2>3. 结构体及参数：</h2>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">struct  timeval{
+    long  tv_sec;    /*秒*/
+    long  tv_usec;   /*微妙*/
+}；
+
 struct  timezone{
-int tz_minuteswest;     /<strong>和greenwich 时间差了多少分钟</strong>/
-int tz_dsttime;         /<strong>type of <span class="caps">DST</span> correction</strong>/
+    int tz_minuteswest;     /*和greenwich 时间差了多少分钟*/
+    int tz_dsttime;         /*type of DST correction*/
 }
+</code></pre></div>
 <p>在使用gettimeofday时，第二个参数一般都为空，不需要获得timezone的值。</p>
-<p>程序实例time.c：<br />
-<del>-</del>&#8212;-<br />
-    #include <stdio.h><br />
-    #include <time.h><br />
-    #include &lt;sys/time.h&gt;<br />
-    int main()<br />
-    {<br />
-        struct timespec ts;<br />
-        struct timeval tv;</p>
-printf(&#8220;********clock_gettime********\n&#8221;);
-clock_gettime(CLOCK_REALTIME, &amp;ts);
-printf(&#8220;CLOCK_REALTIME: %ld: %ld\n&#8221;, ts.tv_sec, ts.tv_nsec);
-clock_gettime(CLOCK_MONOTONIC, &amp;ts);
-printf(&#8220;CLOCK_MONOTONIC: %ld: %ld\n&#8221;, ts.tv_sec, ts.tv_nsec);
-clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &amp;ts);
-printf(&#8220;CLOCK_PROCESS_CPUTIME_ID: %ld: %ld\n&#8221;, ts.tv_sec, ts.tv_nsec);
-clock_gettime(CLOCK_THREAD_CPUTIME_ID, &amp;ts);
-printf(&#8220;CLOCK_THREAD_CPUTIME_ID: %ld: %ld\n&#8221;, ts.tv_sec, ts.tv_nsec);
 
-printf(&#8220;*******gettimeofday*********\n&#8221;);
-gettimeofday(&amp;tv, <span class="caps">NULL</span>);
-printf(&#8220;time: %ld: %ld\n&#8221;, tv.tv_sec, tv.tv_usec);
+<h2>程序实例time.c：</h2>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">#include &lt;stdio.h&gt;
+#include &lt;time.h&gt;
+#include &lt;sys/time.h&gt;
+int main()
+{
+    struct timespec ts;
+    struct timeval tv;
 
-sleep(1);
-<p>return 0;<br />
-    }</p>
-<p>在linux下编译`gcc time.c -lrt`</p>
+    printf(&quot;********clock_gettime********\n&quot;);
+    clock_gettime(CLOCK_REALTIME, &amp;ts);
+    printf(&quot;CLOCK_REALTIME: %ld: %ld\n&quot;, ts.tv_sec, ts.tv_nsec);
+    clock_gettime(CLOCK_MONOTONIC, &amp;ts);
+    printf(&quot;CLOCK_MONOTONIC: %ld: %ld\n&quot;, ts.tv_sec, ts.tv_nsec);
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &amp;ts);
+    printf(&quot;CLOCK_PROCESS_CPUTIME_ID: %ld: %ld\n&quot;, ts.tv_sec, ts.tv_nsec);
+    clock_gettime(CLOCK_THREAD_CPUTIME_ID, &amp;ts);
+    printf(&quot;CLOCK_THREAD_CPUTIME_ID: %ld: %ld\n&quot;, ts.tv_sec, ts.tv_nsec);
+
+    printf(&quot;*******gettimeofday*********\n&quot;);
+    gettimeofday(&amp;tv, NULL);
+    printf(&quot;time: %ld: %ld\n&quot;, tv.tv_sec, tv.tv_usec);
+
+    sleep(1);
+    return 0;
+}
+</code></pre></div>
+<p>在linux下编译<code>gcc time.c -lrt</code></p>
+
 </div>
 
 <div id="related">
