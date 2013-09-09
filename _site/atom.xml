@@ -4,7 +4,7 @@
  <title>Tom Preston-Werner</title>
  <link href="http://tom.preston-werner.com/atom.xml" rel="self"/>
  <link href="http://tom.preston-werner.com/"/>
- <updated>2013-09-09T21:42:53+08:00</updated>
+ <updated>2013-09-09T22:08:35+08:00</updated>
  <id>http://tom.preston-werner.com/</id>
  <author>
    <name>Tom Preston-Werner</name>
@@ -17,7 +17,7 @@
    <link href="http://tom.preston-werner.com/2013/09/08/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E4%B9%8B%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95.html"/>
    <updated>2013-09-08T00:00:00+08:00</updated>
    <id>http://tom.preston-werner.com/2013/09/08/最大公约数之辗转相除法</id>
-   <content type="html">&lt;p&gt;h1. 最大公约数之辗转相除法&lt;/p&gt;
+   <content type="html">&lt;h1&gt;最大公约数之辗转相除法&lt;/h1&gt;
 
 &lt;p&gt;求两个数的最大公约数，最常用的方法就是辗转相除法，具体过程如下：&lt;br&gt;
 问题：求30和18的最大公约数&lt;br&gt;
@@ -69,11 +69,11 @@ int getgcd(int a, int b)
  </entry>
  
  <entry>
-   <title>C语言中#if和#endif预处理指令</title>
-   <link href="http://tom.preston-werner.com/2013/07/16/C%E8%AF%AD%E8%A8%80%E4%B8%AD%23if%E5%92%8C%23endif%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4.html"/>
+   <title>C语言中条件预处理指令</title>
+   <link href="http://tom.preston-werner.com/2013/07/16/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%9D%A1%E4%BB%B6%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4.html"/>
    <updated>2013-07-16T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2013/07/16/C语言中#if和#endif预处理指令</id>
-   <content type="html">&lt;p&gt;h1. &lt;/p&gt;
+   <id>http://tom.preston-werner.com/2013/07/16/C语言中条件预处理指令</id>
+   <content type="html">&lt;h1&gt;C语言中条件预处理指令&lt;/h1&gt;
 
 &lt;p&gt;p(meta). 16 JUN 2013 - NWPU&lt;/p&gt;
 
@@ -81,95 +81,93 @@ int getgcd(int a, int b)
 
 &lt;h4&gt;1.#if !defined() 与#ifndef&lt;/h4&gt;
 
-&lt;p&gt;这个一般用于保证头文件只被包含一次。
-&lt;pre&gt;&lt;/p&gt;
+&lt;p&gt;这个一般用于保证头文件只被包含一次。&lt;/p&gt;
 
-&lt;h1&gt;if !defined(HDR)&lt;/h1&gt;
-
-&lt;h1&gt;define HDR&lt;/h1&gt;
-
-&lt;p&gt;/* hdr.h文件的内容放在这里 */&lt;/p&gt;
-
-&lt;h1&gt;endif&lt;/h1&gt;
-
-&lt;p&gt;&lt;/pre&gt;&lt;/p&gt;
+&lt;pre&gt;
+#if !defined(HDR)
+#define HDR
+/* hdr.h文件的内容放在这里 */
+#endif
+&lt;/pre&gt;
 
 &lt;p&gt;第一次包含hdr.h时，将定义名字HDR，此后再次包含该头文件时，会发现该名字已经定义，就直接跳到#endif处。
-C语言专门定义了两个预处理语句#ifdef与#ifndef，用来测试某个名字是否定义。上边的例子等价与
-    #ifndef HDR
-    #define HDR
-    /* hdr.h文件的内容放在这里 */
-    #endif&lt;/p&gt;
+C语言专门定义了两个预处理语句#ifdef与#ifndef，用来测试某个名字是否定义。上边的例子等价与&lt;/p&gt;
 
-&lt;p&gt;2.#if 判断式
-根据预定义的LEVEL值，判断条件满足的语句才会被编译。&lt;/p&gt;
+&lt;pre&gt;
+#ifndef HDR
+#define HDR
+/* hdr.h文件的内容放在这里 */
+#endif
+&lt;/pre&gt;
 
-&lt;h1&gt;define LEVEL 1&lt;/h1&gt;
+&lt;h4&gt;2.#if 判断式&lt;/h4&gt;
 
-&lt;h1&gt;ifdef LEVEL&lt;/h1&gt;
+&lt;p&gt;根据预定义的LEVEL值，判断条件满足的语句才会被编译。&lt;/p&gt;
 
-&lt;h1&gt;if (LEVEL &amp;gt; 0) &amp;amp;&amp;amp; (LEVEL &amp;lt; 2)&lt;/h1&gt;
+&lt;pre&gt;
+#define LEVEL 1
+#ifdef LEVEL
+#if (LEVEL &gt; 0) &amp;&amp; (LEVEL &lt; 2)
+    printf(&quot;Debugging level 1&quot;);
+#elif (LEVEL &gt; 1) &amp;&amp; (LEVEL &lt; 3)
+    printf(&quot;Debugging level 2&quot;);
+#elif (LEVEL &gt; n-1) &amp;&amp; (LEVEL &lt; n)
+    printf(&quot;Debugging level n&quot;);
+#endif
+#endif
+&lt;/pre&gt;
 
-&lt;p&gt;printf(&amp;quot;Debugging level 1&amp;quot;);&lt;/p&gt;
+&lt;h4&gt;3.#if DEBUG&lt;/h4&gt;
 
-&lt;h1&gt;elif (LEVEL &amp;gt; 1) &amp;amp;&amp;amp; (LEVEL &amp;lt; 3)&lt;/h1&gt;
+&lt;p&gt;这一个经常被用来调试，在代码中添加一些打印信息是最常用的一种调试手段，但最终删除用来调试的打印信息却比较麻烦，这中方法可以帮我们很好地解决。看段代码test.c：&lt;/p&gt;
 
-&lt;p&gt;printf(&amp;quot;Debugging level 2&amp;quot;);&lt;/p&gt;
+&lt;pre&gt;
+#include &lt;stdio.h&gt;
+int count(num){
+    int count = 0;
 
-&lt;h1&gt;elif (LEVEL &amp;gt; n-1) &amp;amp;&amp;amp; (LEVEL &amp;lt; n)&lt;/h1&gt;
+    while(num){
+        count++;
+        num = num &amp; (num-1);
+#if DEBUG
+        printf(&quot;%d %d\n&quot;, count, num);
+#endif
+    }
 
-&lt;p&gt;printf(&amp;quot;Debugging level n&amp;quot;);&lt;/p&gt;
+    return count;
+}
 
-&lt;h1&gt;endif&lt;/h1&gt;
-
-&lt;h1&gt;endif&lt;/h1&gt;
-
-&lt;p&gt;3.#if DEBUG
-这一个经常被用来调试，在代码中添加一些打印信息是最常用的一种调试手段，但最终删除用来调试的打印信息却比较麻烦，这中方法可以帮我们很好地解决。看段代码test.c：&lt;/p&gt;
-
-&lt;h1&gt;include &lt;stdio.h&gt;&lt;/h1&gt;
-
-&lt;p&gt;int count(num){
-    int count = 0;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;while(num){
-    count++;
-    num = num &amp;amp; (num-1);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h1&gt;if DEBUG&lt;/h1&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;    printf(&amp;quot;%d %d\n&amp;quot;, count, num);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h1&gt;endif&lt;/h1&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;}
-
-return count;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;}&lt;/p&gt;
-
-&lt;p&gt;int main(void)
+int main(void)
 {
     int num = 10;
-    printf(&amp;quot;%d\n&amp;quot;, count(num));&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;return 0;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;}
-用gcc test.c -o test -DDEBUG=1编译，会把#if DEBUG之间的代码编译进去，./test执行后显示
+    printf(&quot;%d\n&quot;, count(num));
+
+    return 0;
+}
+&lt;/pre&gt;
+
+&lt;p&gt;用gcc test.c -o test -DDEBUG=1编译，会把#if DEBUG之间的代码编译进去，./test执行后显示
 1 8
 2 0
 2
 调试没问题之后，直接gcc test.c -o test就ok了，这样不会把用于调试的那句printf编译进去，当然也不会打印出来。
 另外还有一种方法，调试的时候，在test.c开头加上&lt;/p&gt;
 
-&lt;h1&gt;define DEBUG 1&lt;/h1&gt;
+&lt;pre&gt;
+#define DEBUG 1
+&lt;/pre&gt;
 
 &lt;p&gt;调试结束注释掉这句就OK了。这中方法在编译的时候就不需要使用-DDEBUG这个参数了&lt;/p&gt;
 
-&lt;p&gt;4.#if 0
-先上代码：&lt;/p&gt;
+&lt;h4&gt;4.#if 0&lt;/h4&gt;
 
-&lt;h1&gt;if 0&lt;/h1&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;code
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h1&gt;endif&lt;/h1&gt;
+&lt;p&gt;先上代码：&lt;/p&gt;
+
+&lt;pre&gt;
+#if 0
+    code
+#endif
+&lt;/pre&gt;
 
 &lt;p&gt;在编译时，code部分会被忽略。于是我们就可以用这种方式进行代码注释，这样有两个好处，一是可以用作注释以解决C标准中/&lt;strong&gt;......&lt;/strong&gt;/不能嵌套的缺陷；二是code部分很长的时候要比/&lt;em&gt;......&lt;/em&gt;/更方便。在修改代码的时候，很多时候我们写的代码可能不许要了，但又不忍心删掉，这样注释是最好的办法。&lt;br&gt;
 当然，把if后的0改为1，code部分就恢复作用。&lt;/p&gt;
@@ -273,7 +271,9 @@ int main()
    <link href="http://tom.preston-werner.com/rt-linux/2013/06/11/%E5%BD%B1%E5%93%8Dlinux%E9%80%82%E6%97%B6%E6%80%A7%E7%9A%84%E5%9B%A0%E7%B4%A0%E4%BB%A5%E5%8F%8A%E7%9B%B8%E5%BA%94%E7%9A%84%E6%94%B9%E8%BF%9B%E6%96%B9%E6%B3%95.html"/>
    <updated>2013-06-11T00:00:00+08:00</updated>
    <id>http://tom.preston-werner.com/rt-linux/2013/06/11/影响linux适时性的因素以及相应的改进方法</id>
-   <content type="html">&lt;h4&gt;1.linux系统的实时性分析&lt;/h4&gt;
+   <content type="html">&lt;h1&gt;影响linux适时性的因素以及相应的改进方法&lt;/h1&gt;
+
+&lt;h4&gt;1.linux系统的实时性分析&lt;/h4&gt;
 
 &lt;p&gt;Linux作为一个通用操作系统，主要考虑的是调度的公平性和吞吐量等指标。然而，在实时方面它还不能很好地满足实时系统方面的需要，其本身仅仅提供 了一些实时处理的支持，这包括支持大部分POSIX标准中的实时功能，支持多任务、多线程，具有丰富的通信机制等;同时也提供了符合POSIX标准的调度策略，包括FIFO调度策略、时间片轮转调度策略和静态优先级抢占式调度策略。Linux区分实时进程和普通进程，并采用不同的调度策略。&lt;/p&gt;
 

@@ -32,6 +32,8 @@ var WRInitTime=(new Date()).getTime();
   </div>
   
   <div id="post">
+<h1>影响linux适时性的因素以及相应的改进方法</h1>
+
 <h4>1.linux系统的实时性分析</h4>
 
 <p>Linux作为一个通用操作系统，主要考虑的是调度的公平性和吞吐量等指标。然而，在实时方面它还不能很好地满足实时系统方面的需要，其本身仅仅提供 了一些实时处理的支持，这包括支持大部分POSIX标准中的实时功能，支持多任务、多线程，具有丰富的通信机制等;同时也提供了符合POSIX标准的调度策略，包括FIFO调度策略、时间片轮转调度策略和静态优先级抢占式调度策略。Linux区分实时进程和普通进程，并采用不同的调度策略。</p>
@@ -72,7 +74,7 @@ var WRInitTime=(new Date()).getTime();
     
       <li><span>08 Sep 2013</span> &raquo; <a href="/2013/09/08/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E4%B9%8B%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95.html">最大公约数之辗转相除法</a></li>
     
-      <li><span>16 Jul 2013</span> &raquo; <a href="/2013/07/16/C%E8%AF%AD%E8%A8%80%E4%B8%AD%23if%E5%92%8C%23endif%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4.html">C语言中#if和#endif预处理指令</a></li>
+      <li><span>16 Jul 2013</span> &raquo; <a href="/2013/07/16/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%9D%A1%E4%BB%B6%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4.html">C语言中条件预处理指令</a></li>
     
       <li><span>01 Jul 2013</span> &raquo; <a href="/linux/2013/07/01/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0.html">Linux系统编程时间函数</a></li>
     
