@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>逆序对及求逆序对的算法</title>
+   <meta name="author" content="Tom Preston-Werner" />
+   <link href="http://feeds.feedburner.com/tom-preston-werner" rel="alternate" title="Tom Preston-Werner" type="application/atom+xml" />
+   <meta name="readability-verification" content="QCzSs992GxmRYRKVpPeZ6LE2tS8aYKxsSSQKV8YM"/>
+
+   <!-- syntax highlighting CSS -->
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+
+   <!-- Typekit -->
+   <script type="text/javascript" src="http://use.typekit.com/jpd0pfm.js"></script>
+   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body>
+
+<!-- ClickTale Top part -->
+<script type="text/javascript">
+var WRInitTime=(new Date()).getTime();
+</script>
+<!-- ClickTale end of Top part -->
+
+<div class="site">
+  <div class="title">
+    <a href="/">Tom Preston-Werner</a>
+    <a class="extra" href="/">home</a>
+  </div>
+  
+  <div id="post">
+<h1>逆序对及求逆序对的算法</h1>
+
+<blockquote>
+<p><strong>逆序对：</strong><br>
+设 A 为一个有 n 个数字的有序集 (n&gt;1)，其中所有数字各不相同。<br>
+如果存在正整数 i, j 使得 1 ≤ i &lt; j ≤ n 而且 A[i] &gt; A[j]，则 <A[i], A[j]> 这个有序对就为 A 的一个逆序对，也称作逆序数。<br>
+例如：数组 <2,3,8,6,1> 的逆序对为：<2,1> <3,1> <8,6> <8,1> <6,1> 总数共5个。  </p>
+</blockquote>
+
+<p>以上是来自维基百科对逆序对的定义。有定理：  </p>
+
+<blockquote>
+<p>n 个不同的数做排列 $p<em>1p</em>2p<em>3...p</em>n$，这个排列中逆序对的个数为<br>
+$$
+t = t<em>1 + t</em>2 + t<em>3 + ... + t</em>n = \sum<em>{i=1}^n{t</em>i}
+$$
+$t<em>i$ 为排列中位于 $p</em>i$ 前且小于 $p_i$ 的数的个数  </p>
+</blockquote>
+
+<p>根据此定理,很容易求出一个排列中逆序数的个数，例如：排列 2 5 3 9 7 6 中，$t<em>1=0,t</em>2=0,t<em>3=1,t</em>4=0,t<em>5=1,t</em>6=2$,这个排列中逆序数的个数为 $0+0+1+0+1+2=4$ 。<br>
+这个可以作为求逆序对个数的基本算法  </p>
+
+<div class="highlight"><pre><code class="cpp"><span class="lineno"> 1</span> <span class="kt">int</span> <span class="nf">nixu</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">len</span><span class="p">)</span>
+<span class="lineno"> 2</span> <span class="p">{</span>
+<span class="lineno"> 3</span>     <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+<span class="lineno"> 4</span>     <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="lineno"> 5</span> 
+<span class="lineno"> 6</span>     <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="lineno"> 7</span>     <span class="p">{</span>
+<span class="lineno"> 8</span>         <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+<span class="lineno"> 9</span>         <span class="p">{</span>
+<span class="lineno">10</span>             <span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="lineno">11</span>                 <span class="n">sum</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="lineno">12</span>         <span class="p">}</span>
+<span class="lineno">13</span>     <span class="p">}</span>
+<span class="lineno">14</span> 
+<span class="lineno">15</span>     <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
+<span class="lineno">16</span> <span class="p">}</span>
+</code></pre></div>
+
+</div>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span>08 Sep 2013</span> &raquo; <a href="/algorithms/2013/09/08/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E4%B9%8B%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95.html">最大公约数之辗转相除法</a></li>
+    
+      <li><span>16 Jul 2013</span> &raquo; <a href="/2013/07/16/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%9D%A1%E4%BB%B6%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4.html">C语言中条件预处理指令</a></li>
+    
+      <li><span>01 Jul 2013</span> &raquo; <a href="/linux/2013/07/01/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0.html">Linux系统编程时间函数</a></li>
+    
+  </ul>
+</div>
+
+  
+  <div class="footer">
+    <div class="contact">
+      <p>
+        Tom Preston-Werner<br />
+        Cofounder of <a href="http://github.com/">GitHub</a><br />
+        tom@mojombo.com
+      </p>
+    </div>
+    <div class="contact">
+      <p>
+        <a href="http://github.com/mojombo/">github.com/mojombo</a><br />
+        <a href="http://twitter.com/mojombo/">twitter.com/mojombo</a><br />
+        <a href="http://flickr.com/photos/mojombo/">flickr.com/photos/mojombo</a>
+      </p>
+    </div>
+    <div class="rss">
+      <a href="http://feeds.feedburner.com/tom-preston-werner">
+        <img src="/images/rss.png" alt="Subscribe to RSS Feed" />
+      </a>
+    </div>
+  </div>
+</div>
+
+<a href="http://github.com/freejie"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+
+<!-- ClickTale Bottom part -->
+<div id="ClickTaleDiv" style="display: none;"></div>
+<script type="text/javascript">
+if(document.location.protocol!='https:')
+  document.write(unescape("%3Cscript%20src='http://s.clicktale.net/WRb.js'%20type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+if(typeof ClickTale=='function') ClickTale(206,0.3,"www03");
+</script>
+<!-- ClickTale end of Bottom part -->
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-41622901-1");
+pageTracker._trackPageview();
+</script>
+<!-- Google Analytics end -->
+
+</body>
+</html>
