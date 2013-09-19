@@ -49,7 +49,7 @@ var WRInitTime=(new Date()).getTime();
 <p>以上是来自维基百科对逆序对的定义。有定理：  </p>
 
 <blockquote>
-  <p>n 个不同的数做排列 <script type="math/tex">p_1p_2p_3...p_n</script> ，这个排列中逆序对的个数为  </p>
+  <p><script type="math/tex">n</script>个不同的数做排列<script type="math/tex">p_1p_2p_3...p_n</script>，这个排列中逆序对的个数为  </p>
 </blockquote>
 
 <script type="math/tex; mode=display">
@@ -57,10 +57,10 @@ t = t_1 + t_2 + t_3 + ... + t_n = \sum_{i=1}^n{t_i}
 </script>
 
 <blockquote>
-  <p><script type="math/tex">t_i</script> 为排列中位于 <script type="math/tex">p_i</script> 前且小于 <script type="math/tex">p_i</script> 的数的个数  </p>
+  <p><script type="math/tex">t_i</script>为排列中位于<script type="math/tex">p_i</script>前且小于<script type="math/tex">p_i</script>的数的个数  </p>
 </blockquote>
 
-<p>根据此定理,很容易求出一个排列中逆序数的个数，例如：排列 2 5 3 9 7 6 中，<script type="math/tex">t_1=0,t_2=0,t_3=1,t_4=0,t_5=1,t_6=2</script>,这个排列中逆序数的个数为 <script type="math/tex">0+0+1+0+1+2=4</script> 。<br />
+<p>根据此定理,很容易求出一个排列中逆序数的个数，例如：排列 2 5 3 9 7 6 中，<script type="math/tex">t_1=0,t_2=0,t_3=1,t_4=0,t_5=1,t_6=2</script>,这个排列中逆序数的个数为<script type="math/tex">0+0+1+0+1+2=4</script>。<br />
 这个可以作为求逆序对个数的基本算法  </p>
 
 <div class="highlight"><pre><code class="cpp"><span class="lineno"> 1</span> <span class="kt">int</span> <span class="nf">nixu</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">len</span><span class="p">)</span>
@@ -81,6 +81,11 @@ t = t_1 + t_2 + t_3 + ... + t_n = \sum_{i=1}^n{t_i}
 <span class="lineno">16</span> <span class="p">}</span>
 </code></pre></div>
 
+<p>很容易得到这个算法的时间复杂度是<script type="math/tex">\Theta(n^2)</script>。
+在《算法导论》第2章有个思考题是关于逆序对的，问插入排序的运行时间和输入数组中逆序对的个数是什么关系，这个不难证明，两者是相等的。简单说明如下：<br />
+将数字<script type="math/tex">a</script>插入升序排列的数组<script type="math/tex">a_1a_2...a_n</script>中，需要先在数组中找到要插入的位置，假设<script type="math/tex">% <![CDATA[
+a_i<a<a_{i+1} %]]></script>,则<script type="math/tex">a_{i+1}a_{i+2}...a_n</script>都需要依此向后移动一个位置，移动的次数为<script type="math/tex">n-i</script>。而序列<script type="math/tex">a_1a_2...a_na</script>的逆序对的个数<script type="math/tex">n-i</script>，和插入排序移动的次数是相等的。因此对插入排序算法稍加改造就可以用来求序列的逆序对个数，但时间复杂度同样是<script type="math/tex">\Theta(n^2)</script>，所以有必要考虑其他的方法。<br />
+书上提到了用归并排序算法，归并排序的时间复杂度是<script type="math/tex">\Theta(nlgn)</script></p>
 
 </div>
 
