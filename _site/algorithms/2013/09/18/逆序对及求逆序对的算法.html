@@ -17,8 +17,9 @@
    <script type="text/javascript" src="http://use.typekit.com/jpd0pfm.js"></script>
    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
-  <!-- mathjax config similar to math.stackexchange -->
-   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- mathjax config similar to math.stackexchange -->
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+
 
 </head>
 <body>
@@ -36,7 +37,7 @@ var WRInitTime=(new Date()).getTime();
   </div>
   
   <div id="post">
-<h1 id="section">逆序对及求逆序对的算法</h1>
+<h3 id="section">逆序对及求逆序对的算法</h3>
 
 <blockquote>
   <p><strong>逆序对：</strong><br />
@@ -45,14 +46,21 @@ var WRInitTime=(new Date()).getTime();
 例如：数组 &lt;2,3,8,6,1&gt; 的逆序对为：&lt;2,1&gt; &lt;3,1&gt; &lt;8,6&gt; &lt;8,1&gt; &lt;6,1&gt; 总数共5个。  </p>
 </blockquote>
 
-<p>以上是来自维基百科对逆序对的定义。有定理：<br />
-&gt;n 个不同的数做排列 $p<em>1p</em>2p<em>3&#8230;p_n$，这个排列中逆序对的个数为<br />
-$$
-t = t</em>1 + t<em>2 + t</em>3 + &#8230; + t_n = \sum_{i=1}^n{t_i}
-$$
-$t_i$ 为排列中位于 $p_i$ 前且小于 $p_i$ 的数的个数  </p>
+<p>以上是来自维基百科对逆序对的定义。有定理：  </p>
 
-<p>根据此定理,很容易求出一个排列中逆序数的个数，例如：排列 2 5 3 9 7 6 中，$t<em>1=0,t</em>2=0,t<em>3=1,t</em>4=0,t<em>5=1,t</em>6=2$,这个排列中逆序数的个数为 $0+0+1+0+1+2=4$ 。<br />
+<blockquote>
+  <p>n 个不同的数做排列 <script type="math/tex">p_1p_2p_3...p_n</script> ，这个排列中逆序对的个数为  </p>
+</blockquote>
+
+<script type="math/tex; mode=display">
+t = t_1 + t_2 + t_3 + ... + t_n = \sum_{i=1}^n{t_i}
+</script>
+
+<blockquote>
+  <p><script type="math/tex">t_i</script> 为排列中位于 <script type="math/tex">p_i</script> 前且小于 <script type="math/tex">p_i</script> 的数的个数  </p>
+</blockquote>
+
+<p>根据此定理,很容易求出一个排列中逆序数的个数，例如：排列 2 5 3 9 7 6 中，<script type="math/tex">t_1=0,t_2=0,t_3=1,t_4=0,t_5=1,t_6=2</script>,这个排列中逆序数的个数为 <script type="math/tex">0+0+1+0+1+2=4</script> 。<br />
 这个可以作为求逆序对个数的基本算法  </p>
 
 <div class="highlight"><pre><code class="cpp"><span class="lineno"> 1</span> <span class="kt">int</span> <span class="nf">nixu</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">len</span><span class="p">)</span>
@@ -72,6 +80,7 @@ $t_i$ 为排列中位于 $p_i$ 前且小于 $p_i$ 的数的个数  </p>
 <span class="lineno">15</span>     <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
 <span class="lineno">16</span> <span class="p">}</span>
 </code></pre></div>
+
 
 </div>
 
