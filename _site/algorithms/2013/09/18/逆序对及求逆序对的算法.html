@@ -86,9 +86,72 @@ t = t_1 + t_2 + t_3 + ... + t_n = \sum_{i=1}^n{t_i}
 将数字<script type="math/tex">a</script>插入升序排列的数组<script type="math/tex">a_1a_2...a_n</script>中，需要先在数组中找到要插入的位置，假设<script type="math/tex">% <![CDATA[
 a_i<a<a_{i+1} %]]></script>,则<script type="math/tex">a_{i+1}a_{i+2}...a_n</script>都需要依此向后移动一个位置，移动的次数为<script type="math/tex">n-i</script>。而序列<script type="math/tex">a_1a_2...a_na</script>的逆序对的个数<script type="math/tex">n-i</script>，和插入排序移动的次数是相等的。因此对插入排序算法稍加改造就可以用来求序列的逆序对个数，但时间复杂度同样是<script type="math/tex">\Theta(n^2)</script>，所以有必要考虑其他的方法。<br />
 书上提到了用归并排序算法，归并排序的时间复杂度是<script type="math/tex">\Theta(nlgn)</script>。理解了分治法的原理，再参考归并排序，这个问题很好解决。<br />
-<strong>分解：</strong>将待分析序列分为L和R两部分。<br />
+<strong>分解：</strong>将待分析序列分为<script type="math/tex">L</script>和<script type="math/tex">R</script>两部分。<br />
 <strong>解决：</strong>原序列的逆序对个数为<script type="math/tex">f(A)</script>，分解后两个序列的逆序对个数分别为<script type="math/tex">f(L)</script>和<script type="math/tex">f(R)</script>，有<script type="math/tex">f(A)=f(L)+f(R)+S(L,R)</script>，其中<script type="math/tex">S(R)</script>为L和R共同构成的逆序对的个数。<script type="math/tex">f(L)</script>和<script type="math/tex">f(R)</script>可以递归分解至求单个元素的序列逆序对个数，<script type="math/tex">S(L,R)</script>可在合并的时候求出。<br />
 <strong>合并：</strong>将两个已经求出逆序对个数并且完成排序的序列合并。  </p>
+
+<div class="highlight"><pre><code class="cpp"><span class="lineno"> 1</span> <span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="lineno"> 2</span> 
+<span class="lineno"> 3</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>	<span class="c1">//用于逆序对的计数</span>
+<span class="lineno"> 4</span> 
+<span class="lineno"> 5</span> <span class="kt">void</span> <span class="nf">merge</span><span class="p">(</span><span class="kt">int</span> <span class="n">A</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">p</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">,</span> <span class="kt">int</span> <span class="n">q</span><span class="p">)</span>
+<span class="lineno"> 6</span> <span class="p">{</span>
+<span class="lineno"> 7</span>     <span class="kt">int</span> <span class="n">L</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="lineno"> 8</span>     <span class="kt">int</span> <span class="n">R</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="lineno"> 9</span>     <span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">;</span>
+<span class="lineno">10</span>     <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="lineno">11</span> 
+<span class="lineno">12</span>     <span class="n">l</span> <span class="o">=</span> <span class="n">m</span> <span class="o">-</span> <span class="n">p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="lineno">13</span>     <span class="n">r</span> <span class="o">=</span> <span class="n">q</span> <span class="o">-</span> <span class="n">m</span><span class="p">;</span>
+<span class="lineno">14</span>     <span class="k">while</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">l</span><span class="p">)</span>
+<span class="lineno">15</span>         <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">p</span><span class="o">+</span><span class="n">i</span><span class="p">];</span>
+<span class="lineno">16</span>     <span class="k">while</span><span class="p">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">)</span>
+<span class="lineno">17</span>         <span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">m</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+<span class="lineno">18</span> 
+<span class="lineno">19</span>     <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="lineno">20</span>     <span class="k">while</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">l</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">)</span>
+<span class="lineno">21</span>     <span class="p">{</span>
+<span class="lineno">22</span>         <span class="k">if</span> <span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+<span class="lineno">23</span>             <span class="n">A</span><span class="p">[</span><span class="n">p</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">];</span>
+<span class="lineno">24</span>         <span class="k">else</span> 
+<span class="lineno">25</span>         <span class="p">{</span>
+<span class="lineno">26</span> 			<span class="n">count</span> <span class="o">+=</span> <span class="p">(</span><span class="n">l</span><span class="o">-</span><span class="n">i</span><span class="p">);</span>		<span class="c1">//计算R中每个元素的逆序数</span>
+<span class="lineno">27</span>             <span class="n">A</span><span class="p">[</span><span class="n">p</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="o">++</span><span class="p">];</span>
+<span class="lineno">28</span>         <span class="p">}</span>
+<span class="lineno">29</span>     <span class="p">}</span>
+<span class="lineno">30</span>     <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">l</span><span class="p">)</span>
+<span class="lineno">31</span>         <span class="n">A</span><span class="p">[</span><span class="n">p</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">];</span>
+<span class="lineno">32</span>     <span class="k">while</span> <span class="p">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">)</span>
+<span class="lineno">33</span>         <span class="n">A</span><span class="p">[</span><span class="n">p</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="o">++</span><span class="p">];</span>
+<span class="lineno">34</span> <span class="p">}</span>
+<span class="lineno">35</span> 
+<span class="lineno">36</span> 
+<span class="lineno">37</span> <span class="kt">void</span> <span class="nf">get_inversion_by_mergesort</span><span class="p">(</span><span class="kt">int</span> <span class="n">A</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="kt">int</span> <span class="n">r</span><span class="p">)</span>
+<span class="lineno">38</span> <span class="p">{</span>
+<span class="lineno">39</span>     <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="lineno">40</span> 
+<span class="lineno">41</span> 	<span class="k">if</span> <span class="p">(</span><span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">)</span>
+<span class="lineno">42</span>     <span class="p">{</span>
+<span class="lineno">43</span>         <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+<span class="lineno">44</span>         <span class="n">get_inversion_by_mergesort</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">);</span>
+<span class="lineno">45</span>         <span class="n">get_inversion_by_mergesort</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+<span class="lineno">46</span>         <span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+<span class="lineno">47</span>     <span class="p">}</span>
+<span class="lineno">48</span> <span class="p">}</span>
+<span class="lineno">49</span> 
+<span class="lineno">50</span> <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="lineno">51</span> <span class="p">{</span>
+<span class="lineno">52</span>     <span class="kt">int</span> <span class="n">A</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
+<span class="lineno">53</span> 
+<span class="lineno">54</span>     <span class="n">get_inversion_by_mergesort</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">);</span>
+<span class="lineno">55</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+<span class="lineno">56</span> 	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="lineno">57</span> 		<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d &quot;</span><span class="p">,</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="lineno">58</span> 
+<span class="lineno">59</span>     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="lineno">60</span> <span class="p">}</span>
+</code></pre></div>
+
 
 </div>
 
