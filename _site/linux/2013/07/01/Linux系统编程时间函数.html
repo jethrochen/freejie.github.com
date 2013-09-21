@@ -39,89 +39,109 @@ var WRInitTime=(new Date()).getTime();
   <div id="post">
 <h1 id="linux">Linux系统编程时间函数</h1>
 
-<p>p(meta). 01 JUN 2013 - NWPU</p>
+<p>在linux系统中，关于时间的函数有连个，分别是<code>clock_gettime()</code>和<code>gettimeofday()</code>。</p>
 
-<p>在linux系统中，关于时间的函数有连个，分别是<code>clock_gettime()</code>和<code>gettimeofday()</code>。
-#### 关于<code>clock_gettime()</code>
-1. 函数原型:  <br />
-&#8212;&#8212;</p>
-<pre>
-#include <time.h>
-int clock_gettime(clockid_t clk_id, struct timespec *tp);
+<h4 id="clockgettime">关于<code>clock_gettime()</code></h4>
 
-2. 说明：    
-------
-`clock_gettime`把当前时间用tp结构体返回，返回的时间会根据clk_id的不同而相应变化。
+<ol>
+  <li>
+    <h2 id="section">函数原型:</h2>
+  </li>
+</ol>
 
-3. 结构体及参数：
-------
-    struct timespec {
-        time_t   tv_sec;        /* seconds */
-        long     tv_nsec;       /* nanoseconds */
-    };
-`clock_gettime`调用之后，会把获取的时间存储在结构体tp中，获取的时间即为`tp-&gt;tv_sev(单位为s)+tp-&gt;tv_nsec(单位为ns)`，获取的时间根据参数clk_id计算。
+<div class="highlight"><pre><code class="cpp"><span class="cp">#include &lt;time.h&gt;</span>
+<span class="kt">int</span> <span class="nf">clock_gettime</span><span class="p">(</span><span class="kt">clockid_t</span> <span class="n">clk_id</span><span class="p">,</span> <span class="k">struct</span> <span class="n">timespec</span> <span class="o">*</span><span class="n">tp</span><span class="p">);</span>
+</code></pre></div>
 
-参数clk_id有如下几个：    
-`CLOCK_REALTIME:`随系统实时时间改变而改变,即从UTC1970-1-1 0:0:0开始到当前系统时间所经历的ns数，如果当前时间被修改，则得到的结果也发生变化。    
-`CLOCK_MONOTONIC:`从系统启动那一刻起开始计时,不受系统当前时间被用户该免的影响    
-`CLOCK_PROCESS_CPUTIME_ID:`本进程到当前代码系统CPU花费的时间    
-`CLOCK_THREAD_CPUTIME_ID:`本线程到当前代码系统CPU花费的时间    
+<ol>
+  <li>
+    <h2 id="section-1">说明：</h2>
+    <p><code>clock_gettime</code>把当前时间用tp结构体返回，返回的时间会根据clk_id的不同而相应变化。</p>
+  </li>
+  <li>
+    <h2 id="section-2">结构体及参数：</h2>
+  </li>
+</ol>
 
-#### 关于函数gettimeofday
+<div class="highlight"><pre><code class="cpp"><span class="k">struct</span> <span class="n">timespec</span> <span class="p">{</span>
+    <span class="kt">time_t</span>   <span class="n">tv_sec</span><span class="p">;</span>        <span class="cm">/* seconds */</span>
+    <span class="kt">long</span>     <span class="n">tv_nsec</span><span class="p">;</span>       <span class="cm">/* nanoseconds */</span>
+<span class="p">};</span>
+</code></pre></div>
 
-1. 函数原型：
-------
-    #include&lt;sys/time.h&gt;
-    int gettimeofday(struct  timeval*tv,struct  timezone *tz )
-2. 说明：
-------
-gettimeofday会把目前的时间用tv 结构体返回，当地时区的信息则放到tz所指的结构中
+<p><code>clock_gettime</code>调用之后，会把获取的时间存储在结构体tp中，获取的时间即为<code>tp-&gt;tv_sev(单位为s)+tp-&gt;tv_nsec(单位为ns)</code>，获取的时间根据参数clk_id计算。</p>
 
-3. 结构体及参数：
-------
-    struct  timeval{
-        long  tv_sec;    /*秒*/
-        long  tv_usec;   /*微妙*/
-    }；
-    
-    struct  timezone{
-        int tz_minuteswest;     /*和greenwich 时间差了多少分钟*/
-        int tz_dsttime;         /*type of DST correction*/
-    }
+<p>参数clk_id有如下几个：  <br />
+<code>CLOCK_REALTIME:</code>随系统实时时间改变而改变,即从UTC1970-1-1 0:0:0开始到当前系统时间所经历的ns数，如果当前时间被修改，则得到的结果也发生变化。  <br />
+<code>CLOCK_MONOTONIC:</code>从系统启动那一刻起开始计时,不受系统当前时间被用户该免的影响  <br />
+<code>CLOCK_PROCESS_CPUTIME_ID:</code>本进程到当前代码系统CPU花费的时间  <br />
+<code>CLOCK_THREAD_CPUTIME_ID:</code>本线程到当前代码系统CPU花费的时间    </p>
 
-在使用gettimeofday时，第二个参数一般都为空，不需要获得timezone的值。
+<h4 id="gettimeofday">关于函数gettimeofday</h4>
 
-程序实例time.c：
-------
-    #include <stdio.h>
-    #include <time.h>
-    #include &lt;sys/time.h&gt;
-    int main()
-    {
-        struct timespec ts;
-        struct timeval tv;
-        
-        printf("********clock_gettime********\n");
-        clock_gettime(CLOCK_REALTIME, &amp;ts);
-        printf("CLOCK_REALTIME: %ld: %ld\n", ts.tv_sec, ts.tv_nsec);
-        clock_gettime(CLOCK_MONOTONIC, &amp;ts);
-        printf("CLOCK_MONOTONIC: %ld: %ld\n", ts.tv_sec, ts.tv_nsec);
-        clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &amp;ts);
-        printf("CLOCK_PROCESS_CPUTIME_ID: %ld: %ld\n", ts.tv_sec, ts.tv_nsec);
-        clock_gettime(CLOCK_THREAD_CPUTIME_ID, &amp;ts);
-        printf("CLOCK_THREAD_CPUTIME_ID: %ld: %ld\n", ts.tv_sec, ts.tv_nsec);
-    
-        printf("*******gettimeofday*********\n");
-        gettimeofday(&amp;tv, NULL);
-        printf("time: %ld: %ld\n", tv.tv_sec, tv.tv_usec);
-    
-        sleep(1);
-		return 0;
-    }
+<ol>
+  <li>
+    <h2 id="section-3">函数原型：</h2>
+  </li>
+</ol>
 
-在linux下编译`gcc time.c -lrt`
+<div class="highlight"><pre><code class="cpp"><span class="cp">#include&lt;sys/time.h&gt;</span>
+<span class="kt">int</span> <span class="n">gettimeofday</span><span class="p">(</span><span class="k">struct</span>  <span class="n">timeval</span><span class="o">*</span><span class="n">tv</span><span class="p">,</span><span class="k">struct</span>  <span class="n">timezone</span> <span class="o">*</span><span class="n">tz</span> <span class="p">)</span>
+</code></pre></div>
 
-</time.h></stdio.h></time.h></pre>
+<ol>
+  <li>
+    <h2 id="section-4">说明：</h2>
+    <p>gettimeofday会把目前的时间用tv 结构体返回，当地时区的信息则放到tz所指的结构中</p>
+  </li>
+  <li>
+    <h2 id="section-5">结构体及参数：</h2>
+  </li>
+</ol>
+
+<div class="highlight"><pre><code class="cpp"><span class="k">struct</span>  <span class="n">timeval</span><span class="p">{</span>
+    <span class="kt">long</span>  <span class="n">tv_sec</span><span class="p">;</span>    <span class="cm">/*秒*/</span>
+    <span class="kt">long</span>  <span class="n">tv_usec</span><span class="p">;</span>   <span class="cm">/*微妙*/</span>
+<span class="p">};</span>
+<span class="k">struct</span>  <span class="n">timezone</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">tz_minuteswest</span><span class="p">;</span>     <span class="cm">/*和greenwich 时间差了多少分钟*/</span>
+    <span class="kt">int</span> <span class="n">tz_dsttime</span><span class="p">;</span>         <span class="cm">/*type of DST correction*/</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>在使用gettimeofday时，第二个参数一般都为空，不需要获得timezone的值。</p>
+
+<h2 id="timec">程序实例time.c：</h2>
+
+<div class="highlight"><pre><code class="cpp"><span class="lineno"> 1</span> <span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="lineno"> 2</span> <span class="cp">#include &lt;time.h&gt;</span>
+<span class="lineno"> 3</span> <span class="cp">#include &lt;sys/time.h&gt;</span>
+<span class="lineno"> 4</span> <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="lineno"> 5</span> <span class="p">{</span>
+<span class="lineno"> 6</span>     <span class="k">struct</span> <span class="n">timespec</span> <span class="n">ts</span><span class="p">;</span>
+<span class="lineno"> 7</span>     <span class="k">struct</span> <span class="n">timeval</span> <span class="n">tv</span><span class="p">;</span>
+<span class="lineno"> 8</span>     
+<span class="lineno"> 9</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;********clock_gettime********</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="lineno">10</span>     <span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_REALTIME</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ts</span><span class="p">);</span>
+<span class="lineno">11</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;CLOCK_REALTIME: %ld: %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">,</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_nsec</span><span class="p">);</span>
+<span class="lineno">12</span>     <span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_MONOTONIC</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ts</span><span class="p">);</span>
+<span class="lineno">13</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;CLOCK_MONOTONIC: %ld: %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">,</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_nsec</span><span class="p">);</span>
+<span class="lineno">14</span>     <span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_PROCESS_CPUTIME_ID</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ts</span><span class="p">);</span>
+<span class="lineno">15</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;CLOCK_PROCESS_CPUTIME_ID: %ld: %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">,</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_nsec</span><span class="p">);</span>
+<span class="lineno">16</span>     <span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_THREAD_CPUTIME_ID</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ts</span><span class="p">);</span>
+<span class="lineno">17</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;CLOCK_THREAD_CPUTIME_ID: %ld: %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">,</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_nsec</span><span class="p">);</span>
+<span class="lineno">18</span> 
+<span class="lineno">19</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;*******gettimeofday*********</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="lineno">20</span>     <span class="n">gettimeofday</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tv</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="lineno">21</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;time: %ld: %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">tv</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">,</span> <span class="n">tv</span><span class="p">.</span><span class="n">tv_usec</span><span class="p">);</span>
+<span class="lineno">22</span> 
+<span class="lineno">23</span>     <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="lineno">24</span>     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="lineno">25</span> <span class="p">}</span>
+</code></pre></div>
+
+<p>在linux下编译<code>gcc time.c -lrt</code></p>
+
 
 </div>
 

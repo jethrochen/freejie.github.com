@@ -86,9 +86,10 @@ t = t_1 + t_2 + t_3 + ... + t_n = \sum_{i=1}^n{t_i}
 将数字<script type="math/tex">a</script>插入升序排列的数组<script type="math/tex">a_1a_2...a_n</script>中，需要先在数组中找到要插入的位置，假设<script type="math/tex">% <![CDATA[
 a_i<a<a_{i+1} %]]></script>,则<script type="math/tex">a_{i+1}a_{i+2}...a_n</script>都需要依此向后移动一个位置，移动的次数为<script type="math/tex">n-i</script>。而序列<script type="math/tex">a_1a_2...a_na</script>的逆序对的个数<script type="math/tex">n-i</script>，和插入排序移动的次数是相等的。因此对插入排序算法稍加改造就可以用来求序列的逆序对个数，但时间复杂度同样是<script type="math/tex">\Theta(n^2)</script>，所以有必要考虑其他的方法。<br />
 书上提到了用归并排序算法，归并排序的时间复杂度是<script type="math/tex">\Theta(nlgn)</script>。理解了分治法的原理，再参考归并排序，这个问题很好解决。<br />
-<strong>分解：</strong>将待分析序列分为L和R两部分。<br />
+<strong>分解：</strong>将待分析序列分为<script type="math/tex">L</script>和<script type="math/tex">R</script>两部分。<br />
 <strong>解决：</strong>原序列的逆序对个数为<script type="math/tex">f(A)</script>，分解后两个序列的逆序对个数分别为<script type="math/tex">f(L)</script>和<script type="math/tex">f(R)</script>，有<script type="math/tex">f(A)=f(L)+f(R)+S(L,R)</script>，其中<script type="math/tex">S(R)</script>为L和R共同构成的逆序对的个数。<script type="math/tex">f(L)</script>和<script type="math/tex">f(R)</script>可以递归分解至求单个元素的序列逆序对个数，<script type="math/tex">S(L,R)</script>可在合并的时候求出。<br />
 <strong>合并：</strong>将两个已经求出逆序对个数并且完成排序的序列合并。  </p>
+
 
 </div>
 
