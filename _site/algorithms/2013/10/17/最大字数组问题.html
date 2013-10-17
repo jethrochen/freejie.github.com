@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-   <title>C语言中条件预处理指令</title>
+   <title>最大字数组问题</title>
    <meta name="author" content="Tom Preston-Werner" />
    <link href="http://feeds.feedburner.com/tom-preston-werner" rel="alternate" title="Tom Preston-Werner" type="application/atom+xml" />
    <meta name="readability-verification" content="QCzSs992GxmRYRKVpPeZ6LE2tS8aYKxsSSQKV8YM"/>
@@ -37,100 +37,14 @@ var WRInitTime=(new Date()).getTime();
   </div>
   
   <div id="post">
-<h1 id="c">C语言中条件预处理指令</h1>
+<h1 id="section">最大字数组问题</h1>
 
-<p>p(meta). 16 JUN 2013 - NWPU</p>
+<p><strong><em>最大字数组</em></strong></p>
 
-<p>C语言中可以使用条件语句对预处理本身进行控制。这种方式为在编译过程中根据计算所得的条件值选择性地包含不同代码提供了一种手段。最常用的有一下几种：  <br />
-####1.#if !defined() 与#ifndef
-这个一般用于保证头文件只被包含一次。</p>
+<blockquote>
+  <p><strong>问题描述：</strong>求一个数组的连续字数组，使该连续字数组的和最大  </p>
+</blockquote>
 
-<pre>
-#if !defined(HDR)
-#define HDR
-/* hdr.h文件的内容放在这里 */
-#endif
-</pre>
-
-<p>第一次包含hdr.h时，将定义名字HDR，此后再次包含该头文件时，会发现该名字已经定义，就直接跳到#endif处。
-C语言专门定义了两个预处理语句#ifdef与#ifndef，用来测试某个名字是否定义。上边的例子等价与</p>
-
-<pre>
-#ifndef HDR
-#define HDR
-/* hdr.h文件的内容放在这里 */
-#endif
-</pre>
-
-<h4 id="if-">2.#if 判断式</h4>
-<p>根据预定义的LEVEL值，判断条件满足的语句才会被编译。</p>
-
-<pre>
-#define LEVEL 1
-#ifdef LEVEL
-#if (LEVEL &gt; 0) &amp;&amp; (LEVEL &lt; 2)
-    printf("Debugging level 1");
-#elif (LEVEL &gt; 1) &amp;&amp; (LEVEL &lt; 3)
-    printf("Debugging level 2");
-#elif (LEVEL &gt; n-1) &amp;&amp; (LEVEL &lt; n)
-    printf("Debugging level n");
-#endif
-#endif
-</pre>
-
-<h4 id="if-debug">3.#if DEBUG</h4>
-<p>这一个经常被用来调试，在代码中添加一些打印信息是最常用的一种调试手段，但最终删除用来调试的打印信息却比较麻烦，这中方法可以帮我们很好地解决。看段代码test.c：</p>
-
-<pre>
-#include <stdio.h>
-int count(num){
-    int count = 0;
-
-    while(num){
-        count++;
-        num = num &amp; (num-1);
-#if DEBUG
-        printf("%d %d\n", count, num);
-#endif
-    }
-
-    return count;
-}
-
-int main(void)
-{
-    int num = 10;
-    printf("%d\n", count(num));
-
-    return 0;
-}
-
-
-用gcc test.c -o test -DDEBUG=1编译，会把#if DEBUG之间的代码编译进去，./test执行后显示
-1 8
-2 0
-2
-调试没问题之后，直接gcc test.c -o test就ok了，这样不会把用于调试的那句printf编译进去，当然也不会打印出来。
-另外还有一种方法，调试的时候，在test.c开头加上
-
-<pre>
-#define DEBUG 1
-</pre>
-
-调试结束注释掉这句就OK了。这中方法在编译的时候就不需要使用-DDEBUG这个参数了
-
-####4.#if 0
-先上代码：
-
-<pre>
-#if 0
-    code
-#endif
-</pre>
-
-在编译时，code部分会被忽略。于是我们就可以用这种方式进行代码注释，这样有两个好处，一是可以用作注释以解决C标准中/**......**/不能嵌套的缺陷；二是code部分很长的时候要比/*......*/更方便。在修改代码的时候，很多时候我们写的代码可能不许要了，但又不忍心删掉，这样注释是最好的办法。    
-当然，把if后的0改为1，code部分就恢复作用。
-</stdio.h></pre>
 
 </div>
 
@@ -138,11 +52,11 @@ int main(void)
   <h2>Related Posts</h2>
   <ul class="posts">
     
-      <li><span>17 Oct 2013</span> &raquo; <a href="/algorithms/2013/10/17/%E6%9C%80%E5%A4%A7%E5%AD%97%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98.html">最大字数组问题</a></li>
-    
       <li><span>18 Sep 2013</span> &raquo; <a href="/algorithms/2013/09/18/%E9%80%86%E5%BA%8F%E5%AF%B9%E5%8F%8A%E6%B1%82%E9%80%86%E5%BA%8F%E5%AF%B9%E7%9A%84%E7%AE%97%E6%B3%95.html">逆序对及求逆序对的算法</a></li>
     
       <li><span>08 Sep 2013</span> &raquo; <a href="/algorithms/2013/09/08/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E4%B9%8B%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95.html">最大公约数之辗转相除法</a></li>
+    
+      <li><span>16 Jul 2013</span> &raquo; <a href="/2013/07/16/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%9D%A1%E4%BB%B6%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4.html">C语言中条件预处理指令</a></li>
     
   </ul>
 </div>
