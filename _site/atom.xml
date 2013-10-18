@@ -4,7 +4,7 @@
  <title>Tom Preston-Werner</title>
  <link href="http://tom.preston-werner.com/atom.xml" rel="self"/>
  <link href="http://tom.preston-werner.com/"/>
- <updated>2013-10-18T22:01:55+08:00</updated>
+ <updated>2013-10-19T00:39:20+08:00</updated>
  <id>http://tom.preston-werner.com/</id>
  <author>
    <name>Tom Preston-Werner</name>
@@ -13,20 +13,23 @@
 
  
  <entry>
-   <title>最大字数组问题</title>
-   <link href="http://tom.preston-werner.com/algorithms/2013/10/17/%E6%9C%80%E5%A4%A7%E5%AD%97%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98.html"/>
+   <title>最大子数组问题</title>
+   <link href="http://tom.preston-werner.com/algorithms/2013/10/17/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98.html"/>
    <updated>2013-10-17T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/algorithms/2013/10/17/最大字数组问题</id>
-   <content type="html">&lt;h1 id=&quot;section&quot;&gt;最大字数组问题&lt;/h1&gt;
+   <id>http://tom.preston-werner.com/algorithms/2013/10/17/最大子数组问题</id>
+   <content type="html">&lt;h1 id=&quot;section&quot;&gt;最大子数组问题&lt;/h1&gt;
 
-&lt;p&gt;&lt;strong&gt;最大子数组&lt;/strong&gt;是一道经典的面试题目，面试中遇到的概率比较大，正好在算法导论中有讨论，在这里做个总结。  &lt;br /&gt;
-&lt;strong&gt;问题描述：&lt;/strong&gt;在给定的一个数组中，找到一个连续的子数组，使其和最大。&lt;br /&gt;
-&lt;strong&gt;问题分析：&lt;/strong&gt;    &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;最大子数组&lt;/strong&gt;是一道经典的面试题目，面试中遇到的概率比较大，正好在算法导论中有讨论，在这里做个总结。    &lt;/p&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;1.最简单粗暴的方法——穷举。
-列举出所有可能的连续组合，分别求出其和。这种方法但凡学过数学的都能想到且解决，其时间复杂度为&lt;script type=&quot;math/tex&quot;&gt;\Theta(n^2)&lt;/script&gt;。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;问题描述：&lt;/strong&gt;在给定的一个数组中，找到一个连续的子数组，使其和最大。就拿算法导论中的例子，给定数组为A[16]={13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7}。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;问题分析解决：&lt;/strong&gt;  &lt;br /&gt;
+1.最简单粗暴的方法——穷举。  &lt;br /&gt;
+列举出所有可能的连续组合，分别求出其和。这种方法但凡学过数学的都能想到且解决，其时间复杂度为&lt;script type=&quot;math/tex&quot;&gt;\Theta(n^2)&lt;/script&gt;。这里就不讨论这种方法了，只给出程序用于验证以下方法的结果。  &lt;br /&gt;
+&lt;script src=&quot;https://gist.github.com/freejie/7044087.js&quot;&gt;&lt;/script&gt;
+2.分治策略求解    &lt;/p&gt;
+
+&lt;p&gt;3.&lt;/p&gt;
 
 </content>
  </entry>

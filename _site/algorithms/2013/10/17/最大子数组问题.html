@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-   <title>最大字数组问题</title>
+   <title>最大子数组问题</title>
    <meta name="author" content="Tom Preston-Werner" />
    <link href="http://feeds.feedburner.com/tom-preston-werner" rel="alternate" title="Tom Preston-Werner" type="application/atom+xml" />
    <meta name="readability-verification" content="QCzSs992GxmRYRKVpPeZ6LE2tS8aYKxsSSQKV8YM"/>
@@ -37,16 +37,19 @@ var WRInitTime=(new Date()).getTime();
   </div>
   
   <div id="post">
-<h1 id="section">最大字数组问题</h1>
+<h1 id="section">最大子数组问题</h1>
 
-<p><strong>最大子数组</strong>是一道经典的面试题目，面试中遇到的概率比较大，正好在算法导论中有讨论，在这里做个总结。  <br />
-<strong>问题描述：</strong>在给定的一个数组中，找到一个连续的子数组，使其和最大。<br />
-<strong>问题分析：</strong>    </p>
+<p><strong>最大子数组</strong>是一道经典的面试题目，面试中遇到的概率比较大，正好在算法导论中有讨论，在这里做个总结。    </p>
 
-<blockquote>
-  <p>1.最简单粗暴的方法——穷举。
-列举出所有可能的连续组合，分别求出其和。这种方法但凡学过数学的都能想到且解决，其时间复杂度为<script type="math/tex">\Theta(n^2)</script>。</p>
-</blockquote>
+<p><strong>问题描述：</strong>在给定的一个数组中，找到一个连续的子数组，使其和最大。就拿算法导论中的例子，给定数组为A[16]={13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7}。</p>
+
+<p><strong>问题分析解决：</strong>  <br />
+1.最简单粗暴的方法——穷举。  <br />
+列举出所有可能的连续组合，分别求出其和。这种方法但凡学过数学的都能想到且解决，其时间复杂度为<script type="math/tex">\Theta(n^2)</script>。这里就不讨论这种方法了，只给出程序用于验证以下方法的结果。  <br />
+<script src="https://gist.github.com/freejie/7044087.js"></script>
+2.分治策略求解    </p>
+
+<p>3.</p>
 
 
 </div>
