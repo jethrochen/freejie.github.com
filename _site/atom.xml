@@ -4,7 +4,7 @@
  <title>Tom Preston-Werner</title>
  <link href="http://tom.preston-werner.com/atom.xml" rel="self"/>
  <link href="http://tom.preston-werner.com/"/>
- <updated>2013-10-19T00:39:20+08:00</updated>
+ <updated>2013-10-23T22:14:27+08:00</updated>
  <id>http://tom.preston-werner.com/</id>
  <author>
    <name>Tom Preston-Werner</name>
@@ -26,11 +26,20 @@
 &lt;p&gt;&lt;strong&gt;问题分析解决：&lt;/strong&gt;  &lt;br /&gt;
 1.最简单粗暴的方法——穷举。  &lt;br /&gt;
 列举出所有可能的连续组合，分别求出其和。这种方法但凡学过数学的都能想到且解决，其时间复杂度为&lt;script type=&quot;math/tex&quot;&gt;\Theta(n^2)&lt;/script&gt;。这里就不讨论这种方法了，只给出程序用于验证以下方法的结果。  &lt;br /&gt;
-&lt;script src=&quot;https://gist.github.com/freejie/7044087.js&quot;&gt;&lt;/script&gt;
-2.分治策略求解    &lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/freejie/7044087.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;2.分治策略求解  &lt;br /&gt;
+&lt;strong&gt;分解：&lt;/strong&gt;假设A[low&amp;#8230;high]是A[p&amp;#8230;r]的最大子数组。容易理解，对于数组A[p&amp;#8230;q]和A[q+1&amp;#8230;r]，A[low&amp;#8230;high]必然且仅符合下列情况之一：    &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;- p&amp;lt;=low&amp;lt;=high&amp;lt;=q，即A[low...high]是A[p...q]的最大子数组    
+- q+1&amp;lt;=high&amp;lt;=low&amp;lt;=r，即A[low...high]是A[q+1...r]的最大子数组    
+- low&amp;lt;=q且q+1&amp;lt;=high。    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;解决：&lt;/strong&gt;  &lt;br /&gt;
+&lt;strong&gt;合并：&lt;/strong&gt;    &lt;/p&gt;
 
 &lt;p&gt;3.&lt;/p&gt;
-
 </content>
  </entry>
  

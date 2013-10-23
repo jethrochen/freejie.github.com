@@ -46,11 +46,20 @@ var WRInitTime=(new Date()).getTime();
 <p><strong>问题分析解决：</strong>  <br />
 1.最简单粗暴的方法——穷举。  <br />
 列举出所有可能的连续组合，分别求出其和。这种方法但凡学过数学的都能想到且解决，其时间复杂度为<script type="math/tex">\Theta(n^2)</script>。这里就不讨论这种方法了，只给出程序用于验证以下方法的结果。  <br />
-<script src="https://gist.github.com/freejie/7044087.js"></script>
-2.分治策略求解    </p>
+<script src="https://gist.github.com/freejie/7044087.js"></script></p>
+
+<p>2.分治策略求解  <br />
+<strong>分解：</strong>假设A[low&#8230;high]是A[p&#8230;r]的最大子数组。容易理解，对于数组A[p&#8230;q]和A[q+1&#8230;r]，A[low&#8230;high]必然且仅符合下列情况之一：    </p>
+
+<pre><code>- p&lt;=low&lt;=high&lt;=q，即A[low...high]是A[p...q]的最大子数组    
+- q+1&lt;=high&lt;=low&lt;=r，即A[low...high]是A[q+1...r]的最大子数组    
+- low&lt;=q且q+1&lt;=high。    
+</code></pre>
+
+<p><strong>解决：</strong>  <br />
+<strong>合并：</strong>    </p>
 
 <p>3.</p>
-
 
 </div>
 
