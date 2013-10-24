@@ -51,13 +51,35 @@ var WRInitTime=(new Date()).getTime();
 <p>2.分治策略求解  <br />
 <strong>分解：</strong>假设A[low&#8230;high]是A[p&#8230;r]的最大子数组。容易理解，对于数组A[p&#8230;q]和A[q+1&#8230;r]，A[low&#8230;high]必然且仅符合下列情况之一：    </p>
 
-<pre><code>- p&lt;=low&lt;=high&lt;=q，即A[low...high]是A[p...q]的最大子数组    
-- q+1&lt;=high&lt;=low&lt;=r，即A[low...high]是A[q+1...r]的最大子数组    
-- low&lt;=q且q+1&lt;=high。    
-</code></pre>
+<ul>
+  <li>p&lt;=low&lt;=high&lt;=q，即A[low&#8230;high]是A[p&#8230;q]的最大子数组    </li>
+  <li>q+1&lt;=high&lt;=low&lt;=r，即A[low&#8230;high]是A[q+1&#8230;r]的最大子数组    </li>
+  <li>low&lt;=q且q+1&lt;=high。    </li>
+</ul>
 
 <p><strong>解决：</strong>  <br />
-<strong>合并：</strong>    </p>
+A[p&#8230;q]和A[q+1&#8230;r]可继续分解，所以只需要解决情况三即可。  <br />
+在上述情况三中，A[low&#8230;high]可以分为两部分：A[low&#8230;q]和A[q+1&#8230;high]。而A[low&#8230;q]是以q为右边界的和最大的子数组，A[q+1&#8230;high]是以q+1为左边界的和最大的子数组。分别求出这两部分，得到low和high的值就OK了。伪代码如下：    </p>
+
+<div class="highlight"><pre><code class="cpp"><span class="n">FIND</span><span class="o">-</span><span class="n">MAX</span><span class="o">-</span><span class="n">CROSSING</span><span class="o">-</span><span class="n">SUBARRAY</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">leftsum</span> <span class="o">=</span> <span class="n">MIN_INT</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="n">q</span> <span class="n">downto</span> <span class="n">p</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span> <span class="o">+</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">temp</span> <span class="o">&gt;</span> <span class="n">leftsum</span>
+            <span class="n">leftsum</span> <span class="o">=</span> <span class="n">temp</span>
+            <span class="n">low</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="n">rightsum</span> <span class="o">=</span> <span class="n">MIN_INT</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="o">=</span> <span class="n">q</span><span class="o">+</span><span class="mi">1</span> <span class="n">to</span> <span class="n">r</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span> <span class="o">+</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">temp</span> <span class="o">&gt;</span> <span class="n">rightsum</span>
+            <span class="n">rightsum</span> <span class="o">=</span> <span class="n">temp</span>
+            <span class="n">high</span> <span class="o">=</span> <span class="n">j</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">leftsum</span><span class="o">+</span><span class="n">rightsum</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>合并：</strong>    </p>
 
 <p>3.</p>
 
