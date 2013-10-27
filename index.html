@@ -3,17 +3,11 @@ layout: default
 title: 陈杰在路上
 ---
 
-<!-- 
-<div id="home">
-   <ul class="posts">
- -->
-
+<p style="font-family:Comic Sans MS,sans-serif,verdana;color:#66CC00;font-size:2em">You can either travel or read,but either your body or soul must be on the way.</p>
+<p align="right">----Roman Holiday</p>
+<hr>
     {% for post in site.posts %}
       <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}
-<!-- 
-  </ul>
 
-</div>
- -->
 
