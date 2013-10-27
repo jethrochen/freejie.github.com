@@ -15,46 +15,7 @@ tags: [algorithms, 最大字数组和]
 **问题分析解决：**    
 1.最简单粗暴的方法——穷举。    
 列举出所有可能的连续组合，分别求出其和。这种方法但凡学过数学的都能想到且解决，其时间复杂度为$$\Theta(n^2)$$。这里就不讨论这种方法了，只给出程序用于验证以下方法的结果。    
-{% highlight cpp lineos %}
-#include <stdio.h>
-#include <limits.h>
-
-void getMaxSubarray(int a[], int len, int *low, int *high, int *maxsum)
-{
-    int i, j;
-    int sum;
-    
-    *maxsum = INT_MIN;
-    for (i = 0; i < len; ++i)
-    {
-        sum = 0;
-        for (j = i; j < len; ++j)
-        {
-            sum += a[j];
-            if (*maxsum < sum)
-            {
-                *maxsum = sum;
-                *low = i; 
-                *high = j;
-            }
-        }
-    }
-}
-
-int main(void)
-{
-    int a[16] = {13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7};
-    int low, high, maxsum;
-
-    getMaxSubarray(a, 16, &low, &high, &maxsum);
-
-    printf("the sum of maximum-subarray is %d\n", maxsum);
-    printf("the index word of maximum-subarray is from %d to %d\n",
-            low, high);
-
-    return 0;
-}
-{% endhighlight %}
+<script src="https://gist.github.com/freejie/7044087.js"></script>
 
 2.分治策略求解    
 **分解：**假设A[low...high]是A[p...r]的最大子数组。容易理解，对于数组A[p...q]和A[q+1...r]，A[low...high]必然且仅符合下列情况之一：    

@@ -1,43 +1,47 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<html lang="en">
 <head>
-   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-   <title>最大子数组问题</title>
-   <meta name="author" content="Tom Preston-Werner" />
-   <link href="http://feeds.feedburner.com/tom-preston-werner" rel="alternate" title="Tom Preston-Werner" type="application/atom+xml" />
-   <meta name="readability-verification" content="QCzSs992GxmRYRKVpPeZ6LE2tS8aYKxsSSQKV8YM"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-   <!-- syntax highlighting CSS -->
-   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
-
-   <!-- Homepage CSS -->
-   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
-
-   <!-- Typekit -->
-   <script type="text/javascript" src="http://use.typekit.com/jpd0pfm.js"></script>
-   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-
-<!-- mathjax config similar to math.stackexchange -->
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
-
-
+<meta name="description" content="">
+<meta name="author" content="Chen Jie" />
+<title>陈杰在路上</title>
+<!-- Bootstrap core CSS -->
+<link href="../bootstrap/dist/css/bootstrap.css" rel="stylesheet"
+	media="screen">
+<!-- Custom styles for this template -->
+<link href="../css/cj.css" rel="stylesheet">
 </head>
+
 <body>
 
-<!-- ClickTale Top part -->
-<script type="text/javascript">
-var WRInitTime=(new Date()).getTime();
-</script>
-<!-- ClickTale end of Top part -->
+	<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">陈杰在路上</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+			</div>
+			<!-- /.nav-collapse -->
+		</div>
+		<!-- /.container -->
+	</div>
+	<!-- /.navbar -->
 
-<div class="site">
-  <div class="title">
-    <a href="/">Tom Preston-Werner</a>
-    <a class="extra" href="/">home</a>
-  </div>
-  
-  <div id="post">
-<h1 id="section">最大子数组问题</h1>
+    <div class="container">
+
+            		<div><h1 id="section">最大子数组问题</h1>
 
 <p><strong>最大子数组</strong>是一道经典的面试题目，面试中遇到的概率比较大，正好在算法导论中有讨论，在这里做个总结。    </p>
 
@@ -45,8 +49,47 @@ var WRInitTime=(new Date()).getTime();
 
 <p><strong>问题分析解决：</strong>  <br />
 1.最简单粗暴的方法——穷举。  <br />
-列举出所有可能的连续组合，分别求出其和。这种方法但凡学过数学的都能想到且解决，其时间复杂度为<script type="math/tex">\Theta(n^2)</script>。这里就不讨论这种方法了，只给出程序用于验证以下方法的结果。  <br />
-<script src="https://gist.github.com/freejie/7044087.js"></script></p>
+列举出所有可能的连续组合，分别求出其和。这种方法但凡学过数学的都能想到且解决，其时间复杂度为<script type="math/tex">\Theta(n^2)</script>。这里就不讨论这种方法了，只给出程序用于验证以下方法的结果。    </p>
+
+<div class="highlight"><pre><code class="cpp"><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;limits.h&gt;</span>
+
+<span class="kt">void</span> <span class="nf">getMaxSubarray</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">low</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">high</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">maxsum</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">sum</span><span class="p">;</span>
+    
+    <span class="o">*</span><span class="n">maxsum</span> <span class="o">=</span> <span class="n">INT_MIN</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">sum</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">maxsum</span> <span class="o">&lt;</span> <span class="n">sum</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="o">*</span><span class="n">maxsum</span> <span class="o">=</span> <span class="n">sum</span><span class="p">;</span>
+                <span class="o">*</span><span class="n">low</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> 
+                <span class="o">*</span><span class="n">high</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">13</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">16</span><span class="p">,</span><span class="o">-</span><span class="mi">23</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">22</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">};</span>
+    <span class="kt">int</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">maxsum</span><span class="p">;</span>
+
+    <span class="n">getMaxSubarray</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">low</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">high</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">maxsum</span><span class="p">);</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;the sum of maximum-subarray is %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">maxsum</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;the index word of maximum-subarray is from %d to %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+            <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>2.分治策略求解  <br />
 <strong>分解：</strong>假设A[low&#8230;high]是A[p&#8230;r]的最大子数组。容易理解，对于数组A[p&#8230;q]和A[q+1&#8230;r]，A[low&#8230;high]必然且仅符合下列情况之一：    </p>
@@ -82,69 +125,30 @@ A[p&#8230;q]和A[q+1&#8230;r]可继续分解，所以只需要解决情况三即
 <p><strong>合并：</strong>    </p>
 
 <p>3.</p>
-
 </div>
 
-<div id="related">
-  <h2>Related Posts</h2>
-  <ul class="posts">
-    
-      <li><span>18 Sep 2013</span> &raquo; <a href="/algorithms/2013/09/18/%E9%80%86%E5%BA%8F%E5%AF%B9%E5%8F%8A%E6%B1%82%E9%80%86%E5%BA%8F%E5%AF%B9%E7%9A%84%E7%AE%97%E6%B3%95.html">逆序对及求逆序对的算法</a></li>
-    
-      <li><span>08 Sep 2013</span> &raquo; <a href="/algorithms/2013/09/08/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E4%B9%8B%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95.html">最大公约数之辗转相除法</a></li>
-    
-      <li><span>16 Jul 2013</span> &raquo; <a href="/2013/07/16/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%9D%A1%E4%BB%B6%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4.html">C语言中条件预处理指令</a></li>
-    
-  </ul>
-</div>
+		<div>
+			<h2>Related Posts</h2>
+			<ul class="posts">
+				
+				<li><span>18 Sep 2013</span> &raquo; <a
+					href="/algorithms/2013/09/18/%E9%80%86%E5%BA%8F%E5%AF%B9%E5%8F%8A%E6%B1%82%E9%80%86%E5%BA%8F%E5%AF%B9%E7%9A%84%E7%AE%97%E6%B3%95.html">逆序对及求逆序对的算法</a></li> 
+				<li><span>08 Sep 2013</span> &raquo; <a
+					href="/algorithms/2013/09/08/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E4%B9%8B%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95.html">最大公约数之辗转相除法</a></li> 
+				<li><span>16 Jul 2013</span> &raquo; <a
+					href="/2013/07/16/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%9D%A1%E4%BB%B6%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4.html">C语言中条件预处理指令</a></li> 
+			</ul>
+		</div>
 
-  
-  <div class="footer">
-    <div class="contact">
-      <p>
-        Tom Preston-Werner<br />
-        Cofounder of <a href="http://github.com/">GitHub</a><br />
-        tom@mojombo.com
-      </p>
+
     </div>
-    <div class="contact">
-      <p>
-        <a href="http://github.com/mojombo/">github.com/mojombo</a><br />
-        <a href="http://twitter.com/mojombo/">twitter.com/mojombo</a><br />
-        <a href="http://flickr.com/photos/mojombo/">flickr.com/photos/mojombo</a>
-      </p>
-    </div>
-    <div class="rss">
-      <a href="http://feeds.feedburner.com/tom-preston-werner">
-        <img src="/images/rss.png" alt="Subscribe to RSS Feed" />
-      </a>
-    </div>
-  </div>
-</div>
 
-<a href="http://github.com/freejie"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+	<div class="footer"></div>
+	<!-- end footers -->
 
-<!-- ClickTale Bottom part -->
-<div id="ClickTaleDiv" style="display: none;"></div>
-<script type="text/javascript">
-if(document.location.protocol!='https:')
-  document.write(unescape("%3Cscript%20src='http://s.clicktale.net/WRb.js'%20type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-if(typeof ClickTale=='function') ClickTale(206,0.3,"www03");
-</script>
-<!-- ClickTale end of Bottom part -->
-
-<!-- Google Analytics -->
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-var pageTracker = _gat._getTracker("UA-41622901-1");
-pageTracker._trackPageview();
-</script>
-<!-- Google Analytics end -->
+	<!-- Bootstrap core JavaScript -->
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="../bootstrap/dist/js/bootstrap.js"></script>
 
 </body>
 </html>
