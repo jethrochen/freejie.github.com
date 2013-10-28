@@ -5,3 +5,7 @@ body {
 p {
 	text-indient: 2em;
 }
+.container hr {
+	size: 20px;
+	width: 100%;
+}
