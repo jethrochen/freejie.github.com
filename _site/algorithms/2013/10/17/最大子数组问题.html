@@ -45,15 +45,15 @@
     <div class="container well well-lg">
     
 
-            		<div><h1 id="section">最大子数组问题</h1>
-
-<p><strong>最大子数组</strong>是一道经典的面试题目，面试中遇到的概率比较大，正好在算法导论中有讨论，在这里做个总结。    </p>
+            		<div><h2>最大子数组问题</h2></div>
+		<div>17 Oct 2013</div>
+		<div><p><strong>最大子数组</strong>是一道经典的面试题目，面试中遇到的概率比较大，正好在算法导论中有讨论，在这里做个总结。    </p>
 
 <p><strong>问题描述：</strong>在给定的一个数组中，找到一个连续的子数组，使其和最大。就拿算法导论中的例子，给定数组为A[16]={13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7}。</p>
 
 <p><strong>问题分析解决：</strong>有多种方法可以解决这个问题，下面一下几种常见的方法并分析他们各自的算法复杂度。</p>
 
-<h4 id="section-1">1.最简单粗暴的方法——穷举。</h4>
+<h4 id="section">1.最简单粗暴的方法——穷举。</h4>
 <p>列举出所有可能的连续组合，分别求出其和。这种方法但凡学过数学的都能想到且解决，其时间复杂度为<script type="math/tex">\Theta(n^2)</script>。这里就不讨论这种方法了，只给出程序用于验证以下方法的结果。    </p>
 
 <div class="highlight"><pre><code class="cpp"><span class="cp">#include &lt;stdio.h&gt;</span>
@@ -96,7 +96,7 @@
 <span class="p">}</span>
 </code></pre></div>
 
-<h4 id="section-2">2.分治策略求解</h4>
+<h4 id="section-1">2.分治策略求解</h4>
 <p><strong>分解：</strong>假设A[low&#8230;high]是A[p&#8230;r]的最大子数组。容易理解，对于数组A[p&#8230;q]和A[q+1&#8230;r]，A[low&#8230;high]必然且仅符合下列情况之一：    </p>
 
 <ul>
@@ -131,7 +131,6 @@ A[p&#8230;q]和A[q+1&#8230;r]可继续分解，所以只需要解决情况三即
 
 <p>3.</p>
 </div>
-
 		<div>
 			<h2>Related Posts</h2>
 			<ul class="posts">
