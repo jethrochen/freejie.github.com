@@ -127,9 +127,26 @@ A[p&#8230;q]和A[q+1&#8230;r]可继续分解，所以只需要解决情况三即
     <span class="k">return</span> <span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">leftsum</span><span class="o">+</span><span class="n">rightsum</span><span class="p">)</span>
 </code></pre></div>
 
-<p><strong>合并：</strong>    </p>
+<p><strong>合并：</strong>  <br />
+先分别递归求出A[low&#8230;(high+low)/2]、A[(high+low)/2+1&#8230;high]以及两者交叉部分的最大子数组的和left-sum、right-sum、cross-sum，然后比较得出三者最大的，对应的最大子数组就是所要求的最大字数组。伪代码如下：</p>
 
-<p>3.</p>
+<p>{ % highlight cpp % }
+FIND-MAXIMUM-SUBARRAY(A,low,high)
+    if high == low
+        return (low, high, A[low])
+    else mid = (low+high)/2
+        (left-low, left-high, left-sum) = FIND-MAXIMUM-SUBARRAY(A,low, mid)
+        (right-low, right-high, right-sum) = FIND-MAXIMUM-SUBARRAY(A,mid+1,high)
+        (cross-low, cross-high, cross-sum) = FIND-MAX-CROSSING-SUBARRAY(A,low, mid, high)
+    if left-sum &gt;= right-sum &amp;&amp; left-sum &gt;= cross-sum
+        return (left-low, left-high, left-sum)
+    esleif right-sum &gt;= left-sum &amp;&amp; right-sum &gt;= cross-sum
+        return (right-low, right-high, right-sum)
+    else
+        return (cross-low, cross-high, cross-sum)
+{ % endhighlight % }</p>
+
+<h4 id="section-2">3.</h4>
 </div>
 		<div>
 		<hr>
