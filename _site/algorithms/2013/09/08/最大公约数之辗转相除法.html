@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="">
+<meta name="author" content="CJ" />
+<title>最大公约数之辗转相除法</title>
+<!-- Bootstrap core CSS -->
+<link href="/bootstrap/dist/css/bootstrap.css" rel="stylesheet"
+	media="screen">
+<!-- Custom styles for this template -->
+<link href="/css/cj.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">CJ在路上</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="/">Home</a></li>
+					<li><a href="/blog">Blog</a></li>
+					<li><a href="/about.html">About</a></li>
+					
+				</ul>
+			</div>
+			<!-- /.nav-collapse -->
+		</div>
+		<!-- /.container -->
+	</div>
+	<!-- /.navbar -->
+
+	
+
+    <div class="container well well-lg">
+    
+
+            		<div><h2>最大公约数之辗转相除法</h2></div>
+		<div>08 Sep 2013</div>
+		<div><p>求两个数的最大公约数，最常用的方法就是辗转相除法，具体过程如下：  <br />
+问题：求30和18的最大公约数<br />
+步骤：<br />
+30 = 18 * 1 + 12<br />
+18 = 12 * 1 +6<br />
+12 = 6 * 2 + 0<br />
+到此，余数为0，最后的除数就是要求的最大公约数。<br />
+整理成数学语言：
+问题：求A和B的最大公约数（假设A&gt;B）：<br />
+步骤：<br />
+A = B * Qn + Rn<br />
+B = Rn * Qn-1 + Rn-1<br />
+Rn = Rn-1 * Qn-2 +Rn-2<br />
+…………… …………<br />
+R3 = R2 * Q1 + R1<br />
+R2 = R1 * Q0 + R0<br />
+依此步骤，直到R0为0为止，此时的Q1即为要求的最大公约数。<br />
+证明：(稍后补充)    </p>
+
+<p>C语言实现：  </p>
+
+<div class="highlight"><pre><code class="cpp"><span class="lineno"> 1</span> <span class="kt">int</span> <span class="nf">getgcd</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+<span class="lineno"> 2</span> <span class="p">{</span>
+<span class="lineno"> 3</span>     <span class="kt">int</span> <span class="n">rem</span><span class="p">;</span>
+<span class="lineno"> 4</span>     <span class="kt">int</span> <span class="n">div</span><span class="p">;</span>
+<span class="lineno"> 5</span>     <span class="kt">int</span> <span class="n">temp</span><span class="p">;</span>
+<span class="lineno"> 6</span>     <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span> <span class="o">&amp;&amp;</span> <span class="n">a</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="lineno"> 7</span>         <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+<span class="lineno"> 8</span>     <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span>
+<span class="lineno"> 9</span>     <span class="p">{</span>
+<span class="lineno">10</span>         <span class="n">rem</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="lineno">11</span>         <span class="n">div</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+<span class="lineno">12</span>     <span class="p">}</span> <span class="k">else</span>
+<span class="lineno">13</span>     <span class="p">{</span>
+<span class="lineno">14</span>         <span class="n">rem</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+<span class="lineno">15</span>         <span class="n">div</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="lineno">16</span>     <span class="p">}</span>
+<span class="lineno">17</span>     <span class="k">while</span><span class="p">(</span><span class="n">div</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="lineno">18</span>     <span class="p">{</span>
+<span class="lineno">19</span>         <span class="n">temp</span> <span class="o">=</span> <span class="n">div</span><span class="p">;</span>
+<span class="lineno">20</span>         <span class="n">div</span> <span class="o">=</span> <span class="n">rem</span> <span class="o">%</span> <span class="n">div</span><span class="p">;</span>
+<span class="lineno">21</span>         <span class="n">rem</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="lineno">22</span>     <span class="p">}</span>
+<span class="lineno">23</span>     <span class="k">return</span> <span class="n">rem</span><span class="p">;</span>
+<span class="lineno">24</span> <span class="p">}</span>
+</code></pre></div>
+
+</div>
+		<div>
+		<hr>
+			<h3>Related Posts</h3>
+			<ul class="posts">
+				
+				<li><span>04 Nov 2013</span> &raquo; <a
+					href="/algorithms/2013/11/04/%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF%E9%97%AE%E9%A2%98.html">约瑟夫环问题</a></li> 
+				<li><span>17 Oct 2013</span> &raquo; <a
+					href="/algorithms/2013/10/17/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98.html">最大子数组问题</a></li> 
+				<li><span>18 Sep 2013</span> &raquo; <a
+					href="/algorithms/2013/09/18/%E9%80%86%E5%BA%8F%E5%AF%B9%E5%8F%8A%E6%B1%82%E9%80%86%E5%BA%8F%E5%AF%B9%E7%9A%84%E7%AE%97%E6%B3%95.html">逆序对及求逆序对的算法</a></li> 
+			</ul>
+		</div>
+
+
+    </div>
+
+	<div class="footer"></div>
+	<!-- end footers -->
+
+<!-- support Math -->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="/bootstrap/dist/js/jquery-latest.js"></script>
+	<script src="/bootstrap/dist/js/bootstrap.js"></script>
+
+</body>
+</html>
