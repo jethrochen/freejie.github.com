@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="">
+<meta name="author" content="CJ" />
+<title>C语言中条件预处理指令</title>
+<!-- Bootstrap core CSS -->
+<link href="/bootstrap/dist/css/bootstrap.css" rel="stylesheet"
+	media="screen">
+<!-- Custom styles for this template -->
+<link href="/css/cj.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">CJ在路上</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="/">Home</a></li>
+					<li><a href="/blog">Blog</a></li>
+					<li><a href="/about.html">About</a></li>
+					
+				</ul>
+			</div>
+			<!-- /.nav-collapse -->
+		</div>
+		<!-- /.container -->
+	</div>
+	<!-- /.navbar -->
+
+	
+
+    <div class="container well well-lg">
+    
+
+            		<div><h2>C语言中条件预处理指令</h2></div>
+		<div>16 Jul 2013</div>
+        <hr>
+		<div><h1 id="c">C语言中条件预处理指令</h1>
+
+<p>p(meta). 16 JUN 2013 - NWPU</p>
+
+<p>C语言中可以使用条件语句对预处理本身进行控制。这种方式为在编译过程中根据计算所得的条件值选择性地包含不同代码提供了一种手段。最常用的有一下几种：  <br />
+####1.#if !defined() 与#ifndef
+这个一般用于保证头文件只被包含一次。</p>
+
+<pre>
+#if !defined(HDR)
+#define HDR
+/* hdr.h文件的内容放在这里 */
+#endif
+</pre>
+
+<p>第一次包含hdr.h时，将定义名字HDR，此后再次包含该头文件时，会发现该名字已经定义，就直接跳到#endif处。
+C语言专门定义了两个预处理语句#ifdef与#ifndef，用来测试某个名字是否定义。上边的例子等价与</p>
+
+<pre>
+#ifndef HDR
+#define HDR
+/* hdr.h文件的内容放在这里 */
+#endif
+</pre>
+
+<h4 id="if-">2.#if 判断式</h4>
+<p>根据预定义的LEVEL值，判断条件满足的语句才会被编译。</p>
+
+<pre>
+#define LEVEL 1
+#ifdef LEVEL
+#if (LEVEL &gt; 0) &amp;&amp; (LEVEL &lt; 2)
+    printf("Debugging level 1");
+#elif (LEVEL &gt; 1) &amp;&amp; (LEVEL &lt; 3)
+    printf("Debugging level 2");
+#elif (LEVEL &gt; n-1) &amp;&amp; (LEVEL &lt; n)
+    printf("Debugging level n");
+#endif
+#endif
+</pre>
+
+<h4 id="if-debug">3.#if DEBUG</h4>
+<p>这一个经常被用来调试，在代码中添加一些打印信息是最常用的一种调试手段，但最终删除用来调试的打印信息却比较麻烦，这中方法可以帮我们很好地解决。看段代码test.c：</p>
+
+<pre>
+#include <stdio.h>
+int count(num){
+    int count = 0;
+
+    while(num){
+        count++;
+        num = num &amp; (num-1);
+#if DEBUG
+        printf("%d %d\n", count, num);
+#endif
+    }
+
+    return count;
+}
+
+int main(void)
+{
+    int num = 10;
+    printf("%d\n", count(num));
+
+    return 0;
+}
+
+
+用gcc test.c -o test -DDEBUG=1编译，会把#if DEBUG之间的代码编译进去，./test执行后显示
+1 8
+2 0
+2
+调试没问题之后，直接gcc test.c -o test就ok了，这样不会把用于调试的那句printf编译进去，当然也不会打印出来。
+另外还有一种方法，调试的时候，在test.c开头加上
+
+<pre>
+#define DEBUG 1
+</pre>
+
+调试结束注释掉这句就OK了。这中方法在编译的时候就不需要使用-DDEBUG这个参数了
+
+####4.#if 0
+先上代码：
+
+<pre>
+#if 0
+    code
+#endif
+</pre>
+
+在编译时，code部分会被忽略。于是我们就可以用这种方式进行代码注释，这样有两个好处，一是可以用作注释以解决C标准中/**......**/不能嵌套的缺陷；二是code部分很长的时候要比/*......*/更方便。在修改代码的时候，很多时候我们写的代码可能不许要了，但又不忍心删掉，这样注释是最好的办法。    
+当然，把if后的0改为1，code部分就恢复作用。
+</stdio.h></pre>
+</div>
+		<div>
+		<hr>
+			<h3>Related Posts</h3>
+			<ul class="posts">
+				
+				<li><span>04 Nov 2013</span> &raquo; <a
+					href="/algorithms/2013/11/04/%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF%E9%97%AE%E9%A2%98.html">约瑟夫环问题</a></li> 
+				<li><span>17 Oct 2013</span> &raquo; <a
+					href="/algorithms/2013/10/17/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98.html">最大子数组问题</a></li> 
+			</ul>
+		</div>
+
+
+    </div>
+
+	<div class="footer"></div>
+	<!-- end footers -->
+
+<!-- support Math -->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="/bootstrap/dist/js/jquery-latest.js"></script>
+	<script src="/bootstrap/dist/js/bootstrap.js"></script>
+
+</body>
+</html>
