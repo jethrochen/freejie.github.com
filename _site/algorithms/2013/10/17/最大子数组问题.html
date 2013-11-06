@@ -147,6 +147,35 @@ A[p&#8230;q]和A[q+1&#8230;r]可继续分解，所以只需要解决情况三即
 </code></pre></div>
 
 <h4 id="thetan">3.还有一种更精妙的方法，算法复杂度竟然达到了<script type="math/tex">\Theta(n)</script></h4>
+<p>先看代码吧，过把眼瘾。  </p>
+
+<div class="highlight"><pre><code class="cpp"><span class="kt">int</span> <span class="nf">getMaxSubarray</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">sum</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">low</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">high</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+
+    <span class="n">temp</span> <span class="o">=</span> <span class="o">*</span><span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">low</span> <span class="o">=</span> <span class="o">*</span><span class="n">hith</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">temp</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="o">*</span><span class="n">low</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> 
+        <span class="p">{</span>
+            <span class="n">temp</span> <span class="o">+=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="o">*</span><span class="n">high</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">sum</span> <span class="o">&lt;</span> <span class="n">temp</span><span class="p">)</span>
+            <span class="n">sum</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
 </div>
 		<div>
 		<hr>
