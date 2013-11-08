@@ -4,7 +4,7 @@ int getMaxSubarray(int array[], int len, int *sum, int *low, int *high)
     int i;
 
     temp = *sum = 0;
-    *low = *hith = 0;
+    *low = *high = 0;
     for (i = 0; i < len; i++)
     {
         if (temp < 0)

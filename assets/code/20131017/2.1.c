@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <limits.h>
 
 typedef struct KeyNum {
@@ -7,9 +8,8 @@ typedef struct KeyNum {
     int maxsum;
 } KeyNum;
 
-KeyNum findMaxCrossingSubarray(int array[], int left, int right, int mid)
+void findCrossMaxSubarray(int array[], int left, int right, int mid, KeyNum *key)
 {
-    KeyNum key;
     int leftsum = INT_MIN;
     int rightsum = INT_MIN;
     int i, j;
@@ -21,7 +21,7 @@ KeyNum findMaxCrossingSubarray(int array[], int left, int right, int mid)
         if (leftsum < temp)
         {
             leftsum = temp;
-            key.low = i;
+            key->low = i;
         }
     }
     temp = 0;
@@ -31,15 +31,14 @@ KeyNum findMaxCrossingSubarray(int array[], int left, int right, int mid)
         if (rightsum < temp)
         {
             rightsum = temp;
-            key.high = j;
+            key->high = j;
         }
     }
-    key.maxsum = leftsum + rightsum;
+    key->maxsum = leftsum + rightsum;
 
-    return key;
 }
 
-KeyNum findMaxmimuxSubarray(int array[], int left, int right)
+KeyNum findMaximumSubarray(int array[], int left, int right)
 {
     int mid;
     KeyNum leftkey, rightkey, crosskey;
@@ -52,9 +51,9 @@ KeyNum findMaxmimuxSubarray(int array[], int left, int right)
         return leftkey;
     }
     mid = (left + right) / 2;
-    leftkey = findMaxmimumSubarray(array, left, mid);
-    rightkey = findMaxmimumSubarray(array, mid+1, right);
-    crosskey = findCrossMaxSubarray(array, left, right, mid);
+    leftkey = findMaximumSubarray(array, left, mid);
+    rightkey = findMaximumSubarray(array, mid+1, right);
+    findCrossMaxSubarray(array, left, right, mid, &crosskey);
     if (leftkey.maxsum >rightkey.maxsum && leftkey.maxsum > crosskey.maxsum)
         return leftkey;
     else if (rightkey.maxsum > leftkey.maxsum && rightkey.maxsum > crosskey.maxsum)
@@ -66,13 +65,13 @@ KeyNum findMaxmimuxSubarray(int array[], int left, int right)
 int main(void)
 {
     int a[16] = {13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7};
-    struct KeyNum key;
+    KeyNum key;
 
     key.low = 0;
     key.high = 0;
     key.maxsum = INT_MIN;
 
-    key = findMaxminmumSubarray(a, 0, 15);
+    key = findMaximumSubarray(a, 0, 15);
 
     printf("the sum of maximum-subarray is %d\n", key.maxsum);
     printf("the index word of maximum-subarray is from %d to %d\n",
