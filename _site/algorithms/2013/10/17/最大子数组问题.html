@@ -31,7 +31,7 @@
 					<li class="active"><a href="/">Home</a></li>
 					<li><a href="/blog">Blog</a></li>
 					<li><a href="/about.html">About</a></li>
-					
+                    <li><a href="/resume.html">Resume</a></li>
 				</ul>
 			</div>
 			<!-- /.nav-collapse -->
@@ -146,6 +146,91 @@ A[p&#8230;q]和A[q+1&#8230;r]可继续分解，所以只需要解决情况三即
         <span class="k">return</span> <span class="p">(</span><span class="n">cross</span><span class="o">-</span><span class="n">low</span><span class="p">,</span> <span class="n">cross</span><span class="o">-</span><span class="n">high</span><span class="p">,</span> <span class="n">cross</span><span class="o">-</span><span class="n">sum</span><span class="p">)</span>
 </code></pre></div>
 
+<p>C语言实现代码如下：</p>
+
+<div class="highlight"><pre><code class="cpp"><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;stdlib.h&gt;</span>
+<span class="cp">#include &lt;limits.h&gt;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">KeyNum</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">low</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">high</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">maxsum</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">KeyNum</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">findCrossMaxSubarray</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">,</span> <span class="kt">int</span> <span class="n">mid</span><span class="p">,</span> <span class="n">KeyNum</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">leftsum</span> <span class="o">=</span> <span class="n">INT_MIN</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">rightsum</span> <span class="o">=</span> <span class="n">INT_MIN</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">left</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">temp</span> <span class="o">+=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">leftsum</span> <span class="o">&lt;</span> <span class="n">temp</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">leftsum</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+            <span class="n">key</span><span class="o">-&gt;</span><span class="n">low</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">temp</span> <span class="o">+=</span> <span class="n">array</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">rightsum</span> <span class="o">&lt;</span> <span class="n">temp</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">rightsum</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+            <span class="n">key</span><span class="o">-&gt;</span><span class="n">high</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">key</span><span class="o">-&gt;</span><span class="n">maxsum</span> <span class="o">=</span> <span class="n">leftsum</span> <span class="o">+</span> <span class="n">rightsum</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+<span class="n">KeyNum</span> <span class="nf">findMaximumSubarray</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">mid</span><span class="p">;</span>
+    <span class="n">KeyNum</span> <span class="n">leftkey</span><span class="p">,</span> <span class="n">rightkey</span><span class="p">,</span> <span class="n">crosskey</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">left</span> <span class="o">&gt;=</span> <span class="n">right</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">leftkey</span><span class="p">.</span><span class="n">low</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+        <span class="n">leftkey</span><span class="p">.</span><span class="n">high</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+        <span class="n">leftkey</span><span class="p">.</span><span class="n">maxsum</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">left</span><span class="p">];</span>
+        <span class="k">return</span> <span class="n">leftkey</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">leftkey</span> <span class="o">=</span> <span class="n">findMaximumSubarray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">mid</span><span class="p">);</span>
+    <span class="n">rightkey</span> <span class="o">=</span> <span class="n">findMaximumSubarray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
+    <span class="n">findCrossMaxSubarray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">crosskey</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">leftkey</span><span class="p">.</span><span class="n">maxsum</span> <span class="o">&gt;</span><span class="n">rightkey</span><span class="p">.</span><span class="n">maxsum</span> <span class="o">&amp;&amp;</span> <span class="n">leftkey</span><span class="p">.</span><span class="n">maxsum</span> <span class="o">&gt;</span> <span class="n">crosskey</span><span class="p">.</span><span class="n">maxsum</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">leftkey</span><span class="p">;</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rightkey</span><span class="p">.</span><span class="n">maxsum</span> <span class="o">&gt;</span> <span class="n">leftkey</span><span class="p">.</span><span class="n">maxsum</span> <span class="o">&amp;&amp;</span> <span class="n">rightkey</span><span class="p">.</span><span class="n">maxsum</span> <span class="o">&gt;</span> <span class="n">crosskey</span><span class="p">.</span><span class="n">maxsum</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rightkey</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="n">crosskey</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">13</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">16</span><span class="p">,</span><span class="o">-</span><span class="mi">23</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">22</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">};</span>
+    <span class="n">KeyNum</span> <span class="n">key</span><span class="p">;</span>
+
+    <span class="n">key</span><span class="p">.</span><span class="n">low</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">key</span><span class="p">.</span><span class="n">high</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">key</span><span class="p">.</span><span class="n">maxsum</span> <span class="o">=</span> <span class="n">INT_MIN</span><span class="p">;</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="n">findMaximumSubarray</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">);</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;the sum of maximum-subarray is %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">.</span><span class="n">maxsum</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;the index word of maximum-subarray is from %d to %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+            <span class="n">key</span><span class="p">.</span><span class="n">low</span><span class="p">,</span> <span class="n">key</span><span class="p">.</span><span class="n">high</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
 <h4 id="thetan">3.还有一种更精妙的方法，算法复杂度竟然达到了<script type="math/tex">\Theta(n)</script></h4>
 <p>先看代码吧，过把眼瘾。  </p>
 
@@ -155,7 +240,7 @@ A[p&#8230;q]和A[q+1&#8230;r]可继续分解，所以只需要解决情况三即
     <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
 
     <span class="n">temp</span> <span class="o">=</span> <span class="o">*</span><span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="o">*</span><span class="n">low</span> <span class="o">=</span> <span class="o">*</span><span class="n">hith</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">low</span> <span class="o">=</span> <span class="o">*</span><span class="n">high</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">temp</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
