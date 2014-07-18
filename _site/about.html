@@ -3,19 +3,20 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>About</title>
-    <meta name="description" content="">
-    <meta name="author" content="Chen Jie">
+    <title>关于CJ</title>
+    
+    <meta name="author" content="">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
+      <style type="text/css">#totop a {right: 30px;}</style>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="/assets/themes/twitter/css/friendly.css" rel="stylesheet" type="text/css">
     <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
     <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" href="/assets/themes/twitter/css/prettify.css">
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -24,6 +25,11 @@
     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
   -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
   </head>
 
   <body>
@@ -31,69 +37,23 @@
     <div class="topbar">
       <div class="fill">
         <div class="container">
-          <a class="brand" href="/">Chen Jie</a>
+          <a class="brand" href="/">Chen Jie's Blog</a>
           <ul class="nav">
-            
-            
-            
-
-
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/archive.html">Archive</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/categories.html">Categories</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/pages.html">Pages</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/tags.html">Tags</a></li>
-      	
-      
-    
-  
-
-
-
+              <li>
+              <a href="/archive.html">Archive</a>
+              </li>
+              <li>
+                <a href="/categories.html">Category</a>
+              </li>
+              <li>
+                <a href="/tags.html">Tags</a>
+              </li>
+              <li>
+                <a href="/about.html">About</a>
+              </li>
+              <li>
+                <a href="/rss.xml">RSS</a>
+              </li>
           </ul>
         </div>
       </div>
@@ -102,31 +62,60 @@
     <div class="container">
 
       <div class="content">
-        
-<div class="page-header">
-  <h1>About <small>Supporting tagline</small></h1>
-</div>
+        <p style="font-style:italic;font-family:monaco,Comic Sans MS,sans-serif,verdana;color:#66CC00;font-size:1.6em">You can either travel or read,but either your body or soul must be on the way.</p>
+<p align="right" color="black">----Roman Holiday</p>
+<hr />
 
-<div class="row">
-  <div class="span14">
-    
 
-  </div>
-</div>
+      </div>
+      
+      <script type="text/javascript" src="/assets/themes/twitter/js/jquery-1.7.2.min.js"></script>
+      <script type="text/javascript" src="/assets/themes/twitter/js/prettify.js"></script>
+      <!--code highlight-->
+      <script type="text/javascript">
+$(function() {
+    $("pre").addClass("prettyprint");
+    prettyPrint();
+});
+</script>
 
+      <span id="totop">
+          <a href="javascript:void(0)"></a>
+      </span>
+      <!--return to top with jquery-->
+<script type="text/javascript">
+$(function () {
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+            $('#totop a').fadeIn();
+        } else {
+            $('#totop a').fadeOut();
+        }
+    });
+
+    // scroll body to 0px on click
+    $('#totop a').click(function () {
+        $('body,html').animate({
+            scrollTop: 0
+        }, 800);
+        return false;
+    });
+});
+</script>
+
+      <div style="display: none">
+      
 
       </div>
 
       <footer>
-        <p>&copy; Chen Jie 2012 
+        <p>&copy;  2013 
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
         </p>
       </footer>
 
     </div> <!-- /container -->
-
-    
   </body>
 </html>
 

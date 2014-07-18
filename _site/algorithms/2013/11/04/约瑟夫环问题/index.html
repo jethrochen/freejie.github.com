@@ -5,17 +5,18 @@
     <meta charset="utf-8">
     <title>约瑟夫环问题</title>
     
-    <meta name="author" content="Chen Jie">
+    <meta name="author" content="">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
+      <style type="text/css">#totop a {right: 30px;}</style>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="/assets/themes/twitter/css/friendly.css" rel="stylesheet" type="text/css">
     <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
     <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" href="/assets/themes/twitter/css/prettify.css">
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -24,6 +25,11 @@
     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
   -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
   </head>
 
   <body>
@@ -31,69 +37,23 @@
     <div class="topbar">
       <div class="fill">
         <div class="container">
-          <a class="brand" href="/">Chen Jie</a>
+          <a class="brand" href="/">Chen Jie's Blog</a>
           <ul class="nav">
-            
-            
-            
-
-
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/archive.html">Archive</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/categories.html">Categories</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/pages.html">Pages</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/tags.html">Tags</a></li>
-      	
-      
-    
-  
-
-
-
+              <li>
+              <a href="/archive.html">Archive</a>
+              </li>
+              <li>
+                <a href="/categories.html">Category</a>
+              </li>
+              <li>
+                <a href="/tags.html">Tags</a>
+              </li>
+              <li>
+                <a href="/about.html">About</a>
+              </li>
+              <li>
+                <a href="/rss.xml">RSS</a>
+              </li>
           </ul>
         </div>
       </div>
@@ -104,12 +64,13 @@
       <div class="content">
         
 <div class="page-header">
-  <h1>约瑟夫环问题 <small>Supporting tagline</small></h1>
+    <h1>约瑟夫环问题 <small></small></h1>
 </div>
 
 <div class="row">
   <div class="span10">
-    <p><strong>问题描述：</strong></p>
+    
+<p><strong>问题描述：</strong></p>
 
 <blockquote>
   <p>有n个囚犯站成一个圆圈，准备处决。首先从一个人开始，越过k-2个人（因为第一个人已经被越过），并杀掉第k个人。接着，再越过k-1个人，并杀掉第k个人。这个过程沿着圆圈一直进行，直到最终只剩下一个人留下，这个人就可以继续活着。
@@ -127,35 +88,16 @@
     <div class="pagination">
       <ul>
       
-        <li class="prev"><a href="/algorithms/2013/10/17/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98" title="最大子数组问题">&larr; Previous</a></li>
+        <li class="prev"><a href="/algorithms/2013/10/17/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98" title="最大子数组和问题的几种解法">&larr; Previous</a></li>
       
-        <li><a href="/archive.html">Archive</a></li>
+        <li><a href="">Archive</a></li>
       
-        <li class="next disabled"><a>Next &rarr;</a>
+        <li class="next"><a href="/2014/07/17/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1" title="共享内存实现进程间通信">Next &rarr;</a></li>
       
       </ul>
     </div>
     <hr>
     
-
-
-  <div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_developer = 1;
-    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
-    
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
 
   </div>
   
@@ -172,9 +114,9 @@
 
   
      
-    	<li><a href="/tags.html#alogorithm-ref">alogorithm <span>1</span></a></li>
+    	<li><a href="#alogorithm-ref">alogorithm <span>1</span></a></li>
      
-    	<li><a href="/tags.html#约瑟夫环-ref">约瑟夫环 <span>1</span></a></li>
+    	<li><a href="#约瑟夫环-ref">约瑟夫环 <span>1</span></a></li>
     
   
 
@@ -187,17 +129,54 @@
 
 
       </div>
+      
+      <script type="text/javascript" src="/assets/themes/twitter/js/jquery-1.7.2.min.js"></script>
+      <script type="text/javascript" src="/assets/themes/twitter/js/prettify.js"></script>
+      <!--code highlight-->
+      <script type="text/javascript">
+$(function() {
+    $("pre").addClass("prettyprint");
+    prettyPrint();
+});
+</script>
+
+      <span id="totop">
+          <a href="javascript:void(0)"></a>
+      </span>
+      <!--return to top with jquery-->
+<script type="text/javascript">
+$(function () {
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+            $('#totop a').fadeIn();
+        } else {
+            $('#totop a').fadeOut();
+        }
+    });
+
+    // scroll body to 0px on click
+    $('#totop a').click(function () {
+        $('body,html').animate({
+            scrollTop: 0
+        }, 800);
+        return false;
+    });
+});
+</script>
+
+      <div style="display: none">
+      
+
+      </div>
 
       <footer>
-        <p>&copy; Chen Jie 2012 
+        <p>&copy;  2013 
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
         </p>
       </footer>
 
     </div> <!-- /container -->
-
-    
   </body>
 </html>
 

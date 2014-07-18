@@ -3,19 +3,20 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Hello World!</title>
+    <title>Chen Jie's Blog</title>
     
-    <meta name="author" content="Chen Jie">
+    <meta name="author" content="">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
+      <style type="text/css">#totop a {right: 30px;}</style>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="/assets/themes/twitter/css/friendly.css" rel="stylesheet" type="text/css">
     <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
     <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" href="/assets/themes/twitter/css/prettify.css">
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -24,6 +25,11 @@
     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
   -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
   </head>
 
   <body>
@@ -31,69 +37,23 @@
     <div class="topbar">
       <div class="fill">
         <div class="container">
-          <a class="brand" href="/">Chen Jie</a>
+          <a class="brand" href="/">Chen Jie's Blog</a>
           <ul class="nav">
-            
-            
-            
-
-
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/archive.html">Archive</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/categories.html">Categories</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/pages.html">Pages</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/tags.html">Tags</a></li>
-      	
-      
-    
-  
-
-
-
+              <li>
+              <a href="/archive.html">Archive</a>
+              </li>
+              <li>
+                <a href="/categories.html">Category</a>
+              </li>
+              <li>
+                <a href="/tags.html">Tags</a>
+              </li>
+              <li>
+                <a href="/about.html">About</a>
+              </li>
+              <li>
+                <a href="/rss.xml">RSS</a>
+              </li>
           </ul>
         </div>
       </div>
@@ -103,82 +63,693 @@
 
       <div class="content">
         
-<div class="page-header">
-  <h1>Hello World! <small>Supporting tagline</small></h1>
-</div>
+<div class="text-post posts">
 
-<div class="row">
-  <div class="span14">
+
+
+    <div class="posts-item">
+
+        <h1><a class="post_title" href="/2014/07/17/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1">共享内存实现进程间通信</a></h1>
+
+        <div class="caption rich-content">
+            
+
+        </div>
+
+        <div class="read-more"><a class="post_title" href="/2014/07/17/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1">
+        Read More&gt;&gt;</a></div>
+	
+	<br />
+        <div class="arrow-time">
+            <cite>17 July 2014</cite>
+        </div>
+
+    </div>
+
+
+
+    <div class="posts-item">
+
+        <h1><a class="post_title" href="/algorithms/2013/11/04/%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF%E9%97%AE%E9%A2%98">约瑟夫环问题</a></h1>
+
+        <div class="caption rich-content">
+            
+<p><strong>问题描述：</strong></p>
+
+<blockquote>
+  <p>有n个囚犯站成一个圆圈，准备处决。首先从一个人开始，越过k-2个人（因为第一个人已经被越过），并杀掉第k个人。接着，再越过k-1个人，并杀掉第k个人。这个过程沿着圆圈一直进行，直到最终只剩下一个人留下，这个人就可以继续活着。
+问题是，给定了n和k，一开始要站在什么地方才能避免被处决？</p>
+</blockquote>
+
+<p><strong>问题推导：</strong>  </p>
+
+<p><img src="/assets/img/20131104_1.png" alt="未杀戮时" />
+<img src="/assets/img/20131104_2.png" alt="未杀戮时" />
+<img src="/assets/img/20131104_3.png" alt="未杀戮时" />
+<img src="/assets/img/20131104_4.png" alt="未杀戮时" /></p>
+
+        </div>
+
+        <div class="read-more"><a class="post_title" href="/algorithms/2013/11/04/%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF%E9%97%AE%E9%A2%98">
+        Read More&gt;&gt;</a></div>
+	
+	<br />
+        <div class="arrow-time">
+            <cite>04 November 2013</cite>
+        </div>
+
+    </div>
+
+
+
+    <div class="posts-item">
+
+        <h1><a class="post_title" href="/algorithms/2013/10/17/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98">最大子数组和问题的几种解法</a></h1>
+
+        <div class="caption rich-content">
+            
+<p><strong>最大子数组</strong>是一道经典的面试题目，面试中遇到的概率比较大，正好在算法导论中有讨论，在这里做个总结。    </p>
+
+<p><strong>问题描述：</strong>在给定的一个数组中，找到一个连续的子数组，使其和最大。就拿算法导论中的例子，给定数组为A[16]={13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7}。</p>
+
+<p><strong>问题分析解决：</strong>有多种方法可以解决这个问题，下面一下几种常见的方法并分析他们各自的算法复杂度。</p>
+
+<h4 id="section">1.最简单粗暴的方法——穷举。</h4>
+<p>列举出所有可能的连续组合，分别求出其和。这种方法但凡学过数学的都能想到且解决，其时间复杂度为<script type="math/tex">\Theta(n^2)</script>。这里就不讨论这种方法了，只给出程序用于验证以下方法的结果。    </p>
+
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;limits.h&gt;
+
+void getMaxSubarray(int a[], int len, int *low, int *high, int *maxsum)
+{
+    int i, j;
+    int sum;
     
-<p>Read <a href="http://jekyllbootstrap.com/usage/jekyll-quick-start.html">Jekyll Quick Start</a></p>
+    *maxsum = INT_MIN;
+    for (i = 0; i &lt; len; ++i)
+    {
+        sum = 0;
+        for (j = i; j &lt; len; ++j)
+        {
+            sum += a[j];
+            if (*maxsum &lt; sum)
+            {
+                *maxsum = sum;
+                *low = i; 
+                *high = j;
+            }
+        }
+    }
+}
 
-<p>Complete usage and documentation available at: <a href="http://jekyllbootstrap.com">Jekyll Bootstrap</a></p>
+int main(void)
+{
+    int a[16] = {13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7};
+    int low, high, maxsum;
 
-<h2 id="update-author-attributes">Update Author Attributes</h2>
+    getMaxSubarray(a, 16, &amp;low, &amp;high, &amp;maxsum);
 
-<p>In <code>_config.yml</code> remember to specify your own data:</p>
+    printf("the sum of maximum-subarray is %d\n", maxsum);
+    printf("the index word of maximum-subarray is from %d to %d\n",
+            low, high);
 
-<pre><code>title : My Blog =)
-
-author :
-  name : Name Lastname
-  email : blah@email.test
-  github : username
-  twitter : username
+    return 0;
+}
 </code></pre>
 
-<p>The theme should reference these variables whenever needed.</p>
+<h4 id="section-1">2.分治策略求解</h4>
+<p><strong>分解：</strong>假设A[low…high]是A[p…r]的最大子数组。容易理解，对于数组A[p…q]和A[q+1…r]，A[low…high]必然且仅符合下列情况之一：    </p>
 
-<h2 id="sample-posts">Sample Posts</h2>
-
-<p>This blog contains sample posts which help stage pages and blog data.
-When you don’t need the samples anymore just delete the <code>_posts/core-samples</code> folder.</p>
-
-<pre><code>$ rm -rf _posts/core-samples
-</code></pre>
-
-<p>Here’s a sample “posts list”.</p>
-
-<ul class="posts">
-  
-    <li><span>04 Nov 2013</span> &raquo; <a href="/algorithms/2013/11/04/%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF%E9%97%AE%E9%A2%98">约瑟夫环问题</a></li>
-  
-    <li><span>17 Oct 2013</span> &raquo; <a href="/algorithms/2013/10/17/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98">最大子数组问题</a></li>
-  
-    <li><span>08 Sep 2013</span> &raquo; <a href="/algorithms/2013/09/08/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E4%B9%8B%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95">最大公约数之辗转相除法</a></li>
-  
-    <li><span>16 Jul 2013</span> &raquo; <a href="/2013/07/16/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%9D%A1%E4%BB%B6%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4">C语言中条件预处理指令</a></li>
-  
-    <li><span>01 Jul 2013</span> &raquo; <a href="/linux/2013/07/01/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0">Linux系统编程时间函数</a></li>
-  
-    <li><span>11 Jun 2013</span> &raquo; <a href="/rt-linux/2013/06/11/%E5%BD%B1%E5%93%8Dlinux%E9%80%82%E6%97%B6%E6%80%A7%E7%9A%84%E5%9B%A0%E7%B4%A0%E4%BB%A5%E5%8F%8A%E7%9B%B8%E5%BA%94%E7%9A%84%E6%94%B9%E8%BF%9B%E6%96%B9%E6%B3%95">影响linux适时性的因素以及相应的改进方法</a></li>
-  
-    <li><span>29 Dec 2011</span> &raquo; <a href="/lessons/2011/12/29/jekyll-introduction">Jekyll Introduction</a></li>
-  
+<ul>
+  <li>p&lt;=low&lt;=high&lt;=q，即A[low…high]是A[p…q]的最大子数组    </li>
+  <li>q+1&lt;=high&lt;=low&lt;=r，即A[low…high]是A[q+1…r]的最大子数组    </li>
+  <li>low&lt;=q且q+1&lt;=high。    </li>
 </ul>
 
-<h2 id="to-do">To-Do</h2>
+<p><strong>解决：</strong>  <br />
+A[p…q]和A[q+1…r]可继续分解，所以只需要解决情况三即可。  <br />
+在上述情况三中，A[low…high]可以分为两部分：A[low…q]和A[q+1…high]。而A[low…q]是以q为右边界的和最大的子数组，A[q+1…high]是以q+1为左边界的和最大的子数组。分别求出这两部分，得到low和high的值就OK了。伪代码如下：    </p>
 
-<p>This theme is still unfinished. If you’d like to be added as a contributor, <a href="http://github.com/plusjade/jekyll-bootstrap">please fork</a>!
-We need to clean up the themes, make theme usage guides with theme-specific markup examples.</p>
+<pre><code>FIND-MAX-CROSSING-SUBARRAY(A,p,q,r)
+    leftsum = MIN_INT
+    temp = 0
+    for i = q downto p
+        temp = temp + A[i]
+        if temp &gt; leftsum
+            leftsum = temp
+            low = i
+    rightsum = MIN_INT
+    temp = 0
+    for j = q+1 to r
+        temp = temp + A[j]
+        if temp &gt; rightsum
+            rightsum = temp
+            high = j
+    return (low, high, leftsum+rightsum)
+</code></pre>
+
+<p><strong>合并：</strong>  <br />
+先分别递归求出A[low…(high+low)/2]、A[(high+low)/2+1…high]以及两者交叉部分的最大子数组的和left-sum、right-sum、cross-sum，然后比较得出三者最大的，对应的最大子数组就是所要求的最大字数组。伪代码如下：</p>
+
+<pre><code>FIND-MAXIMUM-SUBARRAY(A,low,high)
+    if high == low
+        return (low, high, A[low])
+    else mid = (low+high)/2
+        (left-low, left-high, left-sum) = FIND-MAXIMUM-SUBARRAY(A,low, mid)
+        (right-low, right-high, right-sum) = FIND-MAXIMUM-SUBARRAY(A,mid+1,high)
+        (cross-low, cross-high, cross-sum) = FIND-MAX-CROSSING-SUBARRAY(A,low, mid, high)
+    if left-sum &gt;= right-sum &amp;&amp; left-sum &gt;= cross-sum
+        return (left-low, left-high, left-sum)
+    esleif right-sum &gt;= left-sum &amp;&amp; right-sum &gt;= cross-sum
+        return (right-low, right-high, right-sum)
+    else
+        return (cross-low, cross-high, cross-sum)
+</code></pre>
+
+<p>C语言实现代码如下：</p>
+
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;limits.h&gt;
+
+typedef struct KeyNum {
+    int low;
+    int high;
+    int maxsum;
+} KeyNum;
+
+void findCrossMaxSubarray(int array[], int left, int right, int mid, KeyNum *key)
+{
+    int leftsum = INT_MIN;
+    int rightsum = INT_MIN;
+    int i, j;
+    int temp = 0;
+
+    for (i = mid; i &gt;= left; i--)
+    {
+        temp += array[i];
+        if (leftsum &lt; temp)
+        {
+            leftsum = temp;
+            key-&gt;low = i;
+        }
+    }
+    temp = 0;
+    for (j = mid + 1; j &lt;= right; j++)
+    {
+        temp += array[j];
+        if (rightsum &lt; temp)
+        {
+            rightsum = temp;
+            key-&gt;high = j;
+        }
+    }
+    key-&gt;maxsum = leftsum + rightsum;
+
+}
+
+KeyNum findMaximumSubarray(int array[], int left, int right)
+{
+    int mid;
+    KeyNum leftkey, rightkey, crosskey;
+
+    if (left &gt;= right)
+    {
+        leftkey.low = left;
+        leftkey.high = left;
+        leftkey.maxsum = array[left];
+        return leftkey;
+    }
+    mid = (left + right) / 2;
+    leftkey = findMaximumSubarray(array, left, mid);
+    rightkey = findMaximumSubarray(array, mid+1, right);
+    findCrossMaxSubarray(array, left, right, mid, &amp;crosskey);
+    if (leftkey.maxsum &gt;rightkey.maxsum &amp;&amp; leftkey.maxsum &gt; crosskey.maxsum)
+        return leftkey;
+    else if (rightkey.maxsum &gt; leftkey.maxsum &amp;&amp; rightkey.maxsum &gt; crosskey.maxsum)
+        return rightkey;
+    else
+        return crosskey;
+}
+
+int main(void)
+{
+    int a[16] = {13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7};
+    KeyNum key;
+
+    key.low = 0;
+    key.high = 0;
+    key.maxsum = INT_MIN;
+
+    key = findMaximumSubarray(a, 0, 15);
+
+    printf("the sum of maximum-subarray is %d\n", key.maxsum);
+    printf("the index word of maximum-subarray is from %d to %d\n",
+            key.low, key.high);
+
+    return 0;
+}
+</code></pre>
+
+<h4 id="thetan">3.还有一种更精妙的方法，算法复杂度竟然达到了<script type="math/tex">\Theta(n)</script></h4>
+<p>先看代码吧，过把眼瘾。  </p>
+
+<pre><code>int getMaxSubarray(int array[], int len, int *sum, int *low, int *high)
+{
+    int temp;
+    int i;
+
+    temp = *sum = 0;
+    *low = *high = 0;
+    for (i = 0; i &lt; len; i++)
+    {
+        if (temp &lt; 0)
+        {
+            temp = array[i];
+            *low = i;
+        }
+        else 
+        {
+            temp += array[i];
+            *high = i;
+        }
+        if (*sum &lt; temp)
+            *sum = temp;
+    }
+
+    return 0;
+}
+</code></pre>
 
 
-  </div>
+        </div>
+
+        <div class="read-more"><a class="post_title" href="/algorithms/2013/10/17/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98">
+        Read More&gt;&gt;</a></div>
+	
+	<br />
+        <div class="arrow-time">
+            <cite>17 October 2013</cite>
+        </div>
+
+    </div>
+
+
+
+    <div class="posts-item">
+
+        <h1><a class="post_title" href="/algorithms/2013/09/08/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E4%B9%8B%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95">最大公约数之辗转相除法</a></h1>
+
+        <div class="caption rich-content">
+            
+<p>求两个数的最大公约数，最常用的方法就是辗转相除法，具体过程如下：  <br />
+问题：求30和18的最大公约数<br />
+步骤：<br />
+30 = 18 * 1 + 12<br />
+18 = 12 * 1 +6<br />
+12 = 6 * 2 + 0<br />
+到此，余数为0，最后的除数就是要求的最大公约数。<br />
+整理成数学语言：
+问题：求A和B的最大公约数（假设A&gt;B）：<br />
+步骤：<br />
+A = B * Qn + Rn<br />
+B = Rn * Qn-1 + Rn-1<br />
+Rn = Rn-1 * Qn-2 +Rn-2<br />
+…………… …………<br />
+R3 = R2 * Q1 + R1<br />
+R2 = R1 * Q0 + R0<br />
+依此步骤，直到R0为0为止，此时的Q1即为要求的最大公约数。<br />
+证明：(稍后补充)    </p>
+
+<p>C语言实现：  </p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="lineno"> 1</span> <span class="kt">int</span> <span class="nf">getgcd</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+<span class="lineno"> 2</span> <span class="p">{</span>
+<span class="lineno"> 3</span>     <span class="kt">int</span> <span class="n">rem</span><span class="p">;</span>
+<span class="lineno"> 4</span>     <span class="kt">int</span> <span class="n">div</span><span class="p">;</span>
+<span class="lineno"> 5</span>     <span class="kt">int</span> <span class="n">temp</span><span class="p">;</span>
+<span class="lineno"> 6</span>     <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span> <span class="o">&amp;&amp;</span> <span class="n">a</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="lineno"> 7</span>         <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+<span class="lineno"> 8</span>     <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span>
+<span class="lineno"> 9</span>     <span class="p">{</span>
+<span class="lineno">10</span>         <span class="n">rem</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="lineno">11</span>         <span class="n">div</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+<span class="lineno">12</span>     <span class="p">}</span> <span class="k">else</span>
+<span class="lineno">13</span>     <span class="p">{</span>
+<span class="lineno">14</span>         <span class="n">rem</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+<span class="lineno">15</span>         <span class="n">div</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="lineno">16</span>     <span class="p">}</span>
+<span class="lineno">17</span>     <span class="k">while</span><span class="p">(</span><span class="n">div</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="lineno">18</span>     <span class="p">{</span>
+<span class="lineno">19</span>         <span class="n">temp</span> <span class="o">=</span> <span class="n">div</span><span class="p">;</span>
+<span class="lineno">20</span>         <span class="n">div</span> <span class="o">=</span> <span class="n">rem</span> <span class="o">%</span> <span class="n">div</span><span class="p">;</span>
+<span class="lineno">21</span>         <span class="n">rem</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="lineno">22</span>     <span class="p">}</span>
+<span class="lineno">23</span>     <span class="k">return</span> <span class="n">rem</span><span class="p">;</span>
+<span class="lineno">24</span> <span class="p">}</span></code></pre></div>
+
+
+        </div>
+
+        <div class="read-more"><a class="post_title" href="/algorithms/2013/09/08/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E4%B9%8B%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95">
+        Read More&gt;&gt;</a></div>
+	
+	<br />
+        <div class="arrow-time">
+            <cite>08 September 2013</cite>
+        </div>
+
+    </div>
+
+
+
+    <div class="posts-item">
+
+        <h1><a class="post_title" href="/2013/07/16/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%9D%A1%E4%BB%B6%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4">C语言中条件预处理</a></h1>
+
+        <div class="caption rich-content">
+            
+<p>C语言中可以使用条件语句对预处理本身进行控制。这种方式为在编译过程中根据计算所得的条件值选择性地包含不同代码提供了一种手段。最常用的有一下几种：    </p>
+
+<h4 id="if-defined-ifndef">1.#if !defined() 与#ifndef</h4>
+<p>这个一般用于保证头文件只被包含一次。</p>
+
+<pre><code>#if !defined(HDR)
+#define HDR
+/* hdr.h文件的内容放在这里 */
+#endif
+</code></pre>
+
+<p>第一次包含hdr.h时，将定义名字HDR，此后再次包含该头文件时，会发现该名字已经定义，就直接跳到#endif处。
+C语言专门定义了两个预处理语句#ifdef与#ifndef，用来测试某个名字是否定义。上边的例子等价与</p>
+
+<pre><code>#ifndef HDR
+#define HDR
+/* hdr.h文件的内容放在这里 */
+#endif
+</code></pre>
+
+<h4 id="if-">2.#if 判断式</h4>
+<p>根据预定义的LEVEL值，判断条件满足的语句才会被编译。</p>
+
+<pre><code>#define LEVEL 1
+#ifdef LEVEL
+#if (LEVEL &gt; 0) &amp;&amp; (LEVEL &lt; 2)
+    printf("Debugging level 1");
+#elif (LEVEL &gt; 1) &amp;&amp; (LEVEL &lt; 3)
+    printf("Debugging level 2");
+#elif (LEVEL &gt; n-1) &amp;&amp; (LEVEL &lt; n)
+    printf("Debugging level n");
+#endif
+#endif
+</code></pre>
+
+<h4 id="if-debug">3.#if DEBUG</h4>
+<p>这一个经常被用来调试，在代码中添加一些打印信息是最常用的一种调试手段，但最终删除用来调试的打印信息却比较麻烦，这中方法可以帮我们很好地解决。看段代码test.c：</p>
+
+<pre><code>#include &lt;stdio.h&gt;
+int count(num){
+    int count = 0;
+
+    while(num){
+        count++;
+        num = num &amp; (num-1);
+#if DEBUG
+        printf("%d %d\n", count, num);
+#endif
+    }
+
+    return count;
+}
+
+int main(void)
+{
+    int num = 10;
+    printf("%d\n", count(num));
+
+    return 0;
+}
+</code></pre>
+
+<p>用gcc test.c -o test -DDEBUG=1编译，会把#if DEBUG之间的代码编译进去，./test执行后显示
+1 8
+2 0
+2
+调试没问题之后，直接gcc test.c -o test就ok了，这样不会把用于调试的那句printf编译进去，当然也不会打印出来。
+另外还有一种方法，调试的时候，在test.c开头加上</p>
+
+<pre><code>#define DEBUG 1
+</code></pre>
+
+<p>调试结束注释掉这句就OK了。这中方法在编译的时候就不需要使用-DDEBUG这个参数了</p>
+
+<h4 id="if-0">4.#if 0</h4>
+<p>先上代码：</p>
+
+<pre><code>#if 0
+    code
+#endif
+</code></pre>
+
+<p>在编译时，code部分会被忽略。于是我们就可以用这种方式进行代码注释，这样有两个好处，一是可以用作注释以解决C标准中/<strong>……</strong>/不能嵌套的缺陷；二是code部分很长的时候要比/<em>……</em>/更方便。在修改代码的时候，很多时候我们写的代码可能不许要了，但又不忍心删掉，这样注释是最好的办法。  <br />
+当然，把if后的0改为1，code部分就恢复作用。</p>
+
+        </div>
+
+        <div class="read-more"><a class="post_title" href="/2013/07/16/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%9D%A1%E4%BB%B6%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4">
+        Read More&gt;&gt;</a></div>
+	
+	<br />
+        <div class="arrow-time">
+            <cite>16 July 2013</cite>
+        </div>
+
+    </div>
+
+
+
+    <div class="posts-item">
+
+        <h1><a class="post_title" href="/linux/2013/07/01/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0">Linux系统编程时间函数</a></h1>
+
+        <div class="caption rich-content">
+            
+<p>在linux系统中，关于时间的函数有连个，分别是<code>clock_gettime()</code>和<code>gettimeofday()</code>。</p>
+
+<h4 id="clockgettime">关于<code>clock_gettime()</code></h4>
+
+<ol>
+  <li>
+    <h2 id="section">函数原型:</h2>
+  </li>
+</ol>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;time.h&gt;</span>
+<span class="kt">int</span> <span class="nf">clock_gettime</span><span class="p">(</span><span class="kt">clockid_t</span> <span class="n">clk_id</span><span class="p">,</span> <span class="k">struct</span> <span class="n">timespec</span> <span class="o">*</span><span class="n">tp</span><span class="p">);</span></code></pre></div>
+
+<ol>
+  <li>
+    <h2 id="section-1">说明：</h2>
+    <p><code>clock_gettime</code>把当前时间用tp结构体返回，返回的时间会根据clk_id的不同而相应变化。</p>
+  </li>
+  <li>
+    <h2 id="section-2">结构体及参数：</h2>
+  </li>
+</ol>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">timespec</span> <span class="p">{</span>
+    <span class="kt">time_t</span>   <span class="n">tv_sec</span><span class="p">;</span>        <span class="cm">/* seconds */</span>
+    <span class="kt">long</span>     <span class="n">tv_nsec</span><span class="p">;</span>       <span class="cm">/* nanoseconds */</span>
+<span class="p">};</span></code></pre></div>
+
+<p><code>clock_gettime</code>调用之后，会把获取的时间存储在结构体tp中，获取的时间即为<code>tp-&gt;tv_sev(单位为s)+tp-&gt;tv_nsec(单位为ns)</code>，获取的时间根据参数clk_id计算。</p>
+
+<p>参数clk_id有如下几个：  <br />
+<code>CLOCK_REALTIME:</code>随系统实时时间改变而改变,即从UTC1970-1-1 0:0:0开始到当前系统时间所经历的ns数，如果当前时间被修改，则得到的结果也发生变化。  <br />
+<code>CLOCK_MONOTONIC:</code>从系统启动那一刻起开始计时,不受系统当前时间被用户该免的影响  <br />
+<code>CLOCK_PROCESS_CPUTIME_ID:</code>本进程到当前代码系统CPU花费的时间  <br />
+<code>CLOCK_THREAD_CPUTIME_ID:</code>本线程到当前代码系统CPU花费的时间    </p>
+
+<h4 id="gettimeofday">关于函数gettimeofday</h4>
+
+<ol>
+  <li>
+    <h2 id="section-3">函数原型：</h2>
+  </li>
+</ol>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include&lt;sys/time.h&gt;</span>
+<span class="kt">int</span> <span class="n">gettimeofday</span><span class="p">(</span><span class="k">struct</span>  <span class="n">timeval</span><span class="o">*</span><span class="n">tv</span><span class="p">,</span><span class="k">struct</span>  <span class="n">timezone</span> <span class="o">*</span><span class="n">tz</span> <span class="p">)</span></code></pre></div>
+
+<ol>
+  <li>
+    <h2 id="section-4">说明：</h2>
+    <p>gettimeofday会把目前的时间用tv 结构体返回，当地时区的信息则放到tz所指的结构中</p>
+  </li>
+  <li>
+    <h2 id="section-5">结构体及参数：</h2>
+  </li>
+</ol>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">struct</span>  <span class="n">timeval</span><span class="p">{</span>
+    <span class="kt">long</span>  <span class="n">tv_sec</span><span class="p">;</span>    <span class="cm">/*秒*/</span>
+    <span class="kt">long</span>  <span class="n">tv_usec</span><span class="p">;</span>   <span class="cm">/*微妙*/</span>
+<span class="p">};</span>
+<span class="k">struct</span>  <span class="n">timezone</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">tz_minuteswest</span><span class="p">;</span>     <span class="cm">/*和greenwich 时间差了多少分钟*/</span>
+    <span class="kt">int</span> <span class="n">tz_dsttime</span><span class="p">;</span>         <span class="cm">/*type of DST correction*/</span>
+<span class="p">}</span></code></pre></div>
+
+<p>在使用gettimeofday时，第二个参数一般都为空，不需要获得timezone的值。</p>
+
+<h2 id="timec">程序实例time.c：</h2>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="lineno"> 1</span> <span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="lineno"> 2</span> <span class="cp">#include &lt;time.h&gt;</span>
+<span class="lineno"> 3</span> <span class="cp">#include &lt;sys/time.h&gt;</span>
+<span class="lineno"> 4</span> <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="lineno"> 5</span> <span class="p">{</span>
+<span class="lineno"> 6</span>     <span class="k">struct</span> <span class="n">timespec</span> <span class="n">ts</span><span class="p">;</span>
+<span class="lineno"> 7</span>     <span class="k">struct</span> <span class="n">timeval</span> <span class="n">tv</span><span class="p">;</span>
+<span class="lineno"> 8</span>     
+<span class="lineno"> 9</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;********clock_gettime********</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="lineno">10</span>     <span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_REALTIME</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ts</span><span class="p">);</span>
+<span class="lineno">11</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;CLOCK_REALTIME: %ld: %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">,</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_nsec</span><span class="p">);</span>
+<span class="lineno">12</span>     <span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_MONOTONIC</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ts</span><span class="p">);</span>
+<span class="lineno">13</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;CLOCK_MONOTONIC: %ld: %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">,</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_nsec</span><span class="p">);</span>
+<span class="lineno">14</span>     <span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_PROCESS_CPUTIME_ID</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ts</span><span class="p">);</span>
+<span class="lineno">15</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;CLOCK_PROCESS_CPUTIME_ID: %ld: %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">,</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_nsec</span><span class="p">);</span>
+<span class="lineno">16</span>     <span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_THREAD_CPUTIME_ID</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ts</span><span class="p">);</span>
+<span class="lineno">17</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;CLOCK_THREAD_CPUTIME_ID: %ld: %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">,</span> <span class="n">ts</span><span class="p">.</span><span class="n">tv_nsec</span><span class="p">);</span>
+<span class="lineno">18</span> 
+<span class="lineno">19</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;*******gettimeofday*********</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="lineno">20</span>     <span class="n">gettimeofday</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tv</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="lineno">21</span>     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;time: %ld: %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">tv</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">,</span> <span class="n">tv</span><span class="p">.</span><span class="n">tv_usec</span><span class="p">);</span>
+<span class="lineno">22</span> 
+<span class="lineno">23</span>     <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="lineno">24</span>     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="lineno">25</span> <span class="p">}</span></code></pre></div>
+
+<p>在linux下编译<code>gcc time.c -lrt</code></p>
+
+
+        </div>
+
+        <div class="read-more"><a class="post_title" href="/linux/2013/07/01/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0">
+        Read More&gt;&gt;</a></div>
+	
+	<br />
+        <div class="arrow-time">
+            <cite>01 July 2013</cite>
+        </div>
+
+    </div>
+
+
+
+    <div class="posts-item">
+
+        <h1><a class="post_title" href="/rt-linux/2013/06/11/%E5%BD%B1%E5%93%8Dlinux%E9%80%82%E6%97%B6%E6%80%A7%E7%9A%84%E5%9B%A0%E7%B4%A0%E4%BB%A5%E5%8F%8A%E7%9B%B8%E5%BA%94%E7%9A%84%E6%94%B9%E8%BF%9B%E6%96%B9%E6%B3%95">影响linux适时性的因素以及相应的改进方法</a></h1>
+
+        <div class="caption rich-content">
+            
+<h3 id="linux">1.linux系统的实时性分析</h3>
+<p>Linux作为一个通用操作系统，主要考虑的是调度的公平性和吞吐量等指标。然而，在实时方面它还不能很好地满足实时系统方面的需要，其本身仅仅提供 了一些实时处理的支持，这包括支持大部分POSIX标准中的实时功能，支持多任务、多线程，具有丰富的通信机制等;同时也提供了符合POSIX标准的调度策略，包括FIFO调度策略、时间片轮转调度策略和静态优先级抢占式调度策略。Linux区分实时进程和普通进程，并采用不同的调度策略。</p>
+
+<p>为了同时支持实时和非实时两种进程，Linux的调度策略简单讲就是优先级加上时间片。当系统中有实时进程到来时，系统赋予它最高的优先级。体现在实时性上，Linux采用了两种简单的调度策略，即先来先服务调度(SCHED-FIFO)和时间片轮转调度(SCHED-RR)。具体是将所有处于运行状 态的任务挂接在一个run-queue 队列中,并将任务分成实时和非实时任务，对不同的任务，在其任务控制块task-struct中用一个policy属性来确定其调度策略。对实时性要求较 严的硬实时任务采用SCHED-FIFO调度，使之在一次调度后运行完毕。对普通非实时进程，Linux采用基于优先级的轮转策略。</p>
+
+<h3 id="linux-1">2 普通linux影响实时性的因素</h3>
+
+<h4 id="section">2.1 时钟精度</h4>
+
+<p>普通Linux系统的时钟中断周期为10ms，无法满足实时系统较高精度的调度要求。在实时Linux应用中，需要细化其时钟粒度，具体有两种方式可以解决时钟粒度问题：一是通过直接修改内核定时参数HZ的初值来细化时钟粒度，如将标准Linux中内核定时参数HZ改为10000, 则时钟粒度可以达到100us，这种方式虽然会增加一些系统开销，但在强周期性环境下，对定时器的设置只需初始化一次，在一定程度上保证了处理效率;二是通过对可编程中断定时器8254或先进的可编程中断控制器进行编程来改进Linux时钟机制，以提高其时钟的分辨率，使毫秒级的粗粒度定时器变成微秒级的细粒度定时器。</p>
+
+<h4 id="section-1">2.2 核心态不可抢占</h4>
+
+<p>当一个任务通过系统调用进入内核态运行时,一个具有更高优先级的进程，只有等待处于核心态的系统调用返回后方能执行，这将导致优先级逆转。实时任务执行时间的不确定性，显然不能满足硬实时应用的要求。改善核心态的可抢占性，有两个主要的方向：中断管理的改进和互斥锁设计的改进（《改善Linux核心可抢占性方法的研究与实现》一文中提出，尚未理解）。还有一种方法是采用双内核，一个实时内核，一个普通内核。所有实时任务都由实时内核处理，普通内核作为最低级别的任务运行在实时内核上。</p>
+
+<h4 id="section-2">2.3 内存缺页异常</h4>
+
+<p>Linux采用虚拟内存管理技术进行内存管理，系统将最近未使用的代码和数据置换出内存，当需要时再从硬盘导入内存。这导致进程所需页面可能被置换出内存而不能及时响应，造成系统响应时间的不确定性。一种解决方案是预先分配内存，为每个实时任务分配固定的内存区域。另一种方案是在原有虚拟内存管理的基础上加上页面锁功能，将实时任务的页面加锁，这样就不会把实时任务的页面换出内存，提高实时任务的响应速度。</p>
+
+<h4 id="section-3">2.4 调度策略</h4>
+
+<p>Linux根据调度策略从整体上区分实时进程和普通进程，提供了三种条度方法。对于普通进程采用动态优先调度方法，根据剩余的时间片进行调整。对于实时进程采用FIFO（先来先服务）和RR（时间片轮转）调度，但这只能满足软实时任务的需要。当一个进程的一个时间片没有用完之前另一个即便是优先级高的进程也得不到响应。</p>
+
+<p>为了严格保证硬实时任务的时限要求，改善的Linux内核实时调度器采用了优先级调度算法，目前最小松弛时间优先调度算法MLF(Minimum- Laxity-First Scheduling Algorithm)是动态优先级调度最常见的实时调度策略。它在系统中为每一个任务设定松弛时间(任务的松弛时间等于任务的截止期减去任务执行时间、当前时间)即:laxity=deadline―current_time―CPU_time_needed，系统优先执行具有最小松弛时间的任务。根据就绪队列的各任务的松弛时间来 分配优先级，松弛时间最小的任务具有最高的优先级。为了提高Linux的实时性，我们设计了MLF调度器，并把它作为可加载模块加入Linux内核中，在 实现中需对内核进行相应的修改。为了区分任务的类型，对基本Linux的task_struct属性进行改进，在其中增加SCHED_MLF调度策略，并 按task_struct中的policy的取值来进行区分, 分别用SCHED_MLF，SCHED_RR，SCHED_OTHER来标识硬实时、软实时、非实时任务。将处于运行状态的三类任务放入两个队列，硬实时 任务放入hard_real_queue队列, 采用MLF调度算法，软实时和非实时任务放入non_real_queue队列(空闲任务也在其中)，沿用原内核的RR调度算法。这两个队列可以用一个 run_queue[2]的指针数组来指向。</p>
+
+<p>双队列任务运行过程与原内核的单运行队列执行流程的主要区别在：首先，各硬实时任务采用了MLF调度算法代替原内核的FIFO调度，提高了 Linux系统的实时性能。其次，在判断是否有软中断需要处理之前需判断硬实时任务队列是否为空，如果不为空，即使存在中断的后半部分需要处理,也要先调 度硬实时任务投入运行，在硬实时队列为空的条件下才去处理中断的后半部分(因为中断的后半部分没有硬实时任务紧急)。最后，如果没有硬实时任务存在，则说 明只有run_queue [1]队列中有软实时或非实时任务存在，这时的处理方法和原内核对单运行队列的处理方法相同。这样改进后，可以明显提高硬实时任务的调度效率，而在没有硬 实时任务时，系统性能没有变化。</p>
+
+<h4 id="section-4">2.5 中断处理</h4>
+
+<p>Linux操作系统的外部中断大多是开启的，中断处理通常由设备驱动程序完成，系统将中断处理程序的优先级设定为高于任何用户进程。这种中断处理机制主要是基于通用操作系统的用户进程一般没有实时性要求，而中断处理程序与硬件设备直接交互，具有一定的实时性要求 。对于实时操作系统，用户进程都有实时性要求，设定中断处理程序优先级高于任何用户进程将不能满足实时性要求。另一方面对于发生频率不可预测的外部中断，用户程序被中断处理程序阻塞的时间开销也不可预测，从而影响了整个系统的可预测性。一种改进方法是采用中断软件模拟：当一个硬件中断发生时，系统只是简单的在事件表中报告这一事件的发生，然后立即将对CPU的使用权交给系统，而不是像一般的Linux系统那样去查找中断向量表并执行相应的中断服务程序。用中断的软件模拟相应的硬件处理，用软件的方法来检查每个中断时间的优先级，决定哪一个进程获得CPU使用权。</p>
+
+
+        </div>
+
+        <div class="read-more"><a class="post_title" href="/rt-linux/2013/06/11/%E5%BD%B1%E5%93%8Dlinux%E9%80%82%E6%97%B6%E6%80%A7%E7%9A%84%E5%9B%A0%E7%B4%A0%E4%BB%A5%E5%8F%8A%E7%9B%B8%E5%BA%94%E7%9A%84%E6%94%B9%E8%BF%9B%E6%96%B9%E6%B3%95">
+        Read More&gt;&gt;</a></div>
+	
+	<br />
+        <div class="arrow-time">
+            <cite>11 June 2013</cite>
+        </div>
+
+    </div>
+
+
+
 </div>
 
+      </div>
+      
+      <script type="text/javascript" src="/assets/themes/twitter/js/jquery-1.7.2.min.js"></script>
+      <script type="text/javascript" src="/assets/themes/twitter/js/prettify.js"></script>
+      <!--code highlight-->
+      <script type="text/javascript">
+$(function() {
+    $("pre").addClass("prettyprint");
+    prettyPrint();
+});
+</script>
+
+      <span id="totop">
+          <a href="javascript:void(0)"></a>
+      </span>
+      <!--return to top with jquery-->
+<script type="text/javascript">
+$(function () {
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+            $('#totop a').fadeIn();
+        } else {
+            $('#totop a').fadeOut();
+        }
+    });
+
+    // scroll body to 0px on click
+    $('#totop a').click(function () {
+        $('body,html').animate({
+            scrollTop: 0
+        }, 800);
+        return false;
+    });
+});
+</script>
+
+      <div style="display: none">
+      
 
       </div>
 
       <footer>
-        <p>&copy; Chen Jie 2012 
+        <p>&copy;  2013 
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
         </p>
       </footer>
 
     </div> <!-- /container -->
-
-    
   </body>
 </html>
 

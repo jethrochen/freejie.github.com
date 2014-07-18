@@ -3,19 +3,20 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>最大子数组问题</title>
+    <title>最大子数组和问题的几种解法</title>
     
-    <meta name="author" content="Chen Jie">
+    <meta name="author" content="">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
+      <style type="text/css">#totop a {right: 30px;}</style>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="/assets/themes/twitter/css/friendly.css" rel="stylesheet" type="text/css">
     <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
     <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" href="/assets/themes/twitter/css/prettify.css">
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -24,6 +25,11 @@
     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
   -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
   </head>
 
   <body>
@@ -31,69 +37,23 @@
     <div class="topbar">
       <div class="fill">
         <div class="container">
-          <a class="brand" href="/">Chen Jie</a>
+          <a class="brand" href="/">Chen Jie's Blog</a>
           <ul class="nav">
-            
-            
-            
-
-
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/archive.html">Archive</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/categories.html">Categories</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/pages.html">Pages</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/tags.html">Tags</a></li>
-      	
-      
-    
-  
-
-
-
+              <li>
+              <a href="/archive.html">Archive</a>
+              </li>
+              <li>
+                <a href="/categories.html">Category</a>
+              </li>
+              <li>
+                <a href="/tags.html">Tags</a>
+              </li>
+              <li>
+                <a href="/about.html">About</a>
+              </li>
+              <li>
+                <a href="/rss.xml">RSS</a>
+              </li>
           </ul>
         </div>
       </div>
@@ -104,12 +64,13 @@
       <div class="content">
         
 <div class="page-header">
-  <h1>最大子数组问题 <small>Supporting tagline</small></h1>
+    <h1>最大子数组和问题的几种解法 <small></small></h1>
 </div>
 
 <div class="row">
   <div class="span10">
-    <p><strong>最大子数组</strong>是一道经典的面试题目，面试中遇到的概率比较大，正好在算法导论中有讨论，在这里做个总结。    </p>
+    
+<p><strong>最大子数组</strong>是一道经典的面试题目，面试中遇到的概率比较大，正好在算法导论中有讨论，在这里做个总结。    </p>
 
 <p><strong>问题描述：</strong>在给定的一个数组中，找到一个连续的子数组，使其和最大。就拿算法导论中的例子，给定数组为A[16]={13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7}。</p>
 
@@ -118,44 +79,45 @@
 <h4 id="section">1.最简单粗暴的方法——穷举。</h4>
 <p>列举出所有可能的连续组合，分别求出其和。这种方法但凡学过数学的都能想到且解决，其时间复杂度为<script type="math/tex">\Theta(n^2)</script>。这里就不讨论这种方法了，只给出程序用于验证以下方法的结果。    </p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;stdio.h&gt;</span>
-<span class="cp">#include &lt;limits.h&gt;</span>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;limits.h&gt;
 
-<span class="kt">void</span> <span class="nf">getMaxSubarray</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">low</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">high</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">maxsum</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">sum</span><span class="p">;</span>
+void getMaxSubarray(int a[], int len, int *low, int *high, int *maxsum)
+{
+    int i, j;
+    int sum;
     
-    <span class="o">*</span><span class="n">maxsum</span> <span class="o">=</span> <span class="n">INT_MIN</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">sum</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">maxsum</span> <span class="o">&lt;</span> <span class="n">sum</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="o">*</span><span class="n">maxsum</span> <span class="o">=</span> <span class="n">sum</span><span class="p">;</span>
-                <span class="o">*</span><span class="n">low</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> 
-                <span class="o">*</span><span class="n">high</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+    *maxsum = INT_MIN;
+    for (i = 0; i &lt; len; ++i)
+    {
+        sum = 0;
+        for (j = i; j &lt; len; ++j)
+        {
+            sum += a[j];
+            if (*maxsum &lt; sum)
+            {
+                *maxsum = sum;
+                *low = i; 
+                *high = j;
+            }
+        }
+    }
+}
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">13</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">16</span><span class="p">,</span><span class="o">-</span><span class="mi">23</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">22</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">};</span>
-    <span class="kt">int</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">maxsum</span><span class="p">;</span>
+int main(void)
+{
+    int a[16] = {13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7};
+    int low, high, maxsum;
 
-    <span class="n">getMaxSubarray</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">low</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">high</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">maxsum</span><span class="p">);</span>
+    getMaxSubarray(a, 16, &amp;low, &amp;high, &amp;maxsum);
 
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;the sum of maximum-subarray is %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">maxsum</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;the index word of maximum-subarray is from %d to %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-            <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">);</span>
+    printf("the sum of maximum-subarray is %d\n", maxsum);
+    printf("the index word of maximum-subarray is from %d to %d\n",
+            low, high);
 
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+    return 0;
+}
+</code></pre>
 
 <h4 id="section-1">2.分治策略求解</h4>
 <p><strong>分解：</strong>假设A[low…high]是A[p…r]的最大子数组。容易理解，对于数组A[p…q]和A[q+1…r]，A[low…high]必然且仅符合下列情况之一：    </p>
@@ -170,152 +132,156 @@
 A[p…q]和A[q+1…r]可继续分解，所以只需要解决情况三即可。  <br />
 在上述情况三中，A[low…high]可以分为两部分：A[low…q]和A[q+1…high]。而A[low…q]是以q为右边界的和最大的子数组，A[q+1…high]是以q+1为左边界的和最大的子数组。分别求出这两部分，得到low和high的值就OK了。伪代码如下：    </p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">FIND</span><span class="o">-</span><span class="n">MAX</span><span class="o">-</span><span class="n">CROSSING</span><span class="o">-</span><span class="n">SUBARRAY</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
-    <span class="n">leftsum</span> <span class="o">=</span> <span class="n">MIN_INT</span>
-    <span class="n">temp</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="n">q</span> <span class="n">downto</span> <span class="n">p</span>
-        <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span> <span class="o">+</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">temp</span> <span class="o">&gt;</span> <span class="n">leftsum</span>
-            <span class="n">leftsum</span> <span class="o">=</span> <span class="n">temp</span>
-            <span class="n">low</span> <span class="o">=</span> <span class="n">i</span>
-    <span class="n">rightsum</span> <span class="o">=</span> <span class="n">MIN_INT</span>
-    <span class="n">temp</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="o">=</span> <span class="n">q</span><span class="o">+</span><span class="mi">1</span> <span class="n">to</span> <span class="n">r</span>
-        <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span> <span class="o">+</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">temp</span> <span class="o">&gt;</span> <span class="n">rightsum</span>
-            <span class="n">rightsum</span> <span class="o">=</span> <span class="n">temp</span>
-            <span class="n">high</span> <span class="o">=</span> <span class="n">j</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">leftsum</span><span class="o">+</span><span class="n">rightsum</span><span class="p">)</span></code></pre></div>
+<pre><code>FIND-MAX-CROSSING-SUBARRAY(A,p,q,r)
+    leftsum = MIN_INT
+    temp = 0
+    for i = q downto p
+        temp = temp + A[i]
+        if temp &gt; leftsum
+            leftsum = temp
+            low = i
+    rightsum = MIN_INT
+    temp = 0
+    for j = q+1 to r
+        temp = temp + A[j]
+        if temp &gt; rightsum
+            rightsum = temp
+            high = j
+    return (low, high, leftsum+rightsum)
+</code></pre>
 
 <p><strong>合并：</strong>  <br />
 先分别递归求出A[low…(high+low)/2]、A[(high+low)/2+1…high]以及两者交叉部分的最大子数组的和left-sum、right-sum、cross-sum，然后比较得出三者最大的，对应的最大子数组就是所要求的最大字数组。伪代码如下：</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">FIND</span><span class="o">-</span><span class="n">MAXIMUM</span><span class="o">-</span><span class="n">SUBARRAY</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">low</span><span class="p">,</span><span class="n">high</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">high</span> <span class="o">==</span> <span class="n">low</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">A</span><span class="p">[</span><span class="n">low</span><span class="p">])</span>
-    <span class="k">else</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">low</span><span class="o">+</span><span class="n">high</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
-        <span class="p">(</span><span class="n">left</span><span class="o">-</span><span class="n">low</span><span class="p">,</span> <span class="n">left</span><span class="o">-</span><span class="n">high</span><span class="p">,</span> <span class="n">left</span><span class="o">-</span><span class="n">sum</span><span class="p">)</span> <span class="o">=</span> <span class="n">FIND</span><span class="o">-</span><span class="n">MAXIMUM</span><span class="o">-</span><span class="n">SUBARRAY</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">low</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
-        <span class="p">(</span><span class="n">right</span><span class="o">-</span><span class="n">low</span><span class="p">,</span> <span class="n">right</span><span class="o">-</span><span class="n">high</span><span class="p">,</span> <span class="n">right</span><span class="o">-</span><span class="n">sum</span><span class="p">)</span> <span class="o">=</span> <span class="n">FIND</span><span class="o">-</span><span class="n">MAXIMUM</span><span class="o">-</span><span class="n">SUBARRAY</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">high</span><span class="p">)</span>
-        <span class="p">(</span><span class="n">cross</span><span class="o">-</span><span class="n">low</span><span class="p">,</span> <span class="n">cross</span><span class="o">-</span><span class="n">high</span><span class="p">,</span> <span class="n">cross</span><span class="o">-</span><span class="n">sum</span><span class="p">)</span> <span class="o">=</span> <span class="n">FIND</span><span class="o">-</span><span class="n">MAX</span><span class="o">-</span><span class="n">CROSSING</span><span class="o">-</span><span class="n">SUBARRAY</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">low</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">left</span><span class="o">-</span><span class="n">sum</span> <span class="o">&gt;=</span> <span class="n">right</span><span class="o">-</span><span class="n">sum</span> <span class="o">&amp;&amp;</span> <span class="n">left</span><span class="o">-</span><span class="n">sum</span> <span class="o">&gt;=</span> <span class="n">cross</span><span class="o">-</span><span class="n">sum</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">left</span><span class="o">-</span><span class="n">low</span><span class="p">,</span> <span class="n">left</span><span class="o">-</span><span class="n">high</span><span class="p">,</span> <span class="n">left</span><span class="o">-</span><span class="n">sum</span><span class="p">)</span>
-    <span class="n">esleif</span> <span class="n">right</span><span class="o">-</span><span class="n">sum</span> <span class="o">&gt;=</span> <span class="n">left</span><span class="o">-</span><span class="n">sum</span> <span class="o">&amp;&amp;</span> <span class="n">right</span><span class="o">-</span><span class="n">sum</span> <span class="o">&gt;=</span> <span class="n">cross</span><span class="o">-</span><span class="n">sum</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">right</span><span class="o">-</span><span class="n">low</span><span class="p">,</span> <span class="n">right</span><span class="o">-</span><span class="n">high</span><span class="p">,</span> <span class="n">right</span><span class="o">-</span><span class="n">sum</span><span class="p">)</span>
-    <span class="k">else</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">cross</span><span class="o">-</span><span class="n">low</span><span class="p">,</span> <span class="n">cross</span><span class="o">-</span><span class="n">high</span><span class="p">,</span> <span class="n">cross</span><span class="o">-</span><span class="n">sum</span><span class="p">)</span></code></pre></div>
+<pre><code>FIND-MAXIMUM-SUBARRAY(A,low,high)
+    if high == low
+        return (low, high, A[low])
+    else mid = (low+high)/2
+        (left-low, left-high, left-sum) = FIND-MAXIMUM-SUBARRAY(A,low, mid)
+        (right-low, right-high, right-sum) = FIND-MAXIMUM-SUBARRAY(A,mid+1,high)
+        (cross-low, cross-high, cross-sum) = FIND-MAX-CROSSING-SUBARRAY(A,low, mid, high)
+    if left-sum &gt;= right-sum &amp;&amp; left-sum &gt;= cross-sum
+        return (left-low, left-high, left-sum)
+    esleif right-sum &gt;= left-sum &amp;&amp; right-sum &gt;= cross-sum
+        return (right-low, right-high, right-sum)
+    else
+        return (cross-low, cross-high, cross-sum)
+</code></pre>
 
 <p>C语言实现代码如下：</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;stdio.h&gt;</span>
-<span class="cp">#include &lt;stdlib.h&gt;</span>
-<span class="cp">#include &lt;limits.h&gt;</span>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;limits.h&gt;
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="n">KeyNum</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">low</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">high</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">maxsum</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">KeyNum</span><span class="p">;</span>
+typedef struct KeyNum {
+    int low;
+    int high;
+    int maxsum;
+} KeyNum;
 
-<span class="kt">void</span> <span class="nf">findCrossMaxSubarray</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">,</span> <span class="kt">int</span> <span class="n">mid</span><span class="p">,</span> <span class="n">KeyNum</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">leftsum</span> <span class="o">=</span> <span class="n">INT_MIN</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">rightsum</span> <span class="o">=</span> <span class="n">INT_MIN</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+void findCrossMaxSubarray(int array[], int left, int right, int mid, KeyNum *key)
+{
+    int leftsum = INT_MIN;
+    int rightsum = INT_MIN;
+    int i, j;
+    int temp = 0;
 
-    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">left</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">temp</span> <span class="o">+=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">leftsum</span> <span class="o">&lt;</span> <span class="n">temp</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">leftsum</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
-            <span class="n">key</span><span class="o">-&gt;</span><span class="n">low</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="n">temp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">temp</span> <span class="o">+=</span> <span class="n">array</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">rightsum</span> <span class="o">&lt;</span> <span class="n">temp</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">rightsum</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
-            <span class="n">key</span><span class="o">-&gt;</span><span class="n">high</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="n">key</span><span class="o">-&gt;</span><span class="n">maxsum</span> <span class="o">=</span> <span class="n">leftsum</span> <span class="o">+</span> <span class="n">rightsum</span><span class="p">;</span>
+    for (i = mid; i &gt;= left; i--)
+    {
+        temp += array[i];
+        if (leftsum &lt; temp)
+        {
+            leftsum = temp;
+            key-&gt;low = i;
+        }
+    }
+    temp = 0;
+    for (j = mid + 1; j &lt;= right; j++)
+    {
+        temp += array[j];
+        if (rightsum &lt; temp)
+        {
+            rightsum = temp;
+            key-&gt;high = j;
+        }
+    }
+    key-&gt;maxsum = leftsum + rightsum;
 
-<span class="p">}</span>
+}
 
-<span class="n">KeyNum</span> <span class="nf">findMaximumSubarray</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">mid</span><span class="p">;</span>
-    <span class="n">KeyNum</span> <span class="n">leftkey</span><span class="p">,</span> <span class="n">rightkey</span><span class="p">,</span> <span class="n">crosskey</span><span class="p">;</span>
+KeyNum findMaximumSubarray(int array[], int left, int right)
+{
+    int mid;
+    KeyNum leftkey, rightkey, crosskey;
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">left</span> <span class="o">&gt;=</span> <span class="n">right</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">leftkey</span><span class="p">.</span><span class="n">low</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
-        <span class="n">leftkey</span><span class="p">.</span><span class="n">high</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
-        <span class="n">leftkey</span><span class="p">.</span><span class="n">maxsum</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">left</span><span class="p">];</span>
-        <span class="k">return</span> <span class="n">leftkey</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="n">leftkey</span> <span class="o">=</span> <span class="n">findMaximumSubarray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">mid</span><span class="p">);</span>
-    <span class="n">rightkey</span> <span class="o">=</span> <span class="n">findMaximumSubarray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
-    <span class="n">findCrossMaxSubarray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">crosskey</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">leftkey</span><span class="p">.</span><span class="n">maxsum</span> <span class="o">&gt;</span><span class="n">rightkey</span><span class="p">.</span><span class="n">maxsum</span> <span class="o">&amp;&amp;</span> <span class="n">leftkey</span><span class="p">.</span><span class="n">maxsum</span> <span class="o">&gt;</span> <span class="n">crosskey</span><span class="p">.</span><span class="n">maxsum</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">leftkey</span><span class="p">;</span>
-    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rightkey</span><span class="p">.</span><span class="n">maxsum</span> <span class="o">&gt;</span> <span class="n">leftkey</span><span class="p">.</span><span class="n">maxsum</span> <span class="o">&amp;&amp;</span> <span class="n">rightkey</span><span class="p">.</span><span class="n">maxsum</span> <span class="o">&gt;</span> <span class="n">crosskey</span><span class="p">.</span><span class="n">maxsum</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">rightkey</span><span class="p">;</span>
-    <span class="k">else</span>
-        <span class="k">return</span> <span class="n">crosskey</span><span class="p">;</span>
-<span class="p">}</span>
+    if (left &gt;= right)
+    {
+        leftkey.low = left;
+        leftkey.high = left;
+        leftkey.maxsum = array[left];
+        return leftkey;
+    }
+    mid = (left + right) / 2;
+    leftkey = findMaximumSubarray(array, left, mid);
+    rightkey = findMaximumSubarray(array, mid+1, right);
+    findCrossMaxSubarray(array, left, right, mid, &amp;crosskey);
+    if (leftkey.maxsum &gt;rightkey.maxsum &amp;&amp; leftkey.maxsum &gt; crosskey.maxsum)
+        return leftkey;
+    else if (rightkey.maxsum &gt; leftkey.maxsum &amp;&amp; rightkey.maxsum &gt; crosskey.maxsum)
+        return rightkey;
+    else
+        return crosskey;
+}
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">13</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">16</span><span class="p">,</span><span class="o">-</span><span class="mi">23</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">22</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">};</span>
-    <span class="n">KeyNum</span> <span class="n">key</span><span class="p">;</span>
+int main(void)
+{
+    int a[16] = {13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7};
+    KeyNum key;
 
-    <span class="n">key</span><span class="p">.</span><span class="n">low</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">key</span><span class="p">.</span><span class="n">high</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">key</span><span class="p">.</span><span class="n">maxsum</span> <span class="o">=</span> <span class="n">INT_MIN</span><span class="p">;</span>
+    key.low = 0;
+    key.high = 0;
+    key.maxsum = INT_MIN;
 
-    <span class="n">key</span> <span class="o">=</span> <span class="n">findMaximumSubarray</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">);</span>
+    key = findMaximumSubarray(a, 0, 15);
 
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;the sum of maximum-subarray is %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">.</span><span class="n">maxsum</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;the index word of maximum-subarray is from %d to %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-            <span class="n">key</span><span class="p">.</span><span class="n">low</span><span class="p">,</span> <span class="n">key</span><span class="p">.</span><span class="n">high</span><span class="p">);</span>
+    printf("the sum of maximum-subarray is %d\n", key.maxsum);
+    printf("the index word of maximum-subarray is from %d to %d\n",
+            key.low, key.high);
 
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+    return 0;
+}
+</code></pre>
 
 <h4 id="thetan">3.还有一种更精妙的方法，算法复杂度竟然达到了<script type="math/tex">\Theta(n)</script></h4>
 <p>先看代码吧，过把眼瘾。  </p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">getMaxSubarray</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">sum</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">low</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">high</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">temp</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<pre><code>int getMaxSubarray(int array[], int len, int *sum, int *low, int *high)
+{
+    int temp;
+    int i;
 
-    <span class="n">temp</span> <span class="o">=</span> <span class="o">*</span><span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="o">*</span><span class="n">low</span> <span class="o">=</span> <span class="o">*</span><span class="n">high</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">temp</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">temp</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-            <span class="o">*</span><span class="n">low</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">else</span> 
-        <span class="p">{</span>
-            <span class="n">temp</span> <span class="o">+=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-            <span class="o">*</span><span class="n">high</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">sum</span> <span class="o">&lt;</span> <span class="n">temp</span><span class="p">)</span>
-            <span class="o">*</span><span class="n">sum</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
-    <span class="p">}</span>
+    temp = *sum = 0;
+    *low = *high = 0;
+    for (i = 0; i &lt; len; i++)
+    {
+        if (temp &lt; 0)
+        {
+            temp = array[i];
+            *low = i;
+        }
+        else 
+        {
+            temp += array[i];
+            *high = i;
+        }
+        if (*sum &lt; temp)
+            *sum = temp;
+    }
 
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+    return 0;
+}
+</code></pre>
 
 
     <hr>
@@ -324,7 +290,7 @@ A[p…q]和A[q+1…r]可继续分解，所以只需要解决情况三即可。  
       
         <li class="prev"><a href="/algorithms/2013/09/08/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E4%B9%8B%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95" title="最大公约数之辗转相除法">&larr; Previous</a></li>
       
-        <li><a href="/archive.html">Archive</a></li>
+        <li><a href="">Archive</a></li>
       
         <li class="next"><a href="/algorithms/2013/11/04/%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF%E9%97%AE%E9%A2%98" title="约瑟夫环问题">Next &rarr;</a></li>
       
@@ -332,25 +298,6 @@ A[p…q]和A[q+1…r]可继续分解，所以只需要解决情况三即可。  
     </div>
     <hr>
     
-
-
-  <div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_developer = 1;
-    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
-    
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
 
   </div>
   
@@ -367,9 +314,9 @@ A[p…q]和A[q+1…r]可继续分解，所以只需要解决情况三即可。  
 
   
      
-    	<li><a href="/tags.html#algorithms-ref">algorithms <span>2</span></a></li>
+    	<li><a href="#algorithms-ref">algorithms <span>2</span></a></li>
      
-    	<li><a href="/tags.html#最大字数组和-ref">最大字数组和 <span>1</span></a></li>
+    	<li><a href="#最大字数组和-ref">最大字数组和 <span>1</span></a></li>
     
   
 
@@ -382,17 +329,54 @@ A[p…q]和A[q+1…r]可继续分解，所以只需要解决情况三即可。  
 
 
       </div>
+      
+      <script type="text/javascript" src="/assets/themes/twitter/js/jquery-1.7.2.min.js"></script>
+      <script type="text/javascript" src="/assets/themes/twitter/js/prettify.js"></script>
+      <!--code highlight-->
+      <script type="text/javascript">
+$(function() {
+    $("pre").addClass("prettyprint");
+    prettyPrint();
+});
+</script>
+
+      <span id="totop">
+          <a href="javascript:void(0)"></a>
+      </span>
+      <!--return to top with jquery-->
+<script type="text/javascript">
+$(function () {
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+            $('#totop a').fadeIn();
+        } else {
+            $('#totop a').fadeOut();
+        }
+    });
+
+    // scroll body to 0px on click
+    $('#totop a').click(function () {
+        $('body,html').animate({
+            scrollTop: 0
+        }, 800);
+        return false;
+    });
+});
+</script>
+
+      <div style="display: none">
+      
+
+      </div>
 
       <footer>
-        <p>&copy; Chen Jie 2012 
+        <p>&copy;  2013 
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
         </p>
       </footer>
 
     </div> <!-- /container -->
-
-    
   </body>
 </html>
 
