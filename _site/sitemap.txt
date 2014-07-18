@@ -1,14 +1,9 @@
 
-http://freecoder.info/wiki/1.html
-http://freecoder.info/wiki/2.html
-http://freecoder.info/wiki/3.html
-http://freecoder.info/wiki/4.html
 http://freecoder.info/404.html
 http://freecoder.info/about.html
 http://freecoder.info/archive.html
 http://freecoder.info/atom.xml
 http://freecoder.info/categories.html
-http://freecoder.info/wiki/index.html
 http://freecoder.info/index.html
 http://freecoder.info/pages.html
 http://freecoder.info/rss.xml
