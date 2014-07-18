@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>最大公约数之辗转相除法</title>
+    
+    <meta name="author" content="Chen Jie">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Chen Jie</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>最大公约数之辗转相除法 <small>Supporting tagline</small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <p>求两个数的最大公约数，最常用的方法就是辗转相除法，具体过程如下：  <br />
+问题：求30和18的最大公约数<br />
+步骤：<br />
+30 = 18 * 1 + 12<br />
+18 = 12 * 1 +6<br />
+12 = 6 * 2 + 0<br />
+到此，余数为0，最后的除数就是要求的最大公约数。<br />
+整理成数学语言：
+问题：求A和B的最大公约数（假设A&gt;B）：<br />
+步骤：<br />
+A = B * Qn + Rn<br />
+B = Rn * Qn-1 + Rn-1<br />
+Rn = Rn-1 * Qn-2 +Rn-2<br />
+…………… …………<br />
+R3 = R2 * Q1 + R1<br />
+R2 = R1 * Q0 + R0<br />
+依此步骤，直到R0为0为止，此时的Q1即为要求的最大公约数。<br />
+证明：(稍后补充)    </p>
+
+<p>C语言实现：  </p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="lineno"> 1</span> <span class="kt">int</span> <span class="nf">getgcd</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+<span class="lineno"> 2</span> <span class="p">{</span>
+<span class="lineno"> 3</span>     <span class="kt">int</span> <span class="n">rem</span><span class="p">;</span>
+<span class="lineno"> 4</span>     <span class="kt">int</span> <span class="n">div</span><span class="p">;</span>
+<span class="lineno"> 5</span>     <span class="kt">int</span> <span class="n">temp</span><span class="p">;</span>
+<span class="lineno"> 6</span>     <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span> <span class="o">&amp;&amp;</span> <span class="n">a</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="lineno"> 7</span>         <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+<span class="lineno"> 8</span>     <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span>
+<span class="lineno"> 9</span>     <span class="p">{</span>
+<span class="lineno">10</span>         <span class="n">rem</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="lineno">11</span>         <span class="n">div</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+<span class="lineno">12</span>     <span class="p">}</span> <span class="k">else</span>
+<span class="lineno">13</span>     <span class="p">{</span>
+<span class="lineno">14</span>         <span class="n">rem</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+<span class="lineno">15</span>         <span class="n">div</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="lineno">16</span>     <span class="p">}</span>
+<span class="lineno">17</span>     <span class="k">while</span><span class="p">(</span><span class="n">div</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="lineno">18</span>     <span class="p">{</span>
+<span class="lineno">19</span>         <span class="n">temp</span> <span class="o">=</span> <span class="n">div</span><span class="p">;</span>
+<span class="lineno">20</span>         <span class="n">div</span> <span class="o">=</span> <span class="n">rem</span> <span class="o">%</span> <span class="n">div</span><span class="p">;</span>
+<span class="lineno">21</span>         <span class="n">rem</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="lineno">22</span>     <span class="p">}</span>
+<span class="lineno">23</span>     <span class="k">return</span> <span class="n">rem</span><span class="p">;</span>
+<span class="lineno">24</span> <span class="p">}</span></code></pre></div>
+
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/2013/07/16/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%9D%A1%E4%BB%B6%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4" title="C语言中条件预处理指令">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/algorithms/2013/10/17/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98" title="最大子数组问题">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>08 September 2013</span></div>
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="/tags.html#algorithms-ref">algorithms <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#最大公约数，辗转相除-ref">最大公约数，辗转相除 <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Chen Jie 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+
