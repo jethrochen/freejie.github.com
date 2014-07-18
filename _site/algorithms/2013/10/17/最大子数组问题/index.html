@@ -13,6 +13,7 @@
     <![endif]-->
 
     <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/friendly.css" rel="stylesheet" type="text/css">
     <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
     <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
 
@@ -117,45 +118,44 @@
 <h4 id="section">1.最简单粗暴的方法——穷举。</h4>
 <p>列举出所有可能的连续组合，分别求出其和。这种方法但凡学过数学的都能想到且解决，其时间复杂度为<script type="math/tex">\Theta(n^2)</script>。这里就不讨论这种方法了，只给出程序用于验证以下方法的结果。    </p>
 
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;limits.h&gt;
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;limits.h&gt;</span>
 
-void getMaxSubarray(int a[], int len, int *low, int *high, int *maxsum)
-{
-    int i, j;
-    int sum;
+<span class="kt">void</span> <span class="nf">getMaxSubarray</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">low</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">high</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">maxsum</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">sum</span><span class="p">;</span>
     
-    *maxsum = INT_MIN;
-    for (i = 0; i &lt; len; ++i)
-    {
-        sum = 0;
-        for (j = i; j &lt; len; ++j)
-        {
-            sum += a[j];
-            if (*maxsum &lt; sum)
-            {
-                *maxsum = sum;
-                *low = i; 
-                *high = j;
-            }
-        }
-    }
-}
+    <span class="o">*</span><span class="n">maxsum</span> <span class="o">=</span> <span class="n">INT_MIN</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">sum</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">maxsum</span> <span class="o">&lt;</span> <span class="n">sum</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="o">*</span><span class="n">maxsum</span> <span class="o">=</span> <span class="n">sum</span><span class="p">;</span>
+                <span class="o">*</span><span class="n">low</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> 
+                <span class="o">*</span><span class="n">high</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-int main(void)
-{
-    int a[16] = {13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7};
-    int low, high, maxsum;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">13</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">16</span><span class="p">,</span><span class="o">-</span><span class="mi">23</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">22</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">};</span>
+    <span class="kt">int</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">maxsum</span><span class="p">;</span>
 
-    getMaxSubarray(a, 16, &amp;low, &amp;high, &amp;maxsum);
+    <span class="n">getMaxSubarray</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">low</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">high</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">maxsum</span><span class="p">);</span>
 
-    printf("the sum of maximum-subarray is %d\n", maxsum);
-    printf("the index word of maximum-subarray is from %d to %d\n",
-            low, high);
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;the sum of maximum-subarray is %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">maxsum</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;the index word of maximum-subarray is from %d to %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+            <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">);</span>
 
-    return 0;
-}
-</code></pre>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
 
 <h4 id="section-1">2.分治策略求解</h4>
 <p><strong>分解：</strong>假设A[low…high]是A[p…r]的最大子数组。容易理解，对于数组A[p…q]和A[q+1…r]，A[low…high]必然且仅符合下列情况之一：    </p>
