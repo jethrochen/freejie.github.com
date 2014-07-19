@@ -28,8 +28,16 @@
     <script type="text/javascript"
         src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>
-
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+     var hm = document.createElement("script");
+     hm.src = "//hm.baidu.com/hm.js?fbed60a04b28a0680fb092dbcc2a19be";
+     var s = document.getElementsByTagName("script")[0]; 
+     s.parentNode.insertBefore(hm, s);
+     })();
     </script>
+
 
   </head>
 
@@ -74,9 +82,11 @@
           <a href="javascript:void(0)"></a>
       </span>
       {% include JB/totop %}
+      <!--
       <div style="display: none">
       {% include JB/analytics %}
       </div>
+      -->
 
       <footer>
         <p>&copy; {{ site.author.name }} 2013 

@@ -100,11 +100,11 @@ comments :
 # Set 'provider' to false to turn analytics off globally.
    
 analytics :
-    provider : baidu
-    baidu :
-        siteId : 3957072
-#   google : 
-#       tracking_id : 'UA-41622901-1'
+    provider : google
+#   baidu :
+#       siteId : 3957072
+    google : 
+        tracking_id : 'UA-41622901-1'
 #   getclicky :
 #       site_id : 
 #   mixpanel :
