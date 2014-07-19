@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>C程序存储空间布局</title>
+    
+    <meta name="author" content="">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <style type="text/css">#totop a {right: 30px;}</style>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" href="/assets/themes/twitter/css/prettify.css">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+    </script>
+
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Chen Jie's Blog</a>
+          <ul class="nav">
+              <li>
+              <a href="/archive.html">Archive</a>
+              </li>
+              <li>
+                <a href="/categories.html">Category</a>
+              </li>
+              <li>
+                <a href="/tags.html">Tags</a>
+              </li>
+              <li>
+                <a href="/about.html">About</a>
+              </li>
+              <li>
+                <a href="/rss.xml">RSS</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+    <h1>C程序存储空间布局 <small></small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    
+<p>C程序在虚拟内存中由代码段、初始化数据段、未初始化数据段、堆区、栈区这几部分组成。借用《Unix环境高级编程》中的图来说明。    </p>
+
+<p><img src="/others/pic/20140719.png" align="center" alt="C程序存储空间布局" /></p>
+
+<ul>
+  <li><strong>代码段</strong>存放程序编译后的机器指令，是只读且可共享的。  </li>
+  <li><strong>初始化数据段</strong>存放已被初始化的全局变量和静态变量。    </li>
+  <li><strong>未初始化数据段</strong>也称bbs段，存放未初始化的全局变量和静态变量，在程序执行之前这里的数据会被初始化为0或NULL。    </li>
+  <li><strong>堆区</strong>用于程序中的动态内存分配，如malloc分配的空间就位于堆区。堆区的数据需要手动释放或程序退出是系统来释放。    </li>
+  <li><strong>栈区</strong>存放函数的局部变量、参数、返回地址以及函数调用时所占用的寄存器信息，每调用一次函数就分配一个新的栈帧，因此各个函数调用实例中的变量集不会相互影响。这里的数据会由编译器来释放。   </li>
+</ul>
+
+<p>对于static修饰的变量和函数，需要注意。局部变量被static修饰，即为局部静态变量，局部变量存储在栈区，而局部静态变量则存储在静态存储区（如果已被初始化即存储在初始化数据段，不然就存储在未初始化数据段）。局部静态变量在离开作用域后仍然存在，直到程序退出。无论局部变量所在的函数被调用多少次，该局部变量只被声明一次。全局静态变量的作用域是声明这个变量的文件。</p>
+
+<p>接下来结合代码详细说明。</p>
+
+<pre><code>//C程序存储空间布局
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int inited_data = 100;          //初始化数据段
+int uninited_data;              //未初始化数据段
+static int static_data;         //未初始化数据段
+
+void count(void)
+{
+    static int num = 1;         //初始化数据段
+    printf("\tthe %dth time\n", num);
+    printf("\tAddress of local static varible: %p\n", &amp;num);
+}
+int main(void)
+{
+    int local_data = 200;       //栈区
+    char *p;                    //堆区
+    
+    p = (char *)malloc(4);
+    printf("Text Location:\n");
+    printf("\tAddress of main(Code Segment):%p\n", main);
+    printf("____________________________________________\n");
+    printf("Data Location\n");
+    printf("\tAddress of inited global varible: %p\n", &amp;inited_data);
+    for (int i = 0; i &lt; 5; i++)
+    {
+        count();
+    }
+    printf("____________________________________________\n");
+    printf("BSS Location:\n");
+    printf("\tAddress of uninited global varible %p\tuninited_data = %d\n", &amp;uninited_data, uninited_data);
+    printf("\tAddress of uninited global static varible %p\tuninited_global_static= %d\n", &amp;static_data, static_data);
+    printf("____________________________________________\n");
+    printf("Heap Location:\n");
+    printf("\tAddress of dynamic pointer %p\n", p);
+    printf("____________________________________________\n");
+    printf("Stack Location:\n");
+    printf("\tAddress of local_data %p\n", &amp;local_data);
+    
+    return 0;
+}
+</code></pre>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/2014/07/17/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1" title="共享内存实现进程间通信">&larr; Previous</a></li>
+      
+        <li><a href="">Archive</a></li>
+      
+        <li class="next disabled"><a>Next &rarr;</a>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>19 July 2014</span></div>
+
+  
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    
+
+
+  
+     
+    	<li><a href="#Linux编程-ref">Linux编程 <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  </div>
+</div>
+
+
+      </div>
+      
+      <script type="text/javascript" src="/assets/themes/twitter/js/jquery-1.7.2.min.js"></script>
+      <script type="text/javascript" src="/assets/themes/twitter/js/prettify.js"></script>
+      <!--code highlight-->
+      <script type="text/javascript">
+$(function() {
+    $("pre").addClass("prettyprint");
+    prettyPrint();
+});
+</script>
+
+      <span id="totop">
+          <a href="javascript:void(0)"></a>
+      </span>
+      <!--return to top with jquery-->
+<script type="text/javascript">
+$(function () {
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+            $('#totop a').fadeIn();
+        } else {
+            $('#totop a').fadeOut();
+        }
+    });
+
+    // scroll body to 0px on click
+    $('#totop a').click(function () {
+        $('body,html').animate({
+            scrollTop: 0
+        }, 800);
+        return false;
+    });
+});
+</script>
+
+      <div style="display: none">
+      
+
+      </div>
+
+      <footer>
+        <p>&copy;  2013 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+
+  </body>
+</html>
+
