@@ -30,6 +30,8 @@
         src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>
 
+    </script>
+
   </head>
 
   <body>
@@ -64,6 +66,86 @@
       <div class="content">
         
 <div class="text-post posts">
+
+
+
+    <div class="posts-item">
+
+        <h1><a class="post_title" href="/linux%E7%BC%96%E7%A8%8B/2014/07/19/C%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E5%B8%83%E5%B1%80">C程序存储空间布局</a></h1>
+
+        <div class="caption rich-content">
+            
+<p>C程序在虚拟内存中由代码段、初始化数据段、未初始化数据段、堆区、栈区这几部分组成。借用《Unix环境高级编程》中的图来说明。    </p>
+
+<p><img src="/home/cj/pic/2014-07-19.png" align="center" alt="C程序存储空间布局" /></p>
+
+<ul>
+  <li><strong>代码段</strong>存放程序编译后的机器指令，是只读且可共享的。  </li>
+  <li><strong>初始化数据段</strong>存放已被初始化的全局变量和静态变量。    </li>
+  <li><strong>未初始化数据段</strong>也称bbs段，存放未初始化的全局变量和静态变量，在程序执行之前这里的数据会被初始化为0或NULL。    </li>
+  <li><strong>堆区</strong>用于程序中的动态内存分配，如malloc分配的空间就位于堆区。堆区的数据需要手动释放或程序退出是系统来释放。    </li>
+  <li><strong>栈区</strong>存放函数的局部变量、参数、返回地址以及函数调用时所占用的寄存器信息，每调用一次函数就分配一个新的栈帧，因此各个函数调用实例中的变量集不会相互影响。这里的数据会由编译器来释放。   </li>
+</ul>
+
+<p>对于static修饰的变量和函数，需要注意。局部变量被static修饰，即为局部静态变量，局部变量存储在栈区，而局部静态变量则存储在静态存储区（如果已被初始化即存储在初始化数据段，不然就存储在未初始化数据段）。局部静态变量在离开作用域后仍然存在，直到程序退出。无论局部变量所在的函数被调用多少次，该局部变量只被声明一次。全局静态变量的作用域是声明这个变量的文件。</p>
+
+<p>接下来结合代码详细说明。</p>
+
+<pre><code>//C程序存储空间布局
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int inited_data = 100;          //初始化数据段
+int uninited_data;              //未初始化数据段
+static int static_data;         //未初始化数据段
+
+void count(void)
+{
+    static int num = 1;         //初始化数据段
+    printf("\tthe %dth time\n", num);
+    printf("\tAddress of local static varible: %p\n", &amp;num);
+}
+int main(void)
+{
+    int local_data = 200;       //栈区
+    char *p;                    //堆区
+    
+    p = (char *)malloc(4);
+    printf("Text Location:\n");
+    printf("\tAddress of main(Code Segment):%p\n", main);
+    printf("____________________________________________\n");
+    printf("Data Location\n");
+    printf("\tAddress of inited global varible: %p\n", &amp;inited_data);
+    for (int i = 0; i &lt; 5; i++)
+    {
+        count();
+    }
+    printf("____________________________________________\n");
+    printf("BSS Location:\n");
+    printf("\tAddress of uninited global varible %p\tuninited_data = %d\n", &amp;uninited_data, uninited_data);
+    printf("\tAddress of uninited global static varible %p\tuninited_global_static= %d\n", &amp;static_data, static_data);
+    printf("____________________________________________\n");
+    printf("Heap Location:\n");
+    printf("\tAddress of dynamic pointer %p\n", p);
+    printf("____________________________________________\n");
+    printf("Stack Location:\n");
+    printf("\tAddress of local_data %p\n", &amp;local_data);
+    
+    return 0;
+}
+</code></pre>
+
+        </div>
+
+        <div class="read-more"><a class="post_title" href="/linux%E7%BC%96%E7%A8%8B/2014/07/19/C%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E5%B8%83%E5%B1%80">
+        Read More&gt;&gt;</a></div>
+	
+	<br />
+        <div class="arrow-time">
+            <cite>19 July 2014</cite>
+        </div>
+
+    </div>
 
 
 
@@ -750,6 +832,8 @@ $(function () {
       </footer>
 
     </div> <!-- /container -->
+
+
   </body>
 </html>
 

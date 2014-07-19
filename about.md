@@ -5,7 +5,7 @@ title: 关于我
 {% include JB/setup %}
 
 <div>
-<img src="/pic/img_05831.jpg" align="right" width="360" height="360">
+<img src="/others/pic/img_05831.jpg" align="right" width="360" height="360">
 </div>
 <br>
 

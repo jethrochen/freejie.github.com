@@ -4,13 +4,81 @@
  <title>Chen Jie's Blog</title>
  <link href="http://freecoder.info//atom.xml" rel="self"/>
  <link href="http://freecoder.info"/>
- <updated>2014-07-18T20:55:10+08:00</updated>
+ <updated>2014-07-19T23:15:27+08:00</updated>
  <id>http://freecoder.info</id>
  <author>
    <name></name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>C程序存储空间布局</title>
+   <link href="http://freecoder.info/linux%E7%BC%96%E7%A8%8B/2014/07/19/C%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E5%B8%83%E5%B1%80"/>
+   <updated>2014-07-19T00:00:00+08:00</updated>
+   <id>http://freecoder.info/linux%E7%BC%96%E7%A8%8B/2014/07/19/C程序的存储空间布局</id>
+   <content type="html">
+&lt;p&gt;C程序在虚拟内存中由代码段、初始化数据段、未初始化数据段、堆区、栈区这几部分组成。借用《Unix环境高级编程》中的图来说明。    &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/home/cj/pic/2014-07-19.png&quot; align=&quot;center&quot; alt=&quot;C程序存储空间布局&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;代码段&lt;/strong&gt;存放程序编译后的机器指令，是只读且可共享的。  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;初始化数据段&lt;/strong&gt;存放已被初始化的全局变量和静态变量。    &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;未初始化数据段&lt;/strong&gt;也称bbs段，存放未初始化的全局变量和静态变量，在程序执行之前这里的数据会被初始化为0或NULL。    &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;堆区&lt;/strong&gt;用于程序中的动态内存分配，如malloc分配的空间就位于堆区。堆区的数据需要手动释放或程序退出是系统来释放。    &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;栈区&lt;/strong&gt;存放函数的局部变量、参数、返回地址以及函数调用时所占用的寄存器信息，每调用一次函数就分配一个新的栈帧，因此各个函数调用实例中的变量集不会相互影响。这里的数据会由编译器来释放。   &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;对于static修饰的变量和函数，需要注意。局部变量被static修饰，即为局部静态变量，局部变量存储在栈区，而局部静态变量则存储在静态存储区（如果已被初始化即存储在初始化数据段，不然就存储在未初始化数据段）。局部静态变量在离开作用域后仍然存在，直到程序退出。无论局部变量所在的函数被调用多少次，该局部变量只被声明一次。全局静态变量的作用域是声明这个变量的文件。&lt;/p&gt;
+
+&lt;p&gt;接下来结合代码详细说明。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//C程序存储空间布局
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+
+int inited_data = 100;          //初始化数据段
+int uninited_data;              //未初始化数据段
+static int static_data;         //未初始化数据段
+
+void count(void)
+{
+    static int num = 1;         //初始化数据段
+    printf(&quot;\tthe %dth time\n&quot;, num);
+    printf(&quot;\tAddress of local static varible: %p\n&quot;, &amp;amp;num);
+}
+int main(void)
+{
+    int local_data = 200;       //栈区
+    char *p;                    //堆区
+    
+    p = (char *)malloc(4);
+    printf(&quot;Text Location:\n&quot;);
+    printf(&quot;\tAddress of main(Code Segment):%p\n&quot;, main);
+    printf(&quot;____________________________________________\n&quot;);
+    printf(&quot;Data Location\n&quot;);
+    printf(&quot;\tAddress of inited global varible: %p\n&quot;, &amp;amp;inited_data);
+    for (int i = 0; i &amp;lt; 5; i++)
+    {
+        count();
+    }
+    printf(&quot;____________________________________________\n&quot;);
+    printf(&quot;BSS Location:\n&quot;);
+    printf(&quot;\tAddress of uninited global varible %p\tuninited_data = %d\n&quot;, &amp;amp;uninited_data, uninited_data);
+    printf(&quot;\tAddress of uninited global static varible %p\tuninited_global_static= %d\n&quot;, &amp;amp;static_data, static_data);
+    printf(&quot;____________________________________________\n&quot;);
+    printf(&quot;Heap Location:\n&quot;);
+    printf(&quot;\tAddress of dynamic pointer %p\n&quot;, p);
+    printf(&quot;____________________________________________\n&quot;);
+    printf(&quot;Stack Location:\n&quot;);
+    printf(&quot;\tAddress of local_data %p\n&quot;, &amp;amp;local_data);
+    
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+ </entry>
  
  <entry>
    <title>共享内存实现进程间通信</title>
