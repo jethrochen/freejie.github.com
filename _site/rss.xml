@@ -5,8 +5,8 @@
         <description>Chen Jie's Blog - </description>
         <link>http://freecoder.info/rss.xml</link>
         <link>http://freecoder.info</link>
-        <lastBuildDate>2014-07-19T23:15:27+08:00</lastBuildDate>
-        <pubDate>2014-07-19T23:15:27+08:00</pubDate>
+        <lastBuildDate>2014-07-19T23:25:18+08:00</lastBuildDate>
+        <pubDate>2014-07-19T23:25:18+08:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -15,7 +15,7 @@
                 <description>
 &lt;p&gt;C程序在虚拟内存中由代码段、初始化数据段、未初始化数据段、堆区、栈区这几部分组成。借用《Unix环境高级编程》中的图来说明。    &lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/home/cj/pic/2014-07-19.png&quot; align=&quot;center&quot; alt=&quot;C程序存储空间布局&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/others/pic/20140719.png&quot; align=&quot;center&quot; alt=&quot;C程序存储空间布局&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;代码段&lt;/strong&gt;存放程序编译后的机器指令，是只读且可共享的。  &lt;/li&gt;
