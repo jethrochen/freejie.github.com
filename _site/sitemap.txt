@@ -10,6 +10,7 @@ http://freecoder.info/rss.xml
 http://freecoder.info/sitemap.txt
 http://freecoder.info/tags.html
 
+http://freecoder.info/linux%E7%BC%96%E7%A8%8B/linux%E5%86%85%E6%A0%B8/2014/08/10/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8
 http://freecoder.info/linux%E7%BC%96%E7%A8%8B/2014/07/19/C%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E5%B8%83%E5%B1%80
 http://freecoder.info/2014/07/17/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1
 http://freecoder.info/algorithms/2013/11/04/%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF%E9%97%AE%E9%A2%98

@@ -14,6 +14,10 @@ a {
 a:hover {
     color: #c00;
 }
+.content p {
+    line-height: 140%;
+    font-size: 16px;
+}
 /*Rewirte h1-h6 tag*/
 h1, h1 a, h2, h3, h4, h5, h6 {
     font-weight: 600;

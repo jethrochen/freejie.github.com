@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>C程序存储空间布局</title>
+    <title>自己动手编译Linux内核</title>
     
     <meta name="author" content="">
 
@@ -74,81 +74,65 @@
       <div class="content">
         
 <div class="page-header">
-    <h1>C程序存储空间布局 <small></small></h1>
+    <h1>自己动手编译Linux内核 <small></small></h1>
 </div>
 
 <div class="row">
   <div class="span10">
     
-<p>C程序在虚拟内存中由代码段、初始化数据段、未初始化数据段、堆区、栈区这几部分组成。借用《Unix环境高级编程》中的图来说明。    </p>
+<p>以前也尝试着编译过内核，但总是糊里糊涂地不了了之，没有真正完成并加载成功。这次要研究RT-Preempt这个实时patch，并加入了eudyptula内核学习小组作为第二个task，就认认真真地从内核的配置文件到最后的boot项，一步一步完成。颇有收获，在这也总结以下，以供参考。</p>
 
-<p><img src="/others/pic/20140719.png" align="center" alt="C程序存储空间布局" /></p>
+<p>下载最新的linux内核：</p>
 
-<ul>
-  <li><strong>代码段</strong>存放程序编译后的机器指令，是只读且可共享的。  </li>
-  <li><strong>初始化数据段</strong>存放已被初始化的全局变量和静态变量。    </li>
-  <li><strong>未初始化数据段</strong>也称bbs段，存放未初始化的全局变量和静态变量，在程序执行之前这里的数据会被初始化为0或NULL。    </li>
-  <li><strong>堆区</strong>用于程序中的动态内存分配，如malloc分配的空间就位于堆区。堆区的数据需要手动释放或程序退出是系统来释放。    </li>
-  <li><strong>栈区</strong>存放函数的局部变量、参数、返回地址以及函数调用时所占用的寄存器信息，每调用一次函数就分配一个新的栈帧，因此各个函数调用实例中的变量集不会相互影响。这里的数据会由编译器来释放。   </li>
-</ul>
-
-<p>对于static修饰的变量和函数，需要注意。局部变量被static修饰，即为局部静态变量，局部变量存储在栈区，而局部静态变量则存储在静态存储区（如果已被初始化即存储在初始化数据段，不然就存储在未初始化数据段）。局部静态变量在离开作用域后仍然存在，直到程序退出。无论局部变量所在的函数被调用多少次，该局部变量只被声明一次。全局静态变量的作用域是声明这个变量的文件。</p>
-
-<p>接下来结合代码详细说明。</p>
-
-<pre><code>//C程序存储空间布局
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-
-int inited_data = 100;          //初始化数据段
-int uninited_data;              //未初始化数据段
-static int static_data;         //未初始化数据段
-
-void count(void)
-{
-    static int num = 1;         //初始化数据段
-    printf("\tthe %dth time\n", num);
-    printf("\tAddress of local static varible: %p\n", &amp;num);
-}
-int main(void)
-{
-    int local_data = 200;       //栈区
-    char *p;                    //堆区
-    
-    p = (char *)malloc(4);
-    printf("Text Location:\n");
-    printf("\tAddress of main(Code Segment):%p\n", main);
-    printf("____________________________________________\n");
-    printf("Data Location\n");
-    printf("\tAddress of inited global varible: %p\n", &amp;inited_data);
-    for (int i = 0; i &lt; 5; i++)
-    {
-        count();
-    }
-    printf("____________________________________________\n");
-    printf("BSS Location:\n");
-    printf("\tAddress of uninited global varible %p\tuninited_data = %d\n", &amp;uninited_data, uninited_data);
-    printf("\tAddress of uninited global static varible %p\tuninited_global_static= %d\n", &amp;static_data, static_data);
-    printf("____________________________________________\n");
-    printf("Heap Location:\n");
-    printf("\tAddress of dynamic pointer %p\n", p);
-    printf("____________________________________________\n");
-    printf("Stack Location:\n");
-    printf("\tAddress of local_data %p\n", &amp;local_data);
-    
-    return 0;
-}
+<pre><code>git clone git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git
 </code></pre>
+
+<p>由于以后会经常研究这个内核代码，我就放在我自己的用户目录下，并没有放在系统的<code>/usr/src/kernel</code>目录下。</p>
+
+<p>下载完成后，在该linux目录下使用<code>make menuconfig</code>命令，生成配置文件。生成配置文件的方式还有其他几种，我个人比较喜欢这个，因为它可以保存内核配置的进度。</p>
+
+<p>执行<code>make menuconfig</code>命令时，遇到了一个错误：<code>Unable to find the ncurses libraries or the required header files</code>，这是由于系统没有安装ncurses导致的，我的是fedora系统，<code>yum install ncurses-devel</code>就OK了，如果是Ubuntu系统，则是<code>apt-get install ncurses-dev</code>。</p>
+
+<p>对于编译内核的配置，我主要参考了两个来源，一个是<a href="http://linux.cn" target="_blank"><strong>我们的Linux社区</strong></a>中的一个系列详细介绍内核配置的帖子:</p>
+
+<p><a href="http://linux.cn/thread-11851-1-2.html" target="_blank">戴文的Linux内核专题：05 配置内核 (1)</a></p>
+
+<p>……………..</p>
+
+<p>另一个是<a href="/others/others/linux_kernel_config.pdf" target="_black">linux_kernel_config</a>，这是一位内核爱好者整理的内核配置说明，在此感谢他的工作。</p>
+
+<p>内核配置文件中，有一项我觉得比较特别，允许加入自己的特征的选项:</p>
+
+<pre><code>Local version - append to kernel release
+</code></pre>
+
+<p>我在这一项前的括号中加入了我的名字缩写CJ，这样在编译后生成的modules名字中就包含有CJ的字符串，看到自己的东西在里面是非常有成就感的事。</p>
+
+<p>这一步完了之后会在目录下生成.config文件，注意这个文件是隐藏文件。</p>
+
+<p>有了配置文件之后，就可以编译内核了。我参考<a href="http://vbird.dic.ksu.edu.tw/linux_basic/0540kernel_3.php" target="_blank"><strong>《鸟哥的Linux私房菜》</strong></a>，其中对编译内核及安装讲的非常详细，这本书对我学习Linux帮助非常大。</p>
+
+<p><code>make bzimage</code>完成内核编译，<code>make modules</code>完成模块编译，<code>make modules_install</code>完成模块安装，这之后会在<code>/lib/modules/</code>下出现有自己名字特征的文件，我的是<code>3.16.0CJ-08695-ga7d7a14</code>。</p>
+
+<p>接下来和《鸟哥的Linux私房菜》的步骤还一样，复制内核到/boot，创建相应的Initial Ram Disk (initrd)，编辑启动菜单就有点不同了。我的系统是fedora20，启动菜单文件是<code>/boot/grub2/grub.cfg</code>，这个文件中原来就有一些启动项，我只是复制了一个启动项的代码块，并把其中相应的部分做了修改。</p>
+
+<p>最后怀着忐忑和决绝，重启系统，选择我的启动项，激动人心的时刻，果然没有失望，进去系统之后，在终端敲入命令<code>uname -r</code>，显示</p>
+
+<pre><code>[cj@localhost ~]$ uname -r
+3.16.0CJ-08695-ga7d7a1
+</code></pre>
+
+<p>到此，自己动手编译Linux内核就成功了。</p>
 
     <hr>
     <div class="pagination">
       <ul>
       
-        <li class="prev"><a href="/2014/07/17/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1" title="共享内存实现进程间通信">&larr; Previous</a></li>
+        <li class="prev"><a href="/linux%E7%BC%96%E7%A8%8B/2014/07/19/C%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E5%B8%83%E5%B1%80" title="C程序存储空间布局">&larr; Previous</a></li>
       
         <li><a href="">Archive</a></li>
       
-        <li class="next"><a href="/linux%E7%BC%96%E7%A8%8B/linux%E5%86%85%E6%A0%B8/2014/08/10/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8" title="自己动手编译Linux内核">Next &rarr;</a></li>
+        <li class="next disabled"><a>Next &rarr;</a>
       
       </ul>
     </div>
@@ -159,7 +143,7 @@ int main(void)
   
   <div class="span4">
     <h4>Published</h4>
-    <div class="date"><span>19 July 2014</span></div>
+    <div class="date"><span>10 August 2014</span></div>
 
   
     <h4>Tags</h4>
@@ -171,6 +155,8 @@ int main(void)
   
      
     	<li><a href="#Linux编程-ref">Linux编程 <span>2</span></a></li>
+     
+    	<li><a href="#Linux内核-ref">Linux内核 <span>1</span></a></li>
     
   
 

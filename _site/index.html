@@ -29,8 +29,16 @@
     <script type="text/javascript"
         src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>
-
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+     var hm = document.createElement("script");
+     hm.src = "//hm.baidu.com/hm.js?fbed60a04b28a0680fb092dbcc2a19be";
+     var s = document.getElementsByTagName("script")[0]; 
+     s.parentNode.insertBefore(hm, s);
+     })();
     </script>
+
 
   </head>
 
@@ -66,6 +74,70 @@
       <div class="content">
         
 <div class="text-post posts">
+
+
+
+    <div class="posts-item">
+
+        <h1><a class="post_title" href="/linux%E7%BC%96%E7%A8%8B/linux%E5%86%85%E6%A0%B8/2014/08/10/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8">自己动手编译Linux内核</a></h1>
+
+        <div class="caption rich-content">
+            
+<p>以前也尝试着编译过内核，但总是糊里糊涂地不了了之，没有真正完成并加载成功。这次要研究RT-Preempt这个实时patch，并加入了eudyptula内核学习小组作为第二个task，就认认真真地从内核的配置文件到最后的boot项，一步一步完成。颇有收获，在这也总结以下，以供参考。</p>
+
+<p>下载最新的linux内核：</p>
+
+<pre><code>git clone git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git
+</code></pre>
+
+<p>由于以后会经常研究这个内核代码，我就放在我自己的用户目录下，并没有放在系统的<code>/usr/src/kernel</code>目录下。</p>
+
+<p>下载完成后，在该linux目录下使用<code>make menuconfig</code>命令，生成配置文件。生成配置文件的方式还有其他几种，我个人比较喜欢这个，因为它可以保存内核配置的进度。</p>
+
+<p>执行<code>make menuconfig</code>命令时，遇到了一个错误：<code>Unable to find the ncurses libraries or the required header files</code>，这是由于系统没有安装ncurses导致的，我的是fedora系统，<code>yum install ncurses-devel</code>就OK了，如果是Ubuntu系统，则是<code>apt-get install ncurses-dev</code>。</p>
+
+<p>对于编译内核的配置，我主要参考了两个来源，一个是<a href="http://linux.cn" target="_blank"><strong>我们的Linux社区</strong></a>中的一个系列详细介绍内核配置的帖子:</p>
+
+<p><a href="http://linux.cn/thread-11851-1-2.html" target="_blank">戴文的Linux内核专题：05 配置内核 (1)</a></p>
+
+<p>……………..</p>
+
+<p>另一个是<a href="/others/others/linux_kernel_config.pdf" target="_black">linux_kernel_config</a>，这是一位内核爱好者整理的内核配置说明，在此感谢他的工作。</p>
+
+<p>内核配置文件中，有一项我觉得比较特别，允许加入自己的特征的选项:</p>
+
+<pre><code>Local version - append to kernel release
+</code></pre>
+
+<p>我在这一项前的括号中加入了我的名字缩写CJ，这样在编译后生成的modules名字中就包含有CJ的字符串，看到自己的东西在里面是非常有成就感的事。</p>
+
+<p>这一步完了之后会在目录下生成.config文件，注意这个文件是隐藏文件。</p>
+
+<p>有了配置文件之后，就可以编译内核了。我参考<a href="http://vbird.dic.ksu.edu.tw/linux_basic/0540kernel_3.php" target="_blank"><strong>《鸟哥的Linux私房菜》</strong></a>，其中对编译内核及安装讲的非常详细，这本书对我学习Linux帮助非常大。</p>
+
+<p><code>make bzimage</code>完成内核编译，<code>make modules</code>完成模块编译，<code>make modules_install</code>完成模块安装，这之后会在<code>/lib/modules/</code>下出现有自己名字特征的文件，我的是<code>3.16.0CJ-08695-ga7d7a14</code>。</p>
+
+<p>接下来和《鸟哥的Linux私房菜》的步骤还一样，复制内核到/boot，创建相应的Initial Ram Disk (initrd)，编辑启动菜单就有点不同了。我的系统是fedora20，启动菜单文件是<code>/boot/grub2/grub.cfg</code>，这个文件中原来就有一些启动项，我只是复制了一个启动项的代码块，并把其中相应的部分做了修改。</p>
+
+<p>最后怀着忐忑和决绝，重启系统，选择我的启动项，激动人心的时刻，果然没有失望，进去系统之后，在终端敲入命令<code>uname -r</code>，显示</p>
+
+<pre><code>[cj@localhost ~]$ uname -r
+3.16.0CJ-08695-ga7d7a1
+</code></pre>
+
+<p>到此，自己动手编译Linux内核就成功了。</p>
+
+        </div>
+
+        <div class="read-more"><a class="post_title" href="/linux%E7%BC%96%E7%A8%8B/linux%E5%86%85%E6%A0%B8/2014/08/10/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8">
+        Read More&gt;&gt;</a></div>
+	
+	<br />
+        <div class="arrow-time">
+            <cite>10 August 2014</cite>
+        </div>
+
+    </div>
 
 
 
@@ -819,10 +891,12 @@ $(function () {
 });
 </script>
 
+      <!--
       <div style="display: none">
       
 
       </div>
+      -->
 
       <footer>
         <p>&copy;  2013 

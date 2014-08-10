@@ -4,13 +4,65 @@
  <title>Chen Jie's Blog</title>
  <link href="http://freecoder.info//atom.xml" rel="self"/>
  <link href="http://freecoder.info"/>
- <updated>2014-07-20T00:20:46+08:00</updated>
+ <updated>2014-08-10T16:16:33+08:00</updated>
  <id>http://freecoder.info</id>
  <author>
    <name></name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>自己动手编译Linux内核</title>
+   <link href="http://freecoder.info/linux%E7%BC%96%E7%A8%8B/linux%E5%86%85%E6%A0%B8/2014/08/10/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8"/>
+   <updated>2014-08-10T00:00:00+08:00</updated>
+   <id>http://freecoder.info/linux%E7%BC%96%E7%A8%8B/linux%E5%86%85%E6%A0%B8/2014/08/10/自己动手编译内核</id>
+   <content type="html">
+&lt;p&gt;以前也尝试着编译过内核，但总是糊里糊涂地不了了之，没有真正完成并加载成功。这次要研究RT-Preempt这个实时patch，并加入了eudyptula内核学习小组作为第二个task，就认认真真地从内核的配置文件到最后的boot项，一步一步完成。颇有收获，在这也总结以下，以供参考。&lt;/p&gt;
+
+&lt;p&gt;下载最新的linux内核：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由于以后会经常研究这个内核代码，我就放在我自己的用户目录下，并没有放在系统的&lt;code&gt;/usr/src/kernel&lt;/code&gt;目录下。&lt;/p&gt;
+
+&lt;p&gt;下载完成后，在该linux目录下使用&lt;code&gt;make menuconfig&lt;/code&gt;命令，生成配置文件。生成配置文件的方式还有其他几种，我个人比较喜欢这个，因为它可以保存内核配置的进度。&lt;/p&gt;
+
+&lt;p&gt;执行&lt;code&gt;make menuconfig&lt;/code&gt;命令时，遇到了一个错误：&lt;code&gt;Unable to find the ncurses libraries or the required header files&lt;/code&gt;，这是由于系统没有安装ncurses导致的，我的是fedora系统，&lt;code&gt;yum install ncurses-devel&lt;/code&gt;就OK了，如果是Ubuntu系统，则是&lt;code&gt;apt-get install ncurses-dev&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;对于编译内核的配置，我主要参考了两个来源，一个是&lt;a href=&quot;http://linux.cn&quot; target=&quot;_blank&quot;&gt;&lt;strong&gt;我们的Linux社区&lt;/strong&gt;&lt;/a&gt;中的一个系列详细介绍内核配置的帖子:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://linux.cn/thread-11851-1-2.html&quot; target=&quot;_blank&quot;&gt;戴文的Linux内核专题：05 配置内核 (1)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;……………..&lt;/p&gt;
+
+&lt;p&gt;另一个是&lt;a href=&quot;/others/others/linux_kernel_config.pdf&quot; target=&quot;_black&quot;&gt;linux_kernel_config&lt;/a&gt;，这是一位内核爱好者整理的内核配置说明，在此感谢他的工作。&lt;/p&gt;
+
+&lt;p&gt;内核配置文件中，有一项我觉得比较特别，允许加入自己的特征的选项:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Local version - append to kernel release
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我在这一项前的括号中加入了我的名字缩写CJ，这样在编译后生成的modules名字中就包含有CJ的字符串，看到自己的东西在里面是非常有成就感的事。&lt;/p&gt;
+
+&lt;p&gt;这一步完了之后会在目录下生成.config文件，注意这个文件是隐藏文件。&lt;/p&gt;
+
+&lt;p&gt;有了配置文件之后，就可以编译内核了。我参考&lt;a href=&quot;http://vbird.dic.ksu.edu.tw/linux_basic/0540kernel_3.php&quot; target=&quot;_blank&quot;&gt;&lt;strong&gt;《鸟哥的Linux私房菜》&lt;/strong&gt;&lt;/a&gt;，其中对编译内核及安装讲的非常详细，这本书对我学习Linux帮助非常大。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;make bzimage&lt;/code&gt;完成内核编译，&lt;code&gt;make modules&lt;/code&gt;完成模块编译，&lt;code&gt;make modules_install&lt;/code&gt;完成模块安装，这之后会在&lt;code&gt;/lib/modules/&lt;/code&gt;下出现有自己名字特征的文件，我的是&lt;code&gt;3.16.0CJ-08695-ga7d7a14&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;接下来和《鸟哥的Linux私房菜》的步骤还一样，复制内核到/boot，创建相应的Initial Ram Disk (initrd)，编辑启动菜单就有点不同了。我的系统是fedora20，启动菜单文件是&lt;code&gt;/boot/grub2/grub.cfg&lt;/code&gt;，这个文件中原来就有一些启动项，我只是复制了一个启动项的代码块，并把其中相应的部分做了修改。&lt;/p&gt;
+
+&lt;p&gt;最后怀着忐忑和决绝，重启系统，选择我的启动项，激动人心的时刻，果然没有失望，进去系统之后，在终端敲入命令&lt;code&gt;uname -r&lt;/code&gt;，显示&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[cj@localhost ~]$ uname -r
+3.16.0CJ-08695-ga7d7a1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;到此，自己动手编译Linux内核就成功了。&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>C程序存储空间布局</title>
