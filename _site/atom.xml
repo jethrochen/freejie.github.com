@@ -4,7 +4,7 @@
  <title>Chen Jie's Blog</title>
  <link href="http://freecoder.info//atom.xml" rel="self"/>
  <link href="http://freecoder.info"/>
- <updated>2014-08-10T16:16:33+08:00</updated>
+ <updated>2014-08-12T23:55:43+08:00</updated>
  <id>http://freecoder.info</id>
  <author>
    <name></name>
@@ -61,6 +61,18 @@
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;到此，自己动手编译Linux内核就成功了。&lt;/p&gt;
+
+&lt;p&gt;补充：应师兄要求，不得不又在Ubuntu系统上编译安装一次内核，Ubuntu下有另外一种更方便的方法，详见&lt;a href=&quot;http://forum.ubuntu.org.cn/viewtopic.php?t=134404&quot; target=&quot;_blank&quot;&gt;Ubuntu环境下编译内核&lt;/a&gt;，我是在ubuntu14.04上编译的3.6的内核，已经验证这个方法可行。不过其中有个小错误，我在这里替作者更正一下：&lt;/p&gt;
+
+&lt;p&gt;第六步开始编译内核，下面这条命令&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo make-kpkg -initrd --initrd --append-to-version=dell1400 kernel_image kernel-headers
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;应该替换为&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo make-kpkg --initrd --append-to-version=dell1400 kernel_image kernel-headers
+&lt;/code&gt;&lt;/pre&gt;
 </content>
  </entry>
  
