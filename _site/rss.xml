@@ -3,12 +3,21 @@
 <channel>
         <title>Chen Jie's Blog</title>
         <description>Chen Jie's Blog - </description>
-        <link>http://freecoder.info/rss.xml</link>
         <link>http://freecoder.info</link>
-        <lastBuildDate>2014-08-12T23:55:43+08:00</lastBuildDate>
-        <pubDate>2014-08-12T23:55:43+08:00</pubDate>
+        <link>http://freecoder.info</link>
+        <lastBuildDate>2014-08-14T22:08:01+08:00</lastBuildDate>
+        <pubDate>2014-08-14T22:08:01+08:00</pubDate>
         <ttl>1800</ttl>
 
+
+        <item>
+                <title>自己动手编译Linux内核</title>
+                <description>
+</description>
+                <link>http://freecoder.info/linux%E7%BC%96%E7%A8%8B/linux%E5%86%85%E6%A0%B8/2014/08/13/%E5%86%85%E6%A0%B8%E9%A9%B1%E5%8A%A8%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E4%BA%B2%E7%BC%98%E6%80%A7%E8%BF%81%E7%A7%BB</link>
+                <guid>http://freecoder.info/linux%E7%BC%96%E7%A8%8B/linux%E5%86%85%E6%A0%B8/2014/08/13/内核驱动实现进程亲缘性迁移</guid>
+                <pubDate>2014-08-13T00:00:00+08:00</pubDate>
+        </item>
 
         <item>
                 <title>自己动手编译Linux内核</title>
