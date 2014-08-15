@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>自己动手编译Linux内核</title>
+    <title>Linux实时性增强研究</title>
     
     <meta name="author" content="">
 
@@ -74,22 +74,39 @@
       <div class="content">
         
 <div class="page-header">
-    <h1>自己动手编译Linux内核 <small></small></h1>
+    <h1>Linux实时性增强研究 <small></small></h1>
 </div>
 
 <div class="row">
   <div class="span10">
     
+<p>水了一年的课题，终于到了验收的阶段了，一边准备最终的验收，一边把课题研究的内容总结以下，事实上还是学到了不少东西的。</p>
+
+<p>课题的内容是操作系统实时性增强。</p>
+
+<p>通用的操作系统，如Windows和Linux，一方面为了提高整体性能，一方面为了增强用户体验，实时性并不强。而有一些特定的场景，比如武器控制系统，机载系统，都对实时性有很高的要求。我们针对通用操作系统，从CPU资源分配、调度、内存、中断、时钟这几个方面进行了一些改进，以增强实时性。</p>
+
+<p>在这里我主要针对Linux操作系统进行分析。首先我们要清楚什么是实时操作系统以及它的特征。实时操作系统是指能够在给定的截止时间前对内部或者外部的异常事件做出正确响应的操作系统。根据系统对响应时间约束条件的强弱可将实时操作系统分为硬实时系统和软实时系统。这里只讨论硬实时系统，软实时性是用户角度的概念，能够接受多大的延时是由用户决断的。</p>
+
+<h3 id="section">实时操作系统的特征：</h3>
+<p>1.确定性。包括实时任务响应时间的确定性，必须保证在一定的时间内得到响应；实时任务推进的确定性，必须保证任务的执行顺序、调度次序；
+2.可抢占。保证高优先级的任务到来时能立即获得cpu资源，即高优先级任务可以抢占低优先级任务的cpu使用权。</p>
+
+<p>我们编写了一个具有增强系统实时性功能的模块，可以加载至通用Linux系统。我的实验环境是fedora系统：3.15.7-200.fc20.x86_64。我们采取的改进措施，主要有以下几个：</p>
+
+<h3 id="cpu">一.CPU资源分域</h3>
+
+<p>根据Linux系统SMP负载均衡(load_balance)理论，每个CPU都对应一个可执行队列run_queue，当load_balance机制被触发时，系统会将繁忙CPU上run_queue中的进程调度至其他空闲CPU。而每个进程都有自己的可调度域sched_domain（若干CPU的集合，一个cpu_set_t的结构体），尤其时当该进程的sched_domain不止包含一个CPU时，不能确定该进程何时以及被调度至哪个CPU，这是实时系统绝对不允许的。对于通用Linux系统，进程的sched_domain包含本机的所有CPU。我们将可调度域划分为实时域和非实时域，在实时域中只运行实时任务，普通任务都运行在非实时域。在内核中，将所有普通任务的sched_domain设定至非实时领域，把实时任务的sched_domain设定至实时领域，这样非实时任务将不会对实时任务造成影响。</p>
 
     <hr>
     <div class="pagination">
       <ul>
       
-        <li class="prev"><a href="/linux%E7%BC%96%E7%A8%8B/linux%E5%86%85%E6%A0%B8/2014/08/10/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8" title="自己动手编译Linux内核">&larr; Previous</a></li>
+        <li class="prev"><a href="/linux%E7%BC%96%E7%A8%8B/2014/07/19/C%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E5%B8%83%E5%B1%80" title="C程序存储空间布局">&larr; Previous</a></li>
       
         <li><a href="/archive.html">Archive</a></li>
       
-        <li class="next disabled"><a>Next &rarr;</a>
+        <li class="next"><a href="/linux%E7%BC%96%E7%A8%8B/linux%E5%86%85%E6%A0%B8/2014/08/10/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E7%BC%96%E8%AF%91%E5%86%85%E6%A0%B8" title="自己动手编译Linux内核">Next &rarr;</a></li>
       
       </ul>
     </div>
@@ -119,7 +136,7 @@ var duoshuoQuery = {short_name:"chenj625"};
   
   <div class="span4">
     <h4>Published</h4>
-    <div class="date"><span>13 August 2014</span></div>
+    <div class="date"><span>01 August 2014</span></div>
 
   
     <h4>Tags</h4>
@@ -133,6 +150,8 @@ var duoshuoQuery = {short_name:"chenj625"};
     	<li><a href="/tags.html#Linux编程-ref">Linux编程 <span>4</span></a></li>
      
     	<li><a href="/tags.html#Linux内核-ref">Linux内核 <span>3</span></a></li>
+     
+    	<li><a href="/tags.html#实时系统-ref">实时系统 <span>2</span></a></li>
     
   
 
