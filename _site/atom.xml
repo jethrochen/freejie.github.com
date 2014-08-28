@@ -4,7 +4,7 @@
  <title>Chen Jie's Blog</title>
  <link href="http://freecoder.info/" rel="self"/>
  <link href="http://freecoder.info"/>
- <updated>2014-08-15T08:15:58+08:00</updated>
+ <updated>2014-08-22T11:10:51+08:00</updated>
  <id>http://freecoder.info</id>
  <author>
    <name></name>
@@ -13,11 +13,19 @@
 
  
  <entry>
-   <title>自己动手编译Linux内核</title>
-   <link href="http://freecoder.info/linux%E7%BC%96%E7%A8%8B/linux%E5%86%85%E6%A0%B8/2014/08/13/%E5%86%85%E6%A0%B8%E9%A9%B1%E5%8A%A8%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E4%BA%B2%E7%BC%98%E6%80%A7%E8%BF%81%E7%A7%BB"/>
+   <title>内核驱动编程实现CPU分域</title>
+   <link href="http://freecoder.info/linux%E7%BC%96%E7%A8%8B/linux%E5%86%85%E6%A0%B8/2014/08/13/%E5%86%85%E6%A0%B8%E9%A9%B1%E5%8A%A8%E7%BC%96%E7%A8%8B%E5%AE%9E%E7%8E%B0CPU%E5%88%86%E5%9F%9F"/>
    <updated>2014-08-13T00:00:00+08:00</updated>
-   <id>http://freecoder.info/linux%E7%BC%96%E7%A8%8B/linux%E5%86%85%E6%A0%B8/2014/08/13/内核驱动实现进程亲缘性迁移</id>
+   <id>http://freecoder.info/linux%E7%BC%96%E7%A8%8B/linux%E5%86%85%E6%A0%B8/2014/08/13/内核驱动编程实现CPU分域</id>
    <content type="html">
+&lt;h4 id=&quot;cpu&quot;&gt;为什么要把CPU分域&lt;/h4&gt;
+
+&lt;p&gt;在SMP（对称多处理器）环境下，系统为每个CPU维护了一个run_queue（可执行队列），&lt;/p&gt;
+
+&lt;h4 id=&quot;section&quot;&gt;原理&lt;/h4&gt;
+
+&lt;h4 id=&quot;section-1&quot;&gt;实现&lt;/h4&gt;
+
 </content>
  </entry>
  
